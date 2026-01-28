@@ -16,6 +16,7 @@ interface CubeNavigatorProps {
 
 export function CubeNavigator({ faces, initialFace = 0 }: CubeNavigatorProps) {
   const [currentFace, setCurrentFace] = useState(initialFace);
+  const [layoutFace, setLayoutFace] = useState(initialFace); // Which face determines height
   const [rotation, setRotation] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   
@@ -25,7 +26,6 @@ export function CubeNavigator({ faces, initialFace = 0 }: CubeNavigatorProps) {
 
   const totalFaces = faces.length;
   const faceAngle = 360 / totalFaces; // 90° for 4 faces
-  const cubeSize = 50; // translateZ value in vw units conceptually
 
   const goToFace = (index: number) => {
     if (isAnimating || index === currentFace) return;
@@ -42,9 +42,11 @@ export function CubeNavigator({ faces, initialFace = 0 }: CubeNavigatorProps) {
     setRotation(newRotation);
     setCurrentFace(index);
     
+    // Delay layout change until animation completes
     setTimeout(() => {
+      setLayoutFace(index);
       setIsAnimating(false);
-    }, 600);
+    }, 550);
   };
 
   const goNext = () => {
@@ -169,7 +171,7 @@ export function CubeNavigator({ faces, initialFace = 0 }: CubeNavigatorProps) {
               return (
                 <div
                   key={face.id}
-                  className={`cube-face w-full pb-16 ${index === currentFace ? 'relative' : 'absolute top-0 left-0'}`}
+                  className={`cube-face w-full pb-16 ${index === layoutFace ? 'relative' : 'absolute top-0 left-0'}`}
                   style={{
                     transform: `rotateY(${faceRotation}deg) translateZ(150px)`,
                     backfaceVisibility: 'hidden',
