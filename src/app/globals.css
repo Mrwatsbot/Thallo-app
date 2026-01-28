@@ -90,8 +90,14 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    min-height: 100dvh; /* dynamic viewport height for iOS */
+  }
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground antialiased overflow-y-auto overflow-x-hidden;
+    min-height: 100dvh;
+    /* iOS safe area padding */
+    padding-bottom: env(safe-area-inset-bottom, 0);
   }
 }
 
@@ -127,4 +133,14 @@
 /* Background gradient effect */
 .bg-gradient-radial {
   background: radial-gradient(ellipse at top, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
+}
+
+/* Hide scrollbar */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

@@ -25,11 +25,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { createClient } from '@/lib/supabase/client';
 
-const navigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Transactions', href: '/transactions', icon: Receipt },
-  { name: 'Budgets', href: '/budgets', icon: PiggyBank },
-  { name: 'Settings', href: '/settings', icon: Settings },
+const getNavigation = (isDemo: boolean) => [
+  { name: 'Dashboard', href: isDemo ? '/demo' : '/dashboard', icon: LayoutDashboard },
+  { name: 'Transactions', href: isDemo ? '/demo' : '/transactions', icon: Receipt },
+  { name: 'Budgets', href: isDemo ? '/demo' : '/budgets', icon: PiggyBank },
+  { name: 'Settings', href: isDemo ? '/demo' : '/settings', icon: Settings },
 ];
 
 interface AppShellProps {
@@ -38,12 +38,16 @@ interface AppShellProps {
     email?: string;
     full_name?: string;
   };
+  isDemo?: boolean;
 }
 
-export function AppShell({ children, user }: AppShellProps) {
+export function AppShell({ children, user, isDemo = false }: AppShellProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  const navigation = getNavigation(isDemo);
+  const homeLink = isDemo ? '/demo' : '/dashboard';
 
   const initials = user?.full_name
     ?.split(' ')
@@ -52,6 +56,10 @@ export function AppShell({ children, user }: AppShellProps) {
     .toUpperCase() || user?.email?.[0]?.toUpperCase() || '?';
 
   const handleLogout = async () => {
+    if (isDemo) {
+      router.push('/');
+      return;
+    }
     const supabase = createClient();
     await supabase.auth.signOut();
     router.push('/login');
@@ -59,7 +67,7 @@ export function AppShell({ children, user }: AppShellProps) {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background overflow-x-hidden">
       {/* Mobile header */}
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md lg:hidden">
         <div className="flex h-14 items-center px-4">
@@ -72,7 +80,7 @@ export function AppShell({ children, user }: AppShellProps) {
             </SheetTrigger>
             <SheetContent side="left" className="w-72 p-0 bg-background border-border">
               <div className="flex h-14 items-center border-b border-border px-4">
-                <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
+                <Link href={homeLink} className="flex items-center gap-2 font-semibold">
                   <div className="w-8 h-8 rounded-lg gradient-btn flex items-center justify-center">
                     <PiggyBank className="h-4 w-4 text-white" />
                   </div>
@@ -104,7 +112,7 @@ export function AppShell({ children, user }: AppShellProps) {
           </Sheet>
 
           <div className="flex flex-1 items-center justify-center">
-            <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
+            <Link href={homeLink} className="flex items-center gap-2 font-semibold">
               <div className="w-8 h-8 rounded-lg gradient-btn flex items-center justify-center">
                 <PiggyBank className="h-4 w-4 text-white" />
               </div>
@@ -129,7 +137,7 @@ export function AppShell({ children, user }: AppShellProps) {
               </div>
               <DropdownMenuSeparator className="bg-border" />
               <DropdownMenuItem asChild>
-                <Link href="/settings">
+                <Link href={isDemo ? "/demo" : "/settings"}>
                   <Settings className="mr-2 h-4 w-4" />
                   Settings
                 </Link>
@@ -143,11 +151,11 @@ export function AppShell({ children, user }: AppShellProps) {
         </div>
       </header>
 
-      <div className="flex">
+      <div className="flex min-h-screen">
         {/* Desktop sidebar */}
         <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 border-r border-border bg-background">
           <div className="flex h-14 items-center border-b border-border px-6">
-            <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
+            <Link href={homeLink} className="flex items-center gap-2 font-semibold">
               <div className="w-8 h-8 rounded-lg gradient-btn flex items-center justify-center">
                 <PiggyBank className="h-4 w-4 text-white" />
               </div>
@@ -193,7 +201,7 @@ export function AppShell({ children, user }: AppShellProps) {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56 bg-popover border-border">
                 <DropdownMenuItem asChild>
-                  <Link href="/settings">
+                  <Link href={isDemo ? "/demo" : "/settings"}>
                     <Settings className="mr-2 h-4 w-4" />
                     Settings
                   </Link>
@@ -209,20 +217,25 @@ export function AppShell({ children, user }: AppShellProps) {
         </aside>
 
         {/* Main content */}
-        <main className="flex-1 lg:pl-64">
-          <div className="p-4 lg:p-6 max-w-6xl mx-auto">
+        <main className="flex-1 lg:pl-64" style={{ minHeight: '100dvh' }}>
+          <div 
+            className="p-4 lg:p-6 lg:pb-6 max-w-6xl mx-auto"
+            style={{ paddingBottom: 'calc(8rem + env(safe-area-inset-bottom, 0px))' }}
+          >
             {children}
           </div>
         </main>
       </div>
 
       {/* Mobile FAB for quick add */}
-      <Link href="/transactions" className="fixed bottom-4 right-4 lg:hidden">
-        <Button size="lg" className="h-14 w-14 rounded-full shadow-lg gradient-btn border-0">
-          <Plus className="h-6 w-6 text-white" />
-          <span className="sr-only">Add transaction</span>
-        </Button>
-      </Link>
+      {!isDemo && (
+        <Link href="/transactions" className="fixed bottom-4 right-4 lg:hidden">
+          <Button size="lg" className="h-14 w-14 rounded-full shadow-lg gradient-btn border-0">
+            <Plus className="h-6 w-6 text-white" />
+            <span className="sr-only">Add transaction</span>
+          </Button>
+        </Link>
+      )}
     </div>
   );
 }
