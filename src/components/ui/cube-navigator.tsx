@@ -169,7 +169,7 @@ export function CubeNavigator({ faces, initialFace = 0 }: CubeNavigatorProps) {
               return (
                 <div
                   key={face.id}
-                  className={`cube-face w-full pb-16 ${index === 0 ? 'relative' : 'absolute top-0 left-0'}`}
+                  className={`cube-face w-full pb-16 ${index === currentFace ? 'relative' : 'absolute top-0 left-0'}`}
                   style={{
                     transform: `rotateY(${faceRotation}deg) translateZ(150px)`,
                     backfaceVisibility: 'hidden',
