@@ -6,9 +6,12 @@ import { IncomeOverview } from '@/components/budgets/income-overview';
 import { AIInsightsPanel } from '@/components/budgets/ai-insights-panel';
 import { BudgetHealthChart } from '@/components/budgets/budget-health-chart';
 import { DemoBudgetGrid } from '@/components/budgets/demo-budget-grid';
+import { FinancialHealthDisplay } from '@/components/score/financial-health-display';
+import { calculateFinancialHealthScore } from '@/lib/scoring/financial-health-score';
 import { 
   Wallet, TrendingDown, CreditCard, Sparkles,
-  Search, Zap, FileText, MessageSquare
+  Search, Zap, FileText, MessageSquare, Trophy,
+  Target, Flame, Gift, CheckCircle2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -58,6 +61,34 @@ const mockDebts = [
   { id: '2', name: 'Student Loan', type: 'Loan', balance: 12450.00, apr: 5.5, minPayment: 250, color: '#22c55e' },
   { id: '3', name: 'Car Payment', type: 'Auto Loan', balance: 8920.00, apr: 6.9, minPayment: 320, color: '#f97316' },
 ];
+
+// Mock challenges
+const mockChallenges = [
+  { id: '1', title: 'No-Spend Weekend', description: 'Don\'t spend any money Saturday & Sunday', reward: '+15 pts', difficulty: 'Medium', active: true, progress: 1, total: 2 },
+  { id: '2', title: 'Pack Lunch Week', description: 'Bring lunch from home 5 days', reward: '+20 pts', difficulty: 'Easy', active: true, progress: 3, total: 5 },
+  { id: '3', title: 'Subscription Audit', description: 'Review and cancel 1 unused subscription', reward: '+25 pts', difficulty: 'Easy', active: false, progress: 0, total: 1 },
+];
+
+// Mock streaks
+const mockStreaks = {
+  budget: { current: 12, best: 23, icon: '🎯' },
+  logging: { current: 45, best: 45, icon: '📝' },
+  noSpend: { current: 2, best: 5, icon: '🚫' },
+};
+
+// Mock score input - calculated from the user's data
+const mockScoreInput = {
+  monthlyIncome: MONTHLY_INCOME,
+  monthlySavings: 450,           // 10% savings rate
+  totalSavings: 8500,            // Emergency fund
+  monthlyExpenses: 3200,
+  totalDebt: 24217.32,           // Sum of mockDebts
+  debtThreeMonthsAgo: 26500,     // Was higher, paying down
+  billsPaidOnTime: 47,
+  totalBills: 48,                // Missed one payment
+  budgetsOnTrack: 4,
+  totalBudgets: 5,
+};
 
 export default function DemoPage() {
   const [budgets, setBudgets] = useState(initialBudgets);
@@ -258,11 +289,104 @@ export default function DemoPage() {
     </div>
   );
 
+  // Calculate the score
+  const healthScore = calculateFinancialHealthScore(mockScoreInput);
+
+  // Face 5: Score & Challenges
+  const ScoreFace = (
+    <div className="space-y-6">
+      <div className="text-center mb-2">
+        <h1 className="text-2xl font-bold">Financial Health</h1>
+        <p className="text-muted-foreground">Your score & challenges</p>
+      </div>
+
+      {/* Financial Health Score */}
+      <FinancialHealthDisplay score={healthScore} previousScore={687} />
+
+      {/* Streaks */}
+      <div className="glass-card rounded-xl p-4">
+        <div className="flex items-center gap-2 mb-4">
+          <Flame className="w-5 h-5 text-orange-400" />
+          <span className="font-medium">Active Streaks</span>
+        </div>
+        <div className="grid grid-cols-3 gap-3">
+          {Object.entries(mockStreaks).map(([key, streak]) => (
+            <div key={key} className="text-center p-3 rounded-lg bg-secondary/50">
+              <span className="text-2xl">{streak.icon}</span>
+              <p className="text-xl font-bold mt-1">{streak.current}</p>
+              <p className="text-xs text-muted-foreground capitalize">{key}</p>
+              {streak.current === streak.best && streak.current > 0 && (
+                <span className="text-xs text-yellow-400">🏆 Best!</span>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Active Challenges */}
+      <div className="glass-card rounded-xl p-4">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <Target className="w-5 h-5 text-purple-400" />
+            <span className="font-medium">Active Challenges</span>
+          </div>
+          <Button variant="ghost" size="sm" className="text-purple-400 text-xs">
+            View All
+          </Button>
+        </div>
+        <div className="space-y-3">
+          {mockChallenges.filter(c => c.active).map((challenge) => (
+            <div key={challenge.id} className="p-3 rounded-lg bg-secondary/30 border border-border">
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-medium text-sm">{challenge.title}</span>
+                <span className="text-xs text-green-400 font-medium">{challenge.reward}</span>
+              </div>
+              <p className="text-xs text-muted-foreground mb-2">{challenge.description}</p>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 h-2 rounded-full bg-secondary overflow-hidden">
+                  <div 
+                    className="h-full rounded-full bg-gradient-to-r from-purple-500 to-green-500"
+                    style={{ width: `${(challenge.progress / challenge.total) * 100}%` }}
+                  />
+                </div>
+                <span className="text-xs text-muted-foreground">
+                  {challenge.progress}/{challenge.total}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Available Challenges */}
+      <div className="glass-card rounded-xl p-4">
+        <div className="flex items-center gap-2 mb-4">
+          <Gift className="w-5 h-5 text-yellow-400" />
+          <span className="font-medium">New Challenges</span>
+        </div>
+        <div className="space-y-3">
+          {mockChallenges.filter(c => !c.active).map((challenge) => (
+            <div key={challenge.id} className="p-3 rounded-lg bg-secondary/30 border border-border flex items-center justify-between">
+              <div>
+                <span className="font-medium text-sm">{challenge.title}</span>
+                <p className="text-xs text-muted-foreground">{challenge.description}</p>
+              </div>
+              <Button size="sm" variant="outline" className="border-purple-500/30 text-purple-400 text-xs">
+                Start
+              </Button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
   const faces = [
     { id: 'overview', label: 'Overview', content: OverviewFace },
     { id: 'budgets', label: 'Budgets', content: BudgetsFace },
+    { id: 'score', label: 'Score', content: ScoreFace },
     { id: 'debts', label: 'Debts', content: DebtsFace },
-    { id: 'actions', label: 'AI Actions', content: ActionsFace },
+    { id: 'actions', label: 'AI', content: ActionsFace },
   ];
 
   return (
