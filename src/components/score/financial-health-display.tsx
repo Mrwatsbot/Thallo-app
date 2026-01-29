@@ -15,7 +15,7 @@ import {
   Trophy
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import type { FinancialHealthScore } from '@/lib/scoring/financial-health-score';
+import type { FinancialHealthScore, ScoreBreakdown } from '@/lib/scoring/financial-health-score';
 
 interface FinancialHealthDisplayProps {
   score: FinancialHealthScore;
@@ -41,22 +41,28 @@ const levelEmojis = {
   5: '👑',
 };
 
-const factorIcons = {
-  paymentConsistency: Target,
-  savingsRate: PiggyBank,
+const factorIcons: Record<keyof ScoreBreakdown, typeof Target> = {
+  wealthBuilding: PiggyBank,
   debtVelocity: TrendingUp,
-  emergencyBuffer: Shield,
+  paymentConsistency: Target,
   budgetDiscipline: Wallet,
+  emergencyBuffer: Shield,
   debtToIncome: CreditCard,
 };
 
-const factorNames = {
-  paymentConsistency: 'Payment History',
-  savingsRate: 'Savings Rate',
+const factorNames: Record<keyof ScoreBreakdown, string> = {
+  wealthBuilding: 'Wealth Building',
   debtVelocity: 'Debt Progress',
-  emergencyBuffer: 'Emergency Fund',
+  paymentConsistency: 'Payment History',
   budgetDiscipline: 'Budget Discipline',
+  emergencyBuffer: 'Emergency Fund',
   debtToIncome: 'Debt-to-Income',
+};
+
+const pillarColors = {
+  Trajectory: 'text-blue-400',
+  Behavior: 'text-green-400',
+  Position: 'text-yellow-400',
 };
 
 export function FinancialHealthDisplay({ score, previousScore, animated = true }: FinancialHealthDisplayProps) {
@@ -186,7 +192,12 @@ export function FinancialHealthDisplay({ score, previousScore, animated = true }
                   />
                 </div>
                 
-                <p className="text-sm text-muted-foreground">{factor.detail}</p>
+                <div className="flex items-center justify-between">
+                  <p className="text-sm text-muted-foreground">{factor.detail}</p>
+                  <span className={`text-xs font-medium ${pillarColors[factor.sublabel as keyof typeof pillarColors] || 'text-muted-foreground'}`}>
+                    {factor.sublabel}
+                  </span>
+                </div>
               </div>
             );
           })}

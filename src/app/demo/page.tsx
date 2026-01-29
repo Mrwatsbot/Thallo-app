@@ -79,15 +79,38 @@ const mockStreaks = {
 // Mock score input - calculated from the user's data
 const mockScoreInput = {
   monthlyIncome: MONTHLY_INCOME,
-  monthlySavings: 450,           // 10% savings rate
-  totalSavings: 8500,            // Emergency fund
+  
+  wealthContributions: {
+    cashSavings: 200,
+    retirement401k: 375,      // ~8% of income to 401k
+    ira: 0,
+    investments: 0,
+    hsa: 75,
+    extraDebtPayments: 200,   // Paying extra on credit card
+  },
+  
+  liquidSavings: 8500,
   monthlyExpenses: 3200,
-  totalDebt: 24217.32,           // Sum of mockDebts
-  debtThreeMonthsAgo: 26500,     // Was higher, paying down
-  billsPaidOnTime: 47,
-  totalBills: 48,                // Missed one payment
+  
+  currentDebts: [
+    { type: 'credit_card' as const, balance: 2847.32, monthlyPayment: 285, apr: 24.99, inCollections: false },
+    { type: 'student' as const, balance: 12450, monthlyPayment: 250, apr: 5.5, inCollections: false },
+    { type: 'auto' as const, balance: 8920, monthlyPayment: 320, apr: 6.9, inCollections: false },
+  ],
+  debtsThreeMonthsAgo: [
+    { type: 'credit_card' as const, balance: 4200, monthlyPayment: 285, apr: 24.99, inCollections: false },
+    { type: 'student' as const, balance: 13100, monthlyPayment: 250, apr: 5.5, inCollections: false },
+    { type: 'auto' as const, balance: 9800, monthlyPayment: 320, apr: 6.9, inCollections: false },
+  ],
+  
+  billsPaidOnTime: 46,
+  billsPaidLate1to30: 2,
+  billsPaidLate31to60: 0,
+  billsPaidLate61Plus: 0,
+  
   budgetsOnTrack: 4,
   totalBudgets: 5,
+  averageOverspendPercent: 18,
 };
 
 export default function DemoPage() {

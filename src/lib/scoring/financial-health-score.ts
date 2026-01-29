@@ -1,373 +1,487 @@
 /**
  * Financial Health Score™
  * 
- * A score that measures YOUR financial health, not how profitable you are to banks.
- * Scale: 0-1000 (unlike FICO's 300-850)
+ * A universal metric measuring YOUR financial health, not bank profitability.
+ * Scale: 0-1000
  * 
- * Key difference from FICO:
- * - Rewards paying OFF debt, not having more credit lines
- * - Rewards savings, not borrowing capacity  
- * - Measures financial responsibility, not lender profitability
+ * Three pillars:
+ *   Trajectory (40%) — Where you're headed
+ *   Behavior (35%)   — How you handle money
+ *   Position (25%)   — Where you are now
+ * 
+ * Key differences from FICO:
+ * - Rewards paying OFF debt, not having more credit
+ * - Rewards savings & wealth building
+ * - Weights debt types by real financial risk, not lender profit
+ * - Trajectory > Position (direction matters more than snapshot)
+ * - Platform-agnostic: no app-specific metrics in the score
  */
 
+// ============================================================
+// TYPES
+// ============================================================
+
+export type DebtType = 
+  | 'payday'           // Payday/title loans
+  | 'credit_card'      // Credit card (carried balance)
+  | 'bnpl'             // Buy Now Pay Later
+  | 'personal'         // Personal loans (unsecured)
+  | 'auto'             // Auto loans
+  | 'student'          // Student loans
+  | 'medical'          // Medical debt
+  | 'mortgage'         // Mortgage / HELOC
+  | 'zero_pct'         // 0% promotional financing
+  | 'cc_paid_monthly'  // Credit card paid in full each month
+  | 'secured';         // Debt secured by liquid assets
+
+export interface DebtEntry {
+  type: DebtType;
+  balance: number;
+  monthlyPayment: number;
+  apr: number;
+  inCollections?: boolean;
+}
+
+export interface WealthContribution {
+  cashSavings: number;          // Net bank deposits this month
+  retirement401k: number;       // 401k/403b contributions
+  ira: number;                  // IRA contributions
+  investments: number;          // Brokerage/investment deposits
+  hsa: number;                  // HSA contributions
+  extraDebtPayments: number;    // Payments above minimums (builds net worth)
+}
+
 export interface ScoreInput {
-  // Income & Savings
+  // Income
   monthlyIncome: number;
-  monthlySavings: number;          // Amount saved this month
-  totalSavings: number;            // Total in savings accounts
   
-  // Expenses
-  monthlyExpenses: number;         // Average monthly expenses
+  // Wealth Building
+  wealthContributions: WealthContribution;
+  
+  // Emergency Fund
+  liquidSavings: number;         // Accessible cash/savings (not 401k)
+  monthlyExpenses: number;
   
   // Debt
-  totalDebt: number;               // Current total debt
-  debtThreeMonthsAgo: number;      // Total debt 3 months ago (for velocity)
+  currentDebts: DebtEntry[];
+  debtsThreeMonthsAgo: DebtEntry[];
   
-  // Bills & Payments
-  billsPaidOnTime: number;         // Bills paid on time (last 12 months)
-  totalBills: number;              // Total bills (last 12 months)
+  // Payments
+  billsPaidOnTime: number;
+  billsPaidLate1to30: number;    // 1-30 days late
+  billsPaidLate31to60: number;   // 31-60 days late
+  billsPaidLate61Plus: number;   // 61+ days late
   
   // Budgets
-  budgetsOnTrack: number;          // Budgets currently within limit
-  totalBudgets: number;            // Total active budgets
+  budgetsOnTrack: number;
+  totalBudgets: number;
+  averageOverspendPercent: number; // avg % over budget on overspent categories
+}
+
+// ============================================================
+// DEBT TYPE MULTIPLIERS
+// Research-backed: derived from interest rate risk (30%),
+// asset backing (40%), and delinquency risk (30%)
+// Sources: NY Fed, CFPB, Fannie Mae (see debt-weighting-research.md)
+// ============================================================
+
+const DEBT_MULTIPLIERS: Record<DebtType, number> = {
+  payday:          2.5,   // 400%+ APR, 80% reborrow rate, financial trap
+  credit_card:     1.5,   // ~24% APR, no asset, 8-11% delinquency
+  bnpl:            1.3,   // Impulse consumption, fragmented across providers
+  personal:        1.2,   // Lower rate than cards, still unsecured
+  auto:            0.7,   // Depreciating asset but essential for most Americans
+  student:         0.5,   // Human capital investment, federal protections, lower rates
+  medical:         0.4,   // Involuntary — CFPB: "little predictive value"
+  mortgage:        0.3,   // Asset-building, lowest default rate, tax-advantaged
+  zero_pct:        0.2,   // Economically rational, near-zero cost
+  cc_paid_monthly: 0.05,  // Actually a positive signal — responsible credit use
+  secured:         0.1,   // Collateral covers it (per Fannie Mae guidelines)
+};
+
+const COLLECTIONS_PENALTY = 1.5; // Multiplied on top of base multiplier
+
+// ============================================================
+// SCORE BREAKDOWN TYPES
+// ============================================================
+
+export interface FactorScore {
+  score: number;
+  maxScore: number;
+  percentage: number;  // score/maxScore as 0-100
+  detail: string;
+  sublabel: string;    // e.g. "Trajectory" pillar label
 }
 
 export interface ScoreBreakdown {
-  paymentConsistency: {
-    score: number;
-    maxScore: 250;
-    percentage: number;
-    detail: string;
-  };
-  savingsRate: {
-    score: number;
-    maxScore: 200;
-    rate: number;
-    detail: string;
-  };
-  debtVelocity: {
-    score: number;
-    maxScore: 200;
-    trend: 'decreasing' | 'stable' | 'increasing' | 'no-debt';
-    changePercent: number;
-    detail: string;
-  };
-  emergencyBuffer: {
-    score: number;
-    maxScore: 150;
-    monthsCovered: number;
-    detail: string;
-  };
-  budgetDiscipline: {
-    score: number;
-    maxScore: 100;
-    percentage: number;
-    detail: string;
-  };
-  debtToIncome: {
-    score: number;
-    maxScore: 100;
-    ratio: number;
-    detail: string;
-  };
+  wealthBuilding: FactorScore;
+  debtVelocity: FactorScore;
+  paymentConsistency: FactorScore;
+  budgetDiscipline: FactorScore;
+  emergencyBuffer: FactorScore;
+  debtToIncome: FactorScore;
 }
 
 export interface FinancialHealthScore {
   total: number;
   maxTotal: 1000;
-  level: number;           // 0-5
+  level: number;
   title: string;
+  pillarScores: {
+    trajectory: { score: number; max: 400 };
+    behavior: { score: number; max: 350 };
+    position: { score: number; max: 250 };
+  };
   breakdown: ScoreBreakdown;
-  tips: string[];          // Personalized improvement tips
+  tips: string[];
 }
 
-/**
- * Calculate Payment Consistency Score (25% of total = 250 points max)
- * 
- * Measures: What % of your bills are paid on time?
- */
-function calculatePaymentConsistency(billsPaidOnTime: number, totalBills: number): ScoreBreakdown['paymentConsistency'] {
-  if (totalBills === 0) {
-    return {
-      score: 250,  // No bills = perfect score (not penalized)
-      maxScore: 250,
-      percentage: 100,
-      detail: 'No bills tracked yet'
-    };
-  }
-  
-  const percentage = (billsPaidOnTime / totalBills) * 100;
-  const score = Math.round((percentage / 100) * 250);
-  
-  let detail: string;
-  if (percentage === 100) {
-    detail = 'Perfect payment history! 🎯';
-  } else if (percentage >= 95) {
-    detail = `${percentage.toFixed(0)}% on-time - Excellent!`;
-  } else if (percentage >= 90) {
-    detail = `${percentage.toFixed(0)}% on-time - Good, room to improve`;
-  } else if (percentage >= 80) {
-    detail = `${percentage.toFixed(0)}% on-time - Needs attention`;
-  } else {
-    detail = `${percentage.toFixed(0)}% on-time - Priority: Set up autopay`;
-  }
-  
-  return { score, maxScore: 250, percentage, detail };
+// ============================================================
+// HELPER: Calculate weighted debt total
+// ============================================================
+
+function calculateWeightedDebt(debts: DebtEntry[]): number {
+  return debts.reduce((total, debt) => {
+    let multiplier = DEBT_MULTIPLIERS[debt.type] || 1.0;
+    if (debt.inCollections) {
+      multiplier *= COLLECTIONS_PENALTY;
+    }
+    return total + (debt.balance * multiplier);
+  }, 0);
 }
 
-/**
- * Calculate Savings Rate Score (20% of total = 200 points max)
- * 
- * Measures: What % of your income are you saving?
- * Benchmark: 20%+ is excellent (the "pay yourself first" rule)
- */
-function calculateSavingsRate(monthlySavings: number, monthlyIncome: number): ScoreBreakdown['savingsRate'] {
-  if (monthlyIncome === 0) {
-    return {
-      score: 0,
-      maxScore: 200,
-      rate: 0,
-      detail: 'No income recorded'
-    };
+function calculateWeightedMonthlyPayments(debts: DebtEntry[]): number {
+  return debts.reduce((total, debt) => {
+    let multiplier = DEBT_MULTIPLIERS[debt.type] || 1.0;
+    if (debt.inCollections) {
+      multiplier *= COLLECTIONS_PENALTY;
+    }
+    return total + (debt.monthlyPayment * multiplier);
+  }, 0);
+}
+
+// ============================================================
+// FACTOR 1: WEALTH BUILDING RATE (200 pts — Trajectory)
+// ============================================================
+
+function calculateWealthBuilding(
+  contributions: WealthContribution,
+  monthlyIncome: number
+): FactorScore {
+  const maxScore = 200;
+  const sublabel = 'Trajectory';
+  
+  if (monthlyIncome <= 0) {
+    return { score: 0, maxScore, percentage: 0, detail: 'No income recorded', sublabel };
   }
   
-  const rate = (monthlySavings / monthlyIncome) * 100;
+  const totalContributions = 
+    contributions.cashSavings +
+    contributions.retirement401k +
+    contributions.ira +
+    contributions.investments +
+    contributions.hsa +
+    contributions.extraDebtPayments;
   
-  let score: number;
+  const rate = totalContributions / monthlyIncome;
+  
+  // Linear scale: 20% savings rate = max score
+  // Formula: min(200, (rate / 0.20) × 200)
+  const score = Math.round(Math.min(maxScore, (rate / 0.20) * maxScore));
+  
+  const ratePct = (rate * 100).toFixed(1);
   let detail: string;
   
-  if (rate >= 20) {
-    score = 200;
-    detail = `${rate.toFixed(0)}% savings rate - Crushing it! 🚀`;
-  } else if (rate >= 15) {
-    score = 175;
-    detail = `${rate.toFixed(0)}% savings rate - Great progress!`;
-  } else if (rate >= 10) {
-    score = 150;
-    detail = `${rate.toFixed(0)}% savings rate - Solid foundation`;
-  } else if (rate >= 5) {
-    score = 100;
-    detail = `${rate.toFixed(0)}% savings rate - Building momentum`;
+  if (rate >= 0.20) {
+    detail = `${ratePct}% wealth building rate — Crushing it! 🚀`;
+  } else if (rate >= 0.15) {
+    detail = `${ratePct}% rate — Strong progress, ${(20 - rate * 100).toFixed(0)}% from max`;
+  } else if (rate >= 0.10) {
+    detail = `${ratePct}% rate — Solid foundation building`;
+  } else if (rate >= 0.05) {
+    detail = `${ratePct}% rate — Every dollar counts, keep going`;
   } else if (rate > 0) {
-    score = 50;
-    detail = `${rate.toFixed(0)}% savings rate - Every bit counts!`;
+    detail = `${ratePct}% rate — Getting started`;
   } else {
-    score = 0;
-    detail = 'No savings this month - Let\'s change that!';
+    detail = 'No wealth building this month';
   }
   
-  return { score, maxScore: 200, rate, detail };
+  return { score, maxScore, percentage: (score / maxScore) * 100, detail, sublabel };
 }
 
-/**
- * Calculate Debt Velocity Score (20% of total = 200 points max)
- * 
- * Measures: Is your debt going UP or DOWN over time?
- * This is the opposite of FICO - we reward paying OFF debt, not having more.
- */
-function calculateDebtVelocity(totalDebt: number, debtThreeMonthsAgo: number): ScoreBreakdown['debtVelocity'] {
-  // No debt = perfect score
-  if (totalDebt === 0 && debtThreeMonthsAgo === 0) {
+// ============================================================
+// FACTOR 2: DEBT VELOCITY (200 pts — Trajectory)
+// ============================================================
+
+function calculateDebtVelocity(
+  currentDebts: DebtEntry[],
+  debtsThreeMonthsAgo: DebtEntry[]
+): FactorScore {
+  const maxScore = 200;
+  const sublabel = 'Trajectory';
+  
+  const currentWeighted = calculateWeightedDebt(currentDebts);
+  const previousWeighted = calculateWeightedDebt(debtsThreeMonthsAgo);
+  
+  // No debt now and before = perfect
+  if (currentWeighted === 0 && previousWeighted === 0) {
     return {
-      score: 200,
-      maxScore: 200,
-      trend: 'no-debt',
-      changePercent: 0,
-      detail: 'Debt-free! 🏆'
+      score: 200, maxScore, percentage: 100,
+      detail: 'Debt-free! 🏆', sublabel,
     };
   }
   
-  // Just paid off all debt
-  if (totalDebt === 0 && debtThreeMonthsAgo > 0) {
+  // Just became debt free
+  if (currentWeighted === 0 && previousWeighted > 0) {
     return {
-      score: 200,
-      maxScore: 200,
-      trend: 'decreasing',
-      changePercent: -100,
-      detail: 'You paid off all your debt! 🎉'
+      score: 200, maxScore, percentage: 100,
+      detail: 'You paid off all your debt! 🎉', sublabel,
     };
   }
   
-  // Calculate change
-  const change = totalDebt - debtThreeMonthsAgo;
-  const changePercent = debtThreeMonthsAgo > 0 
-    ? (change / debtThreeMonthsAgo) * 100 
-    : (totalDebt > 0 ? 100 : 0);  // New debt = 100% increase
+  // Calculate velocity as % change over 3 months
+  const changeRate = previousWeighted > 0
+    ? ((currentWeighted - previousWeighted) / previousWeighted) * 100
+    : 100; // New debt from zero
   
   let score: number;
-  let trend: 'decreasing' | 'stable' | 'increasing';
   let detail: string;
   
-  if (changePercent <= -15) {
-    // Paying down 5%+ per month (15% over 3 months)
+  if (changeRate <= -15) {
+    // Rapid decrease (>5%/month)
     score = 200;
-    trend = 'decreasing';
-    detail = `Debt down ${Math.abs(changePercent).toFixed(0)}% - Excellent progress!`;
-  } else if (changePercent <= -6) {
-    // Paying down 2-5% per month
-    score = 175;
-    trend = 'decreasing';
-    detail = `Debt down ${Math.abs(changePercent).toFixed(0)}% - Great trajectory!`;
-  } else if (changePercent < 0) {
-    // Paying down slowly
-    score = 150;
-    trend = 'decreasing';
-    detail = `Debt down ${Math.abs(changePercent).toFixed(0)}% - Moving in right direction`;
-  } else if (changePercent <= 2) {
-    // Roughly stable
+    detail = `Weighted debt down ${Math.abs(changeRate).toFixed(0)}% — Excellent momentum!`;
+  } else if (changeRate <= -10) {
+    score = 185;
+    detail = `Weighted debt down ${Math.abs(changeRate).toFixed(0)}% — Strong progress`;
+  } else if (changeRate <= -5) {
+    score = 165;
+    detail = `Weighted debt down ${Math.abs(changeRate).toFixed(0)}% — Good trajectory`;
+  } else if (changeRate < -1) {
+    // Slow decrease
+    score = Math.round(100 + Math.abs(changeRate) * 13);
+    detail = `Weighted debt down ${Math.abs(changeRate).toFixed(1)}% — Moving in right direction`;
+  } else if (changeRate <= 1) {
+    // Stable
     score = 100;
-    trend = 'stable';
-    detail = 'Debt stable - Can you accelerate payoff?';
-  } else if (changePercent <= 10) {
-    // Slowly increasing
-    score = 50;
-    trend = 'increasing';
-    detail = `Debt up ${changePercent.toFixed(0)}% - Time to course correct`;
+    detail = 'Debt stable — Can you accelerate payoff?';
+  } else if (changeRate <= 5) {
+    score = Math.round(Math.max(0, 100 - changeRate * 8));
+    detail = `Weighted debt up ${changeRate.toFixed(1)}% — Time to course correct`;
+  } else if (changeRate <= 10) {
+    score = 30;
+    detail = `Weighted debt up ${changeRate.toFixed(0)}% — Concerning trend`;
   } else {
-    // Rapidly increasing
     score = 0;
-    trend = 'increasing';
-    detail = `Debt up ${changePercent.toFixed(0)}% - Urgent: Review spending`;
+    detail = `Weighted debt up ${changeRate.toFixed(0)}% — Urgent: review spending`;
   }
   
-  return { score, maxScore: 200, trend, changePercent, detail };
+  return { score: Math.max(0, Math.min(maxScore, score)), maxScore, percentage: (score / maxScore) * 100, detail, sublabel };
 }
 
-/**
- * Calculate Emergency Buffer Score (15% of total = 150 points max)
- * 
- * Measures: How many months of expenses do you have saved?
- * Gold standard: 3-6 months
- */
-function calculateEmergencyBuffer(totalSavings: number, monthlyExpenses: number): ScoreBreakdown['emergencyBuffer'] {
-  if (monthlyExpenses === 0) {
-    return {
-      score: 150,
-      maxScore: 150,
-      monthsCovered: totalSavings > 0 ? 12 : 0,
-      detail: totalSavings > 0 ? 'Great savings!' : 'No expenses tracked'
-    };
+// ============================================================
+// FACTOR 3: PAYMENT CONSISTENCY (200 pts — Behavior)
+// ============================================================
+
+function calculatePaymentConsistency(
+  onTime: number,
+  late1to30: number,
+  late31to60: number,
+  late61Plus: number
+): FactorScore {
+  const maxScore = 200;
+  const sublabel = 'Behavior';
+  
+  const totalBills = onTime + late1to30 + late31to60 + late61Plus;
+  
+  if (totalBills === 0) {
+    return { score: 200, maxScore, percentage: 100, detail: 'No bills tracked yet — set up tracking!', sublabel };
   }
   
-  const monthsCovered = totalSavings / monthlyExpenses;
+  // Weighted penalty system (industry-inspired by FICO severity tiers)
+  // On-time = 0 penalty
+  // 1-30 days late = 0.5 penalty per occurrence
+  // 31-60 days late = 1.0 penalty per occurrence
+  // 61+ days late = 1.5 penalty per occurrence
   
-  let score: number;
+  const penalties = (late1to30 * 0.5) + (late31to60 * 1.0) + (late61Plus * 1.5);
+  const effectiveOnTime = totalBills - penalties;
+  const effectiveRate = Math.max(0, effectiveOnTime / totalBills);
+  
+  const score = Math.round(effectiveRate * maxScore);
+  
+  const onTimeRate = ((onTime / totalBills) * 100).toFixed(0);
   let detail: string;
   
-  if (monthsCovered >= 6) {
-    score = 150;
-    detail = `${monthsCovered.toFixed(1)} months covered - Fortress mode! 🏰`;
-  } else if (monthsCovered >= 3) {
-    score = 125;
-    detail = `${monthsCovered.toFixed(1)} months covered - Solid safety net`;
-  } else if (monthsCovered >= 1) {
-    score = 100;
-    detail = `${monthsCovered.toFixed(1)} months covered - Keep building`;
-  } else if (monthsCovered >= 0.5) {
-    score = 50;
-    detail = `${Math.round(monthsCovered * 30)} days covered - Growing!`;
-  } else if (monthsCovered > 0) {
-    score = 25;
-    detail = `${Math.round(monthsCovered * 30)} days covered - Starting out`;
+  if (onTime === totalBills) {
+    detail = `Perfect! ${totalBills}/${totalBills} bills on time 🎯`;
+  } else if (effectiveRate >= 0.95) {
+    detail = `${onTimeRate}% on-time — Excellent track record`;
+  } else if (effectiveRate >= 0.90) {
+    detail = `${onTimeRate}% on-time — Good, room to improve`;
+  } else if (effectiveRate >= 0.80) {
+    detail = `${onTimeRate}% on-time — Set up autopay for consistency`;
   } else {
-    score = 0;
-    detail = 'No emergency fund yet - Start small!';
+    detail = `${onTimeRate}% on-time — Priority: automate your payments`;
   }
   
-  return { score, maxScore: 150, monthsCovered, detail };
+  return { score: Math.max(0, score), maxScore, percentage: (score / maxScore) * 100, detail, sublabel };
 }
 
-/**
- * Calculate Budget Discipline Score (10% of total = 100 points max)
- * 
- * Measures: How many of your budgets are you staying within?
- */
-function calculateBudgetDiscipline(budgetsOnTrack: number, totalBudgets: number): ScoreBreakdown['budgetDiscipline'] {
+// ============================================================
+// FACTOR 4: BUDGET DISCIPLINE (150 pts — Behavior)
+// ============================================================
+
+function calculateBudgetDiscipline(
+  budgetsOnTrack: number,
+  totalBudgets: number,
+  averageOverspendPercent: number
+): FactorScore {
+  const maxScore = 150;
+  const sublabel = 'Behavior';
+  
   if (totalBudgets === 0) {
     return {
-      score: 50,  // No budgets = neutral (encourage setting some)
-      maxScore: 100,
-      percentage: 0,
-      detail: 'No budgets set - Create some to track progress!'
+      score: 75, maxScore, percentage: 50,
+      detail: 'No budgets set — create budgets to track this', sublabel,
     };
   }
   
-  const percentage = (budgetsOnTrack / totalBudgets) * 100;
-  const score = Math.round((percentage / 100) * 100);
+  // Sub-factor A: Adherence (90 pts)
+  // What % of budgets stayed within limit?
+  const adherenceScore = Math.round((budgetsOnTrack / totalBudgets) * 90);
+  
+  // Sub-factor B: Overspend severity (60 pts)
+  // How much over budget on average for overspent categories?
+  let severityScore: number;
+  if (budgetsOnTrack === totalBudgets) {
+    severityScore = 60; // All on track = perfect severity score
+  } else if (averageOverspendPercent <= 10) {
+    severityScore = 48; // Slight overspend
+  } else if (averageOverspendPercent <= 25) {
+    severityScore = 35;
+  } else if (averageOverspendPercent <= 50) {
+    severityScore = 20;
+  } else if (averageOverspendPercent <= 100) {
+    severityScore = 8;
+  } else {
+    severityScore = 0; // Massively over budget
+  }
+  
+  const score = adherenceScore + severityScore;
   
   let detail: string;
-  if (percentage === 100) {
+  if (budgetsOnTrack === totalBudgets) {
     detail = `All ${totalBudgets} budgets on track! 🎯`;
-  } else if (percentage >= 80) {
-    detail = `${budgetsOnTrack}/${totalBudgets} budgets on track - Great!`;
-  } else if (percentage >= 60) {
-    detail = `${budgetsOnTrack}/${totalBudgets} budgets on track - Watch a few`;
+  } else if (adherenceScore / 90 >= 0.8) {
+    detail = `${budgetsOnTrack}/${totalBudgets} on track — Close to perfect`;
+  } else if (adherenceScore / 90 >= 0.6) {
+    detail = `${budgetsOnTrack}/${totalBudgets} on track — Watch the overspending`;
   } else {
-    detail = `${budgetsOnTrack}/${totalBudgets} budgets on track - Needs focus`;
+    detail = `${budgetsOnTrack}/${totalBudgets} on track — Budget needs attention`;
   }
   
-  return { score, maxScore: 100, percentage, detail };
+  return { score: Math.min(maxScore, score), maxScore, percentage: (score / maxScore) * 100, detail, sublabel };
 }
 
-/**
- * Calculate Debt-to-Income Score (10% of total = 100 points max)
- * 
- * Measures: How does your total debt compare to your annual income?
- * Lower is better. Unlike FICO, we don't care about "credit utilization" - 
- * we care about total debt burden.
- */
-function calculateDebtToIncome(totalDebt: number, monthlyIncome: number): ScoreBreakdown['debtToIncome'] {
-  const annualIncome = monthlyIncome * 12;
+// ============================================================
+// FACTOR 5: EMERGENCY BUFFER (125 pts — Position)
+// ============================================================
+
+function calculateEmergencyBuffer(
+  liquidSavings: number,
+  monthlyExpenses: number
+): FactorScore {
+  const maxScore = 125;
+  const sublabel = 'Position';
   
-  if (annualIncome === 0) {
+  if (monthlyExpenses <= 0) {
     return {
-      score: 0,
-      maxScore: 100,
-      ratio: 0,
-      detail: 'No income recorded'
+      score: liquidSavings > 0 ? 125 : 0, maxScore,
+      percentage: liquidSavings > 0 ? 100 : 0,
+      detail: liquidSavings > 0 ? 'Great savings!' : 'No expenses tracked',
+      sublabel,
     };
   }
   
-  if (totalDebt === 0) {
-    return {
-      score: 100,
-      maxScore: 100,
-      ratio: 0,
-      detail: 'No debt! Perfect score 🏆'
-    };
-  }
+  const monthsCovered = liquidSavings / monthlyExpenses;
   
-  const ratio = (totalDebt / annualIncome) * 100;
+  // Linear scale: 4 months = max score
+  // Formula: min(125, (monthsCovered / 4) × 125)
+  // Why 4 not 3: Having 3 months is "adequate." 4+ shows real margin.
+  const score = Math.round(Math.min(maxScore, (monthsCovered / 4) * maxScore));
   
-  let score: number;
   let detail: string;
-  
-  if (ratio <= 10) {
-    score = 100;
-    detail = `${ratio.toFixed(0)}% DTI - Very healthy`;
-  } else if (ratio <= 20) {
-    score = 90;
-    detail = `${ratio.toFixed(0)}% DTI - Good standing`;
-  } else if (ratio <= 30) {
-    score = 75;
-    detail = `${ratio.toFixed(0)}% DTI - Manageable`;
-  } else if (ratio <= 40) {
-    score = 50;
-    detail = `${ratio.toFixed(0)}% DTI - Getting heavy`;
-  } else if (ratio <= 50) {
-    score = 25;
-    detail = `${ratio.toFixed(0)}% DTI - Debt is weighing you down`;
+  if (monthsCovered >= 6) {
+    detail = `${monthsCovered.toFixed(1)} months covered — Fortress mode! 🏰`;
+  } else if (monthsCovered >= 4) {
+    detail = `${monthsCovered.toFixed(1)} months covered — Strong safety net`;
+  } else if (monthsCovered >= 3) {
+    detail = `${monthsCovered.toFixed(1)} months — Solid, keep building to 4+`;
+  } else if (monthsCovered >= 1) {
+    detail = `${monthsCovered.toFixed(1)} months — Good start, target 3-4 months`;
+  } else if (monthsCovered > 0) {
+    detail = `${Math.round(monthsCovered * 30)} days covered — Building your safety net`;
   } else {
-    score = 0;
-    detail = `${ratio.toFixed(0)}% DTI - Debt exceeds half your income`;
+    detail = 'No emergency buffer — start with a $500 goal';
   }
   
-  return { score, maxScore: 100, ratio, detail };
+  return { score, maxScore, percentage: (score / maxScore) * 100, detail, sublabel };
 }
 
-/**
- * Get level and title based on score
- */
+// ============================================================
+// FACTOR 6: DEBT-TO-INCOME (125 pts — Position)
+// ============================================================
+
+function calculateDebtToIncome(
+  currentDebts: DebtEntry[],
+  monthlyIncome: number
+): FactorScore {
+  const maxScore = 125;
+  const sublabel = 'Position';
+  
+  if (monthlyIncome <= 0) {
+    return { score: 0, maxScore, percentage: 0, detail: 'No income recorded', sublabel };
+  }
+  
+  const totalRawDebt = currentDebts.reduce((sum, d) => sum + d.balance, 0);
+  
+  if (totalRawDebt === 0) {
+    return { score: 125, maxScore, percentage: 100, detail: 'No debt! Perfect score 🏆', sublabel };
+  }
+  
+  // Use weighted monthly payments for DTI calculation
+  const weightedMonthlyPayments = calculateWeightedMonthlyPayments(currentDebts);
+  const weightedDTI = (weightedMonthlyPayments / monthlyIncome) * 100;
+  
+  // Smooth curve: max(0, 125 - (weightedDTI × 2.08))
+  // At 0% DTI = 125, at 60% DTI = 0
+  const score = Math.round(Math.max(0, maxScore - (weightedDTI * 2.08)));
+  
+  const rawDTI = (currentDebts.reduce((sum, d) => sum + d.monthlyPayment, 0) / monthlyIncome * 100).toFixed(0);
+  
+  let detail: string;
+  if (weightedDTI <= 10) {
+    detail = `${rawDTI}% DTI (${weightedDTI.toFixed(0)}% weighted) — Very healthy`;
+  } else if (weightedDTI <= 20) {
+    detail = `${rawDTI}% DTI (${weightedDTI.toFixed(0)}% weighted) — Good standing`;
+  } else if (weightedDTI <= 30) {
+    detail = `${rawDTI}% DTI (${weightedDTI.toFixed(0)}% weighted) — Manageable`;
+  } else if (weightedDTI <= 40) {
+    detail = `${rawDTI}% DTI (${weightedDTI.toFixed(0)}% weighted) — Getting heavy`;
+  } else if (weightedDTI <= 50) {
+    detail = `${rawDTI}% DTI (${weightedDTI.toFixed(0)}% weighted) — Debt is straining income`;
+  } else {
+    detail = `${rawDTI}% DTI (${weightedDTI.toFixed(0)}% weighted) — Debt burden is critical`;
+  }
+  
+  return { score, maxScore, percentage: (score / maxScore) * 100, detail, sublabel };
+}
+
+// ============================================================
+// LEVEL & TITLE
+// ============================================================
+
 function getScoreLevel(total: number): { level: number; title: string } {
   if (total >= 900) return { level: 5, title: 'Financial Freedom' };
   if (total >= 750) return { level: 4, title: 'Wealth Builder' };
@@ -377,33 +491,32 @@ function getScoreLevel(total: number): { level: number; title: string } {
   return { level: 0, title: 'Beginning Journey' };
 }
 
-/**
- * Generate personalized tips based on breakdown
- */
+// ============================================================
+// PERSONALIZED TIPS
+// ============================================================
+
 function generateTips(breakdown: ScoreBreakdown): string[] {
   const tips: string[] = [];
   
-  // Find weakest areas (lowest % of max score)
-  const areas = [
-    { name: 'payments', pct: breakdown.paymentConsistency.score / 250, tip: 'Set up autopay for recurring bills to never miss a payment' },
-    { name: 'savings', pct: breakdown.savingsRate.score / 200, tip: 'Try the "pay yourself first" rule: save before spending' },
-    { name: 'debt', pct: breakdown.debtVelocity.score / 200, tip: 'Use the avalanche method: pay minimums on all, extra on highest interest' },
-    { name: 'emergency', pct: breakdown.emergencyBuffer.score / 150, tip: 'Build your emergency fund: aim for $1,000, then 1 month expenses' },
-    { name: 'budgets', pct: breakdown.budgetDiscipline.score / 100, tip: 'Review overspent budgets - can you trim or reallocate?' },
-    { name: 'dti', pct: breakdown.debtToIncome.score / 100, tip: 'Focus on paying down high-interest debt first' },
+  const factors = [
+    { key: 'paymentConsistency' as const, pct: breakdown.paymentConsistency.percentage, tip: 'Set up autopay for all recurring bills — never miss a payment' },
+    { key: 'wealthBuilding' as const, pct: breakdown.wealthBuilding.percentage, tip: 'Increase your savings rate — even 1% more makes a difference over time' },
+    { key: 'debtVelocity' as const, pct: breakdown.debtVelocity.percentage, tip: 'Focus extra payments on highest-interest debt first (avalanche method)' },
+    { key: 'emergencyBuffer' as const, pct: breakdown.emergencyBuffer.percentage, tip: 'Build your emergency fund — start with $1,000, then target 3-4 months of expenses' },
+    { key: 'budgetDiscipline' as const, pct: breakdown.budgetDiscipline.percentage, tip: 'Review overspent categories — can you trim or reallocate from underspent ones?' },
+    { key: 'debtToIncome' as const, pct: breakdown.debtToIncome.percentage, tip: 'Reduce debt burden — consider consolidating high-interest debts' },
   ];
   
   // Sort by weakest
-  areas.sort((a, b) => a.pct - b.pct);
+  factors.sort((a, b) => a.pct - b.pct);
   
-  // Add tips for 2-3 weakest areas (that aren't already perfect)
-  for (const area of areas.slice(0, 3)) {
-    if (area.pct < 1) {
-      tips.push(area.tip);
+  // Tips for 2-3 weakest non-perfect areas
+  for (const factor of factors.slice(0, 3)) {
+    if (factor.pct < 90) {
+      tips.push(factor.tip);
     }
   }
   
-  // If they're doing great everywhere, add encouragement
   if (tips.length === 0) {
     tips.push('You\'re doing amazing! Keep up the great work 🌟');
   }
@@ -411,27 +524,39 @@ function generateTips(breakdown: ScoreBreakdown): string[] {
   return tips;
 }
 
-/**
- * Main function: Calculate the complete Financial Health Score
- */
+// ============================================================
+// MAIN CALCULATION
+// ============================================================
+
 export function calculateFinancialHealthScore(input: ScoreInput): FinancialHealthScore {
   const breakdown: ScoreBreakdown = {
-    paymentConsistency: calculatePaymentConsistency(input.billsPaidOnTime, input.totalBills),
-    savingsRate: calculateSavingsRate(input.monthlySavings, input.monthlyIncome),
-    debtVelocity: calculateDebtVelocity(input.totalDebt, input.debtThreeMonthsAgo),
-    emergencyBuffer: calculateEmergencyBuffer(input.totalSavings, input.monthlyExpenses),
-    budgetDiscipline: calculateBudgetDiscipline(input.budgetsOnTrack, input.totalBudgets),
-    debtToIncome: calculateDebtToIncome(input.totalDebt, input.monthlyIncome),
+    // Trajectory (400 pts)
+    wealthBuilding: calculateWealthBuilding(input.wealthContributions, input.monthlyIncome),
+    debtVelocity: calculateDebtVelocity(input.currentDebts, input.debtsThreeMonthsAgo),
+    
+    // Behavior (350 pts)
+    paymentConsistency: calculatePaymentConsistency(
+      input.billsPaidOnTime,
+      input.billsPaidLate1to30,
+      input.billsPaidLate31to60,
+      input.billsPaidLate61Plus
+    ),
+    budgetDiscipline: calculateBudgetDiscipline(
+      input.budgetsOnTrack,
+      input.totalBudgets,
+      input.averageOverspendPercent
+    ),
+    
+    // Position (250 pts)
+    emergencyBuffer: calculateEmergencyBuffer(input.liquidSavings, input.monthlyExpenses),
+    debtToIncome: calculateDebtToIncome(input.currentDebts, input.monthlyIncome),
   };
   
-  const total = 
-    breakdown.paymentConsistency.score +
-    breakdown.savingsRate.score +
-    breakdown.debtVelocity.score +
-    breakdown.emergencyBuffer.score +
-    breakdown.budgetDiscipline.score +
-    breakdown.debtToIncome.score;
+  const trajectoryScore = breakdown.wealthBuilding.score + breakdown.debtVelocity.score;
+  const behaviorScore = breakdown.paymentConsistency.score + breakdown.budgetDiscipline.score;
+  const positionScore = breakdown.emergencyBuffer.score + breakdown.debtToIncome.score;
   
+  const total = trajectoryScore + behaviorScore + positionScore;
   const { level, title } = getScoreLevel(total);
   const tips = generateTips(breakdown);
   
@@ -440,15 +565,24 @@ export function calculateFinancialHealthScore(input: ScoreInput): FinancialHealt
     maxTotal: 1000,
     level,
     title,
+    pillarScores: {
+      trajectory: { score: trajectoryScore, max: 400 },
+      behavior: { score: behaviorScore, max: 350 },
+      position: { score: positionScore, max: 250 },
+    },
     breakdown,
     tips,
   };
 }
 
-/**
- * Calculate score change from previous
- */
-export function calculateScoreChange(current: FinancialHealthScore, previous: FinancialHealthScore): {
+// ============================================================
+// SCORE CHANGE COMPARISON
+// ============================================================
+
+export function calculateScoreChange(
+  current: FinancialHealthScore,
+  previous: FinancialHealthScore
+): {
   change: number;
   improved: string[];
   declined: string[];
@@ -458,24 +592,27 @@ export function calculateScoreChange(current: FinancialHealthScore, previous: Fi
   const declined: string[] = [];
   
   const factors = [
-    { key: 'paymentConsistency', name: 'Payment Consistency' },
-    { key: 'savingsRate', name: 'Savings Rate' },
-    { key: 'debtVelocity', name: 'Debt Progress' },
-    { key: 'emergencyBuffer', name: 'Emergency Fund' },
-    { key: 'budgetDiscipline', name: 'Budget Discipline' },
-    { key: 'debtToIncome', name: 'Debt-to-Income' },
-  ] as const;
+    { key: 'wealthBuilding' as const, name: 'Wealth Building' },
+    { key: 'debtVelocity' as const, name: 'Debt Progress' },
+    { key: 'paymentConsistency' as const, name: 'Payment History' },
+    { key: 'budgetDiscipline' as const, name: 'Budget Discipline' },
+    { key: 'emergencyBuffer' as const, name: 'Emergency Fund' },
+    { key: 'debtToIncome' as const, name: 'Debt-to-Income' },
+  ];
   
   for (const factor of factors) {
-    const currentScore = current.breakdown[factor.key].score;
-    const previousScore = previous.breakdown[factor.key].score;
+    const curr = current.breakdown[factor.key].score;
+    const prev = previous.breakdown[factor.key].score;
     
-    if (currentScore > previousScore) {
-      improved.push(factor.name);
-    } else if (currentScore < previousScore) {
-      declined.push(factor.name);
-    }
+    if (curr > prev) improved.push(factor.name);
+    else if (curr < prev) declined.push(factor.name);
   }
   
   return { change, improved, declined };
 }
+
+// ============================================================
+// EXPORTS: Debt multipliers for external use
+// ============================================================
+
+export { DEBT_MULTIPLIERS, COLLECTIONS_PENALTY };
