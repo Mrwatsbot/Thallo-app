@@ -35,10 +35,8 @@ export function CubeNavigator({ faces, initialFace = 0 }: CubeNavigatorProps) {
     // Determine direction if not specified
     const autoDir = dir || (index > currentFace ? 'left' : 'right');
     
-    // Capture current height before animating so all turns look the same
-    if (contentRef.current) {
-      setAnimHeight(contentRef.current.offsetHeight);
-    }
+    // Use viewport height for consistent rotation center on ALL pages
+    setAnimHeight(window.innerHeight - 120); // subtract header + tabs
     
     setDirection(autoDir);
     setPrevFace(currentFace);
