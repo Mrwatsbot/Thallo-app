@@ -6,8 +6,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-instrument-sans);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-display: var(--font-bricolage-grotesque);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -44,46 +45,70 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
-  
-  /* Custom accent colors */
-  --color-accent-purple: #a855f7;
-  --color-accent-indigo: #6366f1;
 }
 
-/* Dark theme by default - matching landing page */
+/* Burnished Design System - Warm, Personal, Refined */
 :root {
-  --radius: 0.625rem;
-  --background: #09090b;
-  --foreground: #fafafa;
-  --card: rgba(255, 255, 255, 0.03);
-  --card-foreground: #fafafa;
-  --popover: #18181b;
-  --popover-foreground: #fafafa;
-  --primary: #a855f7;
-  --primary-foreground: #ffffff;
-  --secondary: rgba(255, 255, 255, 0.05);
-  --secondary-foreground: #fafafa;
-  --muted: rgba(255, 255, 255, 0.05);
-  --muted-foreground: #a1a1aa;
-  --accent: rgba(168, 85, 247, 0.1);
-  --accent-foreground: #a855f7;
-  --destructive: #ef4444;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.1);
-  --ring: #a855f7;
-  --chart-1: #a855f7;
-  --chart-2: #6366f1;
-  --chart-3: #22c55e;
-  --chart-4: #f97316;
-  --chart-5: #ec4899;
-  --sidebar: #0a0a0c;
-  --sidebar-foreground: #fafafa;
-  --sidebar-primary: #a855f7;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: rgba(168, 85, 247, 0.1);
-  --sidebar-accent-foreground: #a855f7;
-  --sidebar-border: rgba(255, 255, 255, 0.1);
-  --sidebar-ring: #a855f7;
+  /* === SPACING & RADIUS === */
+  --radius: 0.5rem; /* 8px - tighter, more intentional */
+  
+  /* === BACKGROUNDS === */
+  --background: #1c1917; /* warm charcoal */
+  --foreground: #f0ebe3; /* warm cream */
+  --card: #292524; /* card surface */
+  --card-foreground: #f0ebe3;
+  --popover: #363130; /* elevated surface */
+  --popover-foreground: #f0ebe3;
+  
+  /* === PRIMARY (Burnt Amber) === */
+  --primary: #d4872a;
+  --primary-foreground: #1c1917; /* dark text on amber */
+  
+  /* === SECONDARY (Sage) === */
+  --secondary: #8b9e7c;
+  --secondary-foreground: #f0ebe3;
+  
+  /* === MUTED === */
+  --muted: #363130;
+  --muted-foreground: #a8a29e;
+  
+  /* === ACCENT === */
+  --accent: rgba(212, 135, 42, 0.15);
+  --accent-foreground: #d4872a;
+  
+  /* === SEMANTIC === */
+  --destructive: #c25544; /* terracotta red */
+  --success: #7daa68; /* sage green */
+  --warning: #d4a03a; /* golden amber */
+  
+  /* === BORDERS === */
+  --border: #3f3a36;
+  --input: #3f3a36;
+  --ring: rgba(212, 135, 42, 0.5);
+  
+  /* === CHART PALETTE (warm, organic) === */
+  --chart-1: #d4872a; /* amber */
+  --chart-2: #8b9e7c; /* sage */
+  --chart-3: #c25544; /* terracotta */
+  --chart-4: #d4a03a; /* golden */
+  --chart-5: #7c8daa; /* dusty blue */
+  --chart-6: #aa7c8d; /* dusty rose */
+  
+  /* === SIDEBAR === */
+  --sidebar: #1c1917;
+  --sidebar-foreground: #f0ebe3;
+  --sidebar-primary: #d4872a;
+  --sidebar-primary-foreground: #1c1917;
+  --sidebar-accent: rgba(212, 135, 42, 0.15);
+  --sidebar-accent-foreground: #d4872a;
+  --sidebar-border: #3f3a36;
+  --sidebar-ring: rgba(212, 135, 42, 0.5);
+  
+  /* === EMBER BAR === */
+  --ember-start: #3a2510;
+  --ember-mid: #d4872a;
+  --ember-end: #e8a84c;
+  --ember-glow: rgba(212, 135, 42, 0.4);
 }
 
 @layer base {
@@ -91,51 +116,167 @@
     @apply border-border outline-ring/50;
   }
   html {
-    min-height: 100dvh; /* dynamic viewport height for iOS */
+    min-height: 100dvh;
   }
   body {
     @apply bg-background text-foreground antialiased overflow-y-auto overflow-x-hidden;
     min-height: 100dvh;
+    /* Warm radial glow background - like a desk lamp from above */
+    background: radial-gradient(ellipse 80% 50% at 50% -20%, #2e261f 0%, #1c1917 70%);
     /* iOS safe area padding */
     padding-bottom: env(safe-area-inset-bottom, 0);
   }
 }
 
-/* Glass card effect matching landing page */
+/* Grain texture overlay - adds analog warmth */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Glass card effect for nav/header - subtle */
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(41, 37, 36, 0.8);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #3f3a36;
 }
 
 .glass-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(168, 85, 247, 0.3);
+  background: rgba(54, 49, 48, 0.9);
+  border-color: rgba(212, 135, 42, 0.3);
 }
 
-/* Gradient button matching landing page */
+/* Solid card for regular content */
+.solid-card {
+  background: #292524;
+  border: 1px solid #2e2a27;
+  box-shadow: inset 0 1px 0 rgba(240, 235, 227, 0.03);
+}
+
+.solid-card:hover {
+  background: #363130;
+  border-color: #3f3a36;
+}
+
+/* Solid amber button - confident, no gradients */
 .gradient-btn {
-  background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  background: #d4872a;
+  color: #1c1917;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+  transition: all 120ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gradient-btn:hover {
-  background: linear-gradient(135deg, #9333ea 0%, #4f46e5 100%);
+  background: #e09435;
+  box-shadow: 0 2px 8px rgba(212, 135, 42, 0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+  transform: translateY(-0.5px);
 }
 
-/* Gradient text */
+.gradient-btn:active {
+  background: #b87424;
+  transform: translateY(0.5px);
+  box-shadow: 0 0px 1px rgba(0,0,0,0.3);
+}
+
+/* Gradient text - warm amber gradient */
 .gradient-text {
-  background: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #a855f7 100%);
+  background: linear-gradient(135deg, #d4872a 0%, #e8a84c 50%, #d4872a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Background gradient effect */
+/* Background gradient effect - subtle warm accent */
 .bg-gradient-radial {
-  background: radial-gradient(ellipse at top, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
+  background: radial-gradient(ellipse at top, rgba(212, 135, 42, 0.08) 0%, transparent 50%);
 }
 
-/* Cube-turn animation - simulates faces on a rotating cube */
+/* === EMBER BAR - Signature Element === */
+.ember-bar {
+  position: relative;
+  height: 12px;
+  background: #44403c;
+  border-radius: 9999px;
+  overflow: visible;
+}
+
+.ember-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #3a2510 0%, #d4872a 50%, #e8a84c 100%);
+  position: relative;
+  transition: width 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* The glow point at the leading edge */
+.ember-bar-fill::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background: #d4872a;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(212, 135, 42, 0.4), 0 0 4px #d4872a;
+  animation: ember-pulse 2s ease-in-out infinite;
+}
+
+@keyframes ember-pulse {
+  0%, 100% { 
+    opacity: 0.8; 
+    box-shadow: 0 0 12px rgba(212, 135, 42, 0.4); 
+  }
+  50% { 
+    opacity: 1; 
+    box-shadow: 0 0 20px rgba(212, 135, 42, 0.4), 0 0 8px #d4872a; 
+  }
+}
+
+/* Rising ember particles */
+.ember-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #d4872a;
+  border-radius: 50%;
+  animation: ember-rise 2.5s ease-out infinite;
+  opacity: 0;
+}
+
+@keyframes ember-rise {
+  0% { 
+    opacity: 0; 
+    transform: translateY(0) scale(1); 
+  }
+  20% { 
+    opacity: 0.8; 
+  }
+  100% { 
+    opacity: 0; 
+    transform: translateY(-20px) translateX(5px) scale(0.3); 
+  }
+}
+
+/* Hero-sized Ember Bar (for Runway metric) */
+.ember-bar-hero {
+  height: 20px;
+}
+
+.ember-bar-hero .ember-bar-fill::after {
+  width: 24px;
+  height: 24px;
+  box-shadow: 0 0 20px rgba(212, 135, 42, 0.4), 0 0 8px #d4872a;
+}
+
+/* === CUBE ANIMATION - Keep unchanged === */
 
 /* Swiping left (going to next): current face goes left + rotates, new comes from right */
 @keyframes cubeExitLeft {
@@ -207,4 +348,45 @@
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* View Transitions API for smooth page changes */
+@view-transition {
+  navigation: auto;
+}
+
+/* Page transition animations using View Transitions API */
+::view-transition-old(root) {
+  animation: slideOutLeft 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-new(root) {
+  animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-30%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(30%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Optimize transitions */
+.page-transition-content {
+  view-transition-name: main-content;
 }

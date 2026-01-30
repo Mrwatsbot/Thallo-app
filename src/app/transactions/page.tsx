@@ -29,8 +29,14 @@ export default function TransactionsPage() {
 
   const hasAccounts = accounts.length > 0;
 
+  // Map Profile to AppShell user format
+  const appShellUser = {
+    email: userProfile.email || undefined,
+    full_name: userProfile.full_name || undefined,
+  };
+
   return (
-    <AppShell user={userProfile}>
+    <AppShell user={appShellUser}>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">

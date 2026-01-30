@@ -126,7 +126,7 @@ export function AppShell({ children, user, isDemo = false }: AppShellProps) {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Avatar className="h-8 w-8">
-                  <AvatarFallback className="text-xs bg-purple-500/20 text-purple-400">{initials}</AvatarFallback>
+                  <AvatarFallback className="text-xs bg-[#d4872a33] text-[#d4872a]">{initials}</AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
@@ -191,7 +191,7 @@ export function AppShell({ children, user, isDemo = false }: AppShellProps) {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="w-full justify-start gap-2 hover:bg-secondary">
                   <Avatar className="h-8 w-8">
-                    <AvatarFallback className="text-xs bg-purple-500/20 text-purple-400">{initials}</AvatarFallback>
+                    <AvatarFallback className="text-xs bg-[#d4872a33] text-[#d4872a]">{initials}</AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col items-start text-left">
                     <span className="text-sm font-medium">{user?.full_name || 'User'}</span>

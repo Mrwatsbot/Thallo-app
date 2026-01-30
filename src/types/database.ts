@@ -2,6 +2,7 @@
 
 export type SubscriptionTier = 'free' | 'basic' | 'plus' | 'pro';
 export type SubscriptionStatus = 'active' | 'canceled' | 'past_due';
+export type IncomeType = 'w2' | 'creator';
 export type AccountType = 'checking' | 'savings' | 'credit_card' | 'cash' | 'investment';
 export type CategoryType = 'expense' | 'income' | 'transfer';
 export type MatchType = 'contains' | 'starts_with' | 'exact';
@@ -11,6 +12,7 @@ export interface Profile {
   email: string | null;
   full_name: string | null;
   avatar_url: string | null;
+  income_type: IncomeType | null;
   subscription_tier: SubscriptionTier;
   subscription_status: SubscriptionStatus;
   stripe_customer_id: string | null;
@@ -139,7 +141,7 @@ export interface Database {
       profiles: {
         Row: Profile;
         Insert: Omit<Profile, 'created_at' | 'updated_at'>;
-        Update: Partial<Omit<Profile, 'id' | 'created_at'>>;
+        Update: Partial<Omit<Profile, 'id' | 'created_at' | 'updated_at'>>;
       };
       accounts: {
         Row: Account;

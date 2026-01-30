@@ -30,8 +30,14 @@ export default function BudgetsPage() {
 
   const remaining = totalBudgeted - totalSpent;
 
+  // Map Profile to AppShell user format
+  const appShellUser = {
+    email: userProfile.email || undefined,
+    full_name: userProfile.full_name || undefined,
+  };
+
   return (
-    <AppShell user={userProfile}>
+    <AppShell user={appShellUser}>
       <div className="space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
