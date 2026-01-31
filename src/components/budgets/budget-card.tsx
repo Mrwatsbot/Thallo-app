@@ -102,7 +102,7 @@ export function BudgetCard({
   };
 
   return (
-    <Pressable className="glass-card rounded-xl p-5 transition-all hover:border-[#e8922e33]">
+    <Pressable className="glass-card rounded-xl p-5 transition-all hover:border-[#1a7a6d33]">
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
@@ -209,7 +209,7 @@ export function BudgetCard({
           <Button
             size="sm"
             variant="outline"
-            className="border-[#e8922e33] text-[#e8922e] hover:bg-[#e8922e1a]"
+            className="border-[#1a7a6d33] text-[#1a7a6d] hover:bg-[#1a7a6d1a]"
             onClick={() => setEditing(true)}
           >
             Set Budget

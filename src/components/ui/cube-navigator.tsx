@@ -155,8 +155,8 @@ export function CubeNavigator({ faces, initialFace = 0 }: CubeNavigatorProps) {
             style={{
               left: `${indicatorStyle.left}px`,
               width: `${indicatorStyle.width}px`,
-              background: 'linear-gradient(135deg, #e8922e 0%, #d4800f 100%)',
-              boxShadow: '0 0 20px rgba(232, 146, 46, 0.25), inset 0 1px 0 rgba(255,255,255,0.15)',
+              background: 'linear-gradient(135deg, #1a7a6d 0%, #146b5f 100%)',
+              boxShadow: '0 0 20px rgba(26, 122, 109, 0.25), inset 0 1px 0 rgba(255,255,255,0.15)',
             }}
           />
 
@@ -189,7 +189,7 @@ export function CubeNavigator({ faces, initialFace = 0 }: CubeNavigatorProps) {
       <button
         onClick={goPrev}
         disabled={isAnimating}
-        className="hidden md:flex fixed left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass-card items-center justify-center text-[#8a8279] hover:text-[#ede6db] hover:border-[#e8922e33] transition-all"
+        className="hidden md:flex fixed left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass-card items-center justify-center text-[#8a8279] hover:text-[#ede6db] hover:border-[#1a7a6d33] transition-all"
         aria-label="Previous"
       >
         <ChevronLeft className="w-6 h-6" />
@@ -197,7 +197,7 @@ export function CubeNavigator({ faces, initialFace = 0 }: CubeNavigatorProps) {
       <button
         onClick={goNext}
         disabled={isAnimating}
-        className="hidden md:flex fixed right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass-card items-center justify-center text-[#8a8279] hover:text-[#ede6db] hover:border-[#e8922e33] transition-all"
+        className="hidden md:flex fixed right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass-card items-center justify-center text-[#8a8279] hover:text-[#ede6db] hover:border-[#1a7a6d33] transition-all"
         aria-label="Next"
       >
         <ChevronRight className="w-6 h-6" />
@@ -255,7 +255,7 @@ export function CubeNavigator({ faces, initialFace = 0 }: CubeNavigatorProps) {
             disabled={isAnimating}
             className={`rounded-full transition-all duration-300 ${
               index === currentFace
-                ? 'w-7 h-2 bg-[#e8922e] shadow-[0_0_8px_rgba(232,146,46,0.4)]'
+                ? 'w-7 h-2 bg-[#1a7a6d] shadow-[0_0_8px_rgba(232,146,46,0.4)]'
                 : 'w-2 h-2 bg-[#3a3430] hover:bg-[#4a4440]'
             }`}
             aria-label={`Go to ${faces[index].label}`}

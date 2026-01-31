@@ -66,12 +66,12 @@ export function GoalCard({ goal, onMutate }: GoalCardProps) {
   const getProgressColor = () => {
     switch (goal.type) {
       case 'emergency': return '#ef4444';
-      case 'retirement_401k': return '#e8922e';
+      case 'retirement_401k': return '#1a7a6d';
       case 'ira': return '#3b82f6';
       case 'hsa': return '#10b981';
       case 'education_529': return '#f59e0b';
       case 'brokerage': return '#5b8fd9';
-      default: return '#e8922e';
+      default: return '#1a7a6d';
     }
   };
 
@@ -178,7 +178,7 @@ export function GoalCard({ goal, onMutate }: GoalCardProps) {
 
   return (
     <>
-      <Pressable className="glass-card rounded-xl p-5 transition-all hover:border-[#e8922e33]">
+      <Pressable className="glass-card rounded-xl p-5 transition-all hover:border-[#1a7a6d33]">
         {/* Header */}
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center gap-3">
@@ -273,7 +273,7 @@ export function GoalCard({ goal, onMutate }: GoalCardProps) {
         <Button
           size="sm"
           variant="outline"
-          className="w-full border-[#e8922e33] text-[#e8922e] hover:bg-[#e8922e1a]"
+          className="w-full border-[#1a7a6d33] text-[#1a7a6d] hover:bg-[#1a7a6d1a]"
           onClick={() => setContributionOpen(true)}
         >
           <Plus className="mr-1 h-3 w-3" />

@@ -78,10 +78,10 @@ export function CreatorDashboard({
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Avg. Monthly</CardTitle>
-            <BarChart3 className="h-4 w-4 text-[#e8922e]" />
+            <BarChart3 className="h-4 w-4 text-[#1a7a6d]" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-[#e8922e] font-display hero-number">
+            <div className="text-2xl font-bold text-[#1a7a6d] font-display hero-number">
               <AnimatedNumber value={averageMonthlyIncome} format="currency" />
             </div>
             <p className="text-xs text-muted-foreground">3-month average</p>
@@ -105,7 +105,7 @@ export function CreatorDashboard({
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Zap className="h-5 w-5 text-[#e8922e]" />
+            <Zap className="h-5 w-5 text-[#1a7a6d]" />
             Income Streams
           </CardTitle>
           <CardDescription>Track revenue from multiple sources</CardDescription>

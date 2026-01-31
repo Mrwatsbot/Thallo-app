@@ -83,7 +83,7 @@ export default function SavingsPage() {
 
           <div className="glass-card rounded-xl p-4">
             <div className="flex items-center gap-2 mb-1">
-              <Hash className="h-4 w-4 text-amber-400" />
+              <Hash className="h-4 w-4 text-teal-400" />
               <p className="text-sm text-muted-foreground">Active Goals</p>
             </div>
             <p className="text-xl font-bold">{goals.length}</p>

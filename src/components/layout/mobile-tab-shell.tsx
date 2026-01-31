@@ -192,8 +192,8 @@ export function MobileTabShell({ tabs, initialTab = 0 }: MobileTabShellProps) {
             style={{
               left: `${indicatorStyle.left}px`,
               width: `${indicatorStyle.width}px`,
-              background: 'linear-gradient(135deg, #e8922e 0%, #d4800f 100%)',
-              boxShadow: '0 0 20px rgba(232, 146, 46, 0.25), inset 0 1px 0 rgba(255,255,255,0.15)',
+              background: 'linear-gradient(135deg, #1a7a6d 0%, #146b5f 100%)',
+              boxShadow: '0 0 20px rgba(26, 122, 109, 0.25), inset 0 1px 0 rgba(255,255,255,0.15)',
             }}
           />
 
@@ -271,7 +271,7 @@ export function MobileTabShell({ tabs, initialTab = 0 }: MobileTabShellProps) {
             className={cn(
               'rounded-full transition-all duration-300',
               index === currentTab
-                ? 'w-7 h-2 bg-[#e8922e] shadow-[0_0_8px_rgba(232,146,46,0.4)]'
+                ? 'w-7 h-2 bg-[#1a7a6d] shadow-[0_0_8px_rgba(26,122,109,0.4)]'
                 : 'w-2 h-2 bg-[#3a3430] hover:bg-[#4a4440]'
             )}
             aria-label={`Go to ${tabs[index].label}`}

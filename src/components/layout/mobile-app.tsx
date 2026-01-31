@@ -212,7 +212,7 @@ function SavingsTab() {
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <Card>
           <CardContent className="p-4 text-center">
-            <Target className="h-4 w-4 mx-auto mb-1 text-[#e8922e]" />
+            <Target className="h-4 w-4 mx-auto mb-1 text-[#1a7a6d]" />
             <p className="text-xs text-muted-foreground">Total Saved</p>
             <p className="text-lg font-bold">
               <AnimatedNumber value={totalSaved} format="integer" prefix="$" />
@@ -230,7 +230,7 @@ function SavingsTab() {
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
-            <Calendar className="h-4 w-4 mx-auto mb-1 text-[#f0a030]" />
+            <Calendar className="h-4 w-4 mx-auto mb-1 text-[#22a090]" />
             <p className="text-xs text-muted-foreground">Target</p>
             <p className="text-lg font-bold">
               <AnimatedNumber value={totalTarget || 0} format="integer" prefix="$" />
@@ -239,7 +239,7 @@ function SavingsTab() {
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
-            <Hash className="h-4 w-4 mx-auto mb-1 text-amber-400" />
+            <Hash className="h-4 w-4 mx-auto mb-1 text-teal-400" />
             <p className="text-xs text-muted-foreground">Goals</p>
             <p className="text-lg font-bold">{goals.length}</p>
           </CardContent>
@@ -326,21 +326,21 @@ function SettingsTab({ userProfile }: { userProfile: Profile }) {
               disabled={updating || currentIncomeType === 'w2'}
               className={cn(
                 'flex items-center gap-4 p-4 rounded-xl border transition-all text-left',
-                'hover:border-[#e8922e80] hover:bg-[#e8922e0d] disabled:opacity-50 disabled:cursor-not-allowed',
+                'hover:border-[#1a7a6d80] hover:bg-[#1a7a6d0d] disabled:opacity-50 disabled:cursor-not-allowed',
                 currentIncomeType === 'w2'
-                  ? 'border-[#e8922e80] bg-[#e8922e1a]'
+                  ? 'border-[#1a7a6d80] bg-[#1a7a6d1a]'
                   : 'border-border bg-secondary/30'
               )}
             >
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#e8922e33] to-[#f0ad3033] border border-[#e8922e4d] flex items-center justify-center">
-                <Briefcase className="h-6 w-6 text-[#f0a030]" />
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#1a7a6d33] to-[#22a09033] border border-[#1a7a6d4d] flex items-center justify-center">
+                <Briefcase className="h-6 w-6 text-[#22a090]" />
               </div>
               <div className="flex-1">
                 <p className="font-medium">W2 / Salary</p>
                 <p className="text-sm text-muted-foreground">Regular paycheck</p>
               </div>
               {currentIncomeType === 'w2' && (
-                <div className="px-3 py-1 rounded-full bg-[#e8922e33] text-[#e8922e] text-xs font-medium">
+                <div className="px-3 py-1 rounded-full bg-[#1a7a6d33] text-[#1a7a6d] text-xs font-medium">
                   Current
                 </div>
               )}
@@ -351,21 +351,21 @@ function SettingsTab({ userProfile }: { userProfile: Profile }) {
               disabled={updating || currentIncomeType === 'creator'}
               className={cn(
                 'flex items-center gap-4 p-4 rounded-xl border transition-all text-left',
-                'hover:border-[#e8922e80] hover:bg-[#e8922e0d] disabled:opacity-50 disabled:cursor-not-allowed',
+                'hover:border-[#1a7a6d80] hover:bg-[#1a7a6d0d] disabled:opacity-50 disabled:cursor-not-allowed',
                 currentIncomeType === 'creator'
-                  ? 'border-[#e8922e80] bg-[#e8922e1a]'
+                  ? 'border-[#1a7a6d80] bg-[#1a7a6d1a]'
                   : 'border-border bg-secondary/30'
               )}
             >
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#e8922e33] to-[#f0ad3033] border border-[#e8922e4d] flex items-center justify-center">
-                <Palette className="h-6 w-6 text-[#f0a030]" />
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#1a7a6d33] to-[#22a09033] border border-[#1a7a6d4d] flex items-center justify-center">
+                <Palette className="h-6 w-6 text-[#22a090]" />
               </div>
               <div className="flex-1">
                 <p className="font-medium">Creator / Freelancer</p>
                 <p className="text-sm text-muted-foreground">Variable income</p>
               </div>
               {currentIncomeType === 'creator' && (
-                <div className="px-3 py-1 rounded-full bg-[#e8922e33] text-[#e8922e] text-xs font-medium">
+                <div className="px-3 py-1 rounded-full bg-[#1a7a6d33] text-[#1a7a6d] text-xs font-medium">
                   Current
                 </div>
               )}
@@ -412,7 +412,7 @@ function SettingsTab({ userProfile }: { userProfile: Profile }) {
 function TabLoading({ label }: { label: string }) {
   return (
     <div className="flex flex-col items-center justify-center py-20">
-      <Loader2 className="h-8 w-8 animate-spin text-[#e8922e] mb-3" />
+      <Loader2 className="h-8 w-8 animate-spin text-[#1a7a6d] mb-3" />
       <p className="text-muted-foreground text-sm">{label}</p>
     </div>
   );

@@ -86,21 +86,21 @@ export default function SettingsPage() {
                 disabled={updating || currentIncomeType === 'w2'}
                 className={cn(
                   'flex items-center gap-4 p-4 rounded-xl border transition-all text-left',
-                  'hover:border-[#e8922e80] hover:bg-[#e8922e0d] disabled:opacity-50 disabled:cursor-not-allowed',
+                  'hover:border-[#1a7a6d80] hover:bg-[#1a7a6d0d] disabled:opacity-50 disabled:cursor-not-allowed',
                   currentIncomeType === 'w2'
-                    ? 'border-[#e8922e80] bg-[#e8922e1a]'
+                    ? 'border-[#1a7a6d80] bg-[#1a7a6d1a]'
                     : 'border-border bg-secondary/30'
                 )}
               >
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#e8922e33] to-[#f0ad3033] border border-[#e8922e4d] flex items-center justify-center">
-                  <Briefcase className="h-6 w-6 text-[#f0a030]" />
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#1a7a6d33] to-[#22a09033] border border-[#1a7a6d4d] flex items-center justify-center">
+                  <Briefcase className="h-6 w-6 text-[#22a090]" />
                 </div>
                 <div className="flex-1">
                   <p className="font-medium">W2 / Salary</p>
                   <p className="text-sm text-muted-foreground">Regular paycheck, predictable income</p>
                 </div>
                 {currentIncomeType === 'w2' && (
-                  <div className="px-3 py-1 rounded-full bg-[#e8922e33] text-[#e8922e] text-xs font-medium">
+                  <div className="px-3 py-1 rounded-full bg-[#1a7a6d33] text-[#1a7a6d] text-xs font-medium">
                     Current
                   </div>
                 )}
@@ -112,21 +112,21 @@ export default function SettingsPage() {
                 disabled={updating || currentIncomeType === 'creator'}
                 className={cn(
                   'flex items-center gap-4 p-4 rounded-xl border transition-all text-left',
-                  'hover:border-[#e8922e80] hover:bg-[#e8922e0d] disabled:opacity-50 disabled:cursor-not-allowed',
+                  'hover:border-[#1a7a6d80] hover:bg-[#1a7a6d0d] disabled:opacity-50 disabled:cursor-not-allowed',
                   currentIncomeType === 'creator'
-                    ? 'border-[#e8922e80] bg-[#e8922e1a]'
+                    ? 'border-[#1a7a6d80] bg-[#1a7a6d1a]'
                     : 'border-border bg-secondary/30'
                 )}
               >
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#e8922e33] to-[#f0ad3033] border border-[#e8922e4d] flex items-center justify-center">
-                  <Palette className="h-6 w-6 text-[#f0a030]" />
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#1a7a6d33] to-[#22a09033] border border-[#1a7a6d4d] flex items-center justify-center">
+                  <Palette className="h-6 w-6 text-[#22a090]" />
                 </div>
                 <div className="flex-1">
                   <p className="font-medium">Creator / Freelancer</p>
                   <p className="text-sm text-muted-foreground">Variable income from multiple sources</p>
                 </div>
                 {currentIncomeType === 'creator' && (
-                  <div className="px-3 py-1 rounded-full bg-[#e8922e33] text-[#e8922e] text-xs font-medium">
+                  <div className="px-3 py-1 rounded-full bg-[#1a7a6d33] text-[#1a7a6d] text-xs font-medium">
                     Current
                   </div>
                 )}
