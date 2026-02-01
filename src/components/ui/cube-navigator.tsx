@@ -255,7 +255,7 @@ export function CubeNavigator({ faces, initialFace = 0, onFaceChange }: CubeNavi
               className="w-full max-w-6xl mx-auto py-6 px-4 md:px-8 will-change-transform"
               style={{ 
                 transformOrigin: 'center top',
-                paddingBottom: 'calc(6rem + env(safe-area-inset-bottom, 0px))',
+                paddingBottom: 'calc(12rem + env(safe-area-inset-bottom, 0px))',
               }}
             >
               {face.content}
