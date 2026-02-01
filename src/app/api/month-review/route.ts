@@ -38,11 +38,11 @@ export async function GET(request: Request) {
   let tier = 'free';
   try {
     const { data: profileData } = await (supabase.from as any)('profiles')
-      .select('tier')
+      .select('subscription_tier')
       .eq('id', user.id)
       .single();
-    tier = profileData?.tier || 'free';
-  } catch { /* tier column may not exist */ }
+    tier = profileData?.subscription_tier || 'free';
+  } catch { /* fallback to free */ }
 
   // If free tier, only return headline data (skip expensive AI call)
   const isFreeUser = tier === 'free' || tier === 'basic';
