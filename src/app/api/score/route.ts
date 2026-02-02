@@ -178,13 +178,34 @@ export async function GET() {
   const monthlyExpenses = totalExpenses3Mo / 3;
 
   // --- Wealth Building Rate ---
-  const totalSavingsContrib = savingsContributions.reduce(
+  // Use monthly_contribution from savings goals (what user says they contribute)
+  // PLUS actual contributions logged in last 3 months as a cross-check
+  const goalContribByType: Record<string, number> = {};
+  savingsGoals.forEach((g: { type: string; monthly_contribution: number }) => {
+    const type = g.type || 'general';
+    goalContribByType[type] = (goalContribByType[type] || 0) + (g.monthly_contribution || 0);
+  });
+
+  // Also factor in actual logged contributions (averaged over 3 months)
+  const totalLoggedContrib = savingsContributions.reduce(
     (sum: number, c: { amount: number }) => sum + (c.amount || 0), 0
   );
+  const monthlyAvgLoggedContrib = totalLoggedContrib / 3;
+
+  // For each category, use the HIGHER of: goal's monthly_contribution or actual logged average
+  // This way, if user set up goals but hasn't logged contributions yet, we still count it
+  const cashSavings = Math.max(
+    (goalContribByType['emergency'] || 0) + (goalContribByType['general'] || 0) + (goalContribByType['custom'] || 0),
+    monthlyAvgLoggedContrib
+  );
+  const retirement401k = goalContribByType['retirement_401k'] || 0;
+  const ira = goalContribByType['ira'] || 0;
+  const investments = goalContribByType['brokerage'] || 0;
+  const hsa = (goalContribByType['hsa'] || 0) + (goalContribByType['education_529'] || 0);
+
   const totalExtraDebtPayments = debtPayments
     .filter((p: { is_extra: boolean }) => p.is_extra)
     .reduce((sum: number, p: { amount: number }) => sum + (p.amount || 0), 0);
-  const monthlyAvgSavingsContrib = totalSavingsContrib / 3;
   const monthlyAvgExtraDebt = totalExtraDebtPayments / 3;
 
   // --- Debt entries for scoring ---
@@ -246,22 +267,22 @@ export async function GET() {
   const avgOverspendPct = overspentCount > 0 ? totalOverspendPct / overspentCount : 0;
 
   // --- Emergency Buffer ---
-  const emergencyGoals = savingsGoals.filter(
-    (g: { type: string }) => g.type === 'emergency'
-  );
-  const liquidSavings = emergencyGoals.reduce(
-    (sum: number, g: { current_amount: number }) => sum + (g.current_amount || 0), 0
-  );
+  // Count liquid savings: emergency funds, general savings, HYSA, custom goals
+  // Exclude retirement/brokerage (not easily accessible in an emergency)
+  const LIQUID_TYPES = new Set(['emergency', 'general', 'custom', 'hsa']);
+  const liquidSavings = savingsGoals
+    .filter((g: { type: string }) => LIQUID_TYPES.has(g.type))
+    .reduce((sum: number, g: { current_amount: number }) => sum + (g.current_amount || 0), 0);
 
   // --- Build Score Input ---
   const scoreInput: ScoreInput = {
     monthlyIncome,
     wealthContributions: {
-      cashSavings: monthlyAvgSavingsContrib,
-      retirement401k: 0,
-      ira: 0,
-      investments: 0,
-      hsa: 0,
+      cashSavings,
+      retirement401k,
+      ira,
+      investments,
+      hsa,
       extraDebtPayments: monthlyAvgExtraDebt,
     },
     liquidSavings,
