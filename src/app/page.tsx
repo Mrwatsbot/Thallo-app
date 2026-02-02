@@ -23,6 +23,18 @@ import {
   Gauge,
   ArrowUpRight,
   Star,
+  Wallet,
+  Receipt,
+  MessageSquare,
+  LayoutDashboard,
+  Utensils,
+  Car,
+  ShoppingBag,
+  Film,
+  Bot,
+  ScanLine,
+  ArrowDown,
+  ArrowUp,
 } from 'lucide-react';
 
 // ============================================================
@@ -285,6 +297,413 @@ function FloatingParticles() {
 }
 
 // ============================================================
+// PRODUCT SHOWCASE — Tabbed app screenshots
+// ============================================================
+const SHOWCASE_TABS = [
+  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { id: 'budgets', label: 'Budgets', icon: Wallet },
+  { id: 'ai', label: 'AI Tools', icon: Brain },
+  { id: 'debts', label: 'Debts', icon: CreditCard },
+  { id: 'score', label: 'Score', icon: Trophy },
+] as const;
+
+type TabId = typeof SHOWCASE_TABS[number]['id'];
+
+function ProductShowcase() {
+  const [activeTab, setActiveTab] = useState<TabId>('dashboard');
+
+  return (
+    <div>
+      {/* Tab bar */}
+      <div className="flex justify-center mb-8">
+        <div className="inline-flex gap-1 p-1 rounded-xl bg-[#0d1514] border border-border">
+          {SHOWCASE_TABS.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                activeTab === tab.id
+                  ? 'bg-[#1a7a6d] text-white shadow-lg shadow-[#1a7a6d]/25'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-[#1a2826]'
+              }`}
+            >
+              <tab.icon className="w-4 h-4" />
+              <span className="hidden sm:inline">{tab.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Device frame */}
+      <div className="relative max-w-4xl mx-auto">
+        {/* Browser chrome */}
+        <div className="rounded-t-2xl bg-[#0a1211] border border-border border-b-0 px-4 py-3 flex items-center gap-3">
+          <div className="flex gap-1.5">
+            <div className="w-3 h-3 rounded-full bg-[#1e3330]" />
+            <div className="w-3 h-3 rounded-full bg-[#1e3330]" />
+            <div className="w-3 h-3 rounded-full bg-[#1e3330]" />
+          </div>
+          <div className="flex-1 flex justify-center">
+            <div className="px-4 py-1 rounded-md bg-[#0d1514] border border-border text-xs text-muted-foreground flex items-center gap-2">
+              <Lock className="w-3 h-3 text-[#1a7a6d]" />
+              app.thallo.finance
+            </div>
+          </div>
+        </div>
+
+        {/* Screen content */}
+        <div className="rounded-b-2xl border border-border border-t-0 bg-[#0d1514] overflow-hidden" style={{ minHeight: '480px' }}>
+          <div className="p-6 md:p-8">
+            {activeTab === 'dashboard' && <MockDashboard />}
+            {activeTab === 'budgets' && <MockBudgets />}
+            {activeTab === 'ai' && <MockAITools />}
+            {activeTab === 'debts' && <MockDebts />}
+            {activeTab === 'score' && <MockScore />}
+          </div>
+        </div>
+
+        {/* Subtle glow under device */}
+        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-16 bg-[#1a7a6d]/8 rounded-full blur-[40px]" />
+      </div>
+    </div>
+  );
+}
+
+// --- Mock screens ---
+
+function MockDashboard() {
+  return (
+    <div className="space-y-5 animate-[fadeSlideIn_400ms_ease-out]">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-xs text-muted-foreground">February 2026</p>
+          <h3 className="text-lg font-display font-bold">Dashboard</h3>
+        </div>
+        <div className="px-3 py-1 rounded-full bg-[#1a7a6d]/10 text-xs text-[#1a7a6d] font-medium">Pro</div>
+      </div>
+
+      {/* Income overview */}
+      <div className="glass-card rounded-xl p-5">
+        <div className="grid grid-cols-3 gap-4">
+          <div>
+            <p className="text-xs text-muted-foreground mb-1">Monthly Income</p>
+            <p className="text-xl font-display font-bold text-[#1a7a6d]">$5,600</p>
+          </div>
+          <div>
+            <p className="text-xs text-muted-foreground mb-1">Spent</p>
+            <p className="text-xl font-display font-bold text-orange-400">$2,847</p>
+          </div>
+          <div>
+            <p className="text-xs text-muted-foreground mb-1">Remaining</p>
+            <p className="text-xl font-display font-bold text-emerald-400">$2,753</p>
+          </div>
+        </div>
+        <div className="mt-4 h-2.5 rounded-full bg-[#1a2826] overflow-hidden">
+          <div className="h-full w-[51%] rounded-full bg-gradient-to-r from-[#1a7a6d] to-[#22a090]" />
+        </div>
+        <p className="text-xs text-muted-foreground mt-2">51% of budget used — 18 days left</p>
+      </div>
+
+      {/* AI Insights */}
+      <div className="glass-card rounded-xl p-5">
+        <div className="flex items-center gap-2 mb-3">
+          <Sparkles className="w-4 h-4 text-[#1a7a6d]" />
+          <span className="text-sm font-medium">AI Insights</span>
+        </div>
+        <div className="space-y-2.5">
+          {[
+            { icon: TrendingUp, color: 'text-orange-400', bg: 'bg-orange-400/10', text: 'Dining spending up 28% vs last month' },
+            { icon: Zap, color: 'text-emerald-400', bg: 'bg-emerald-400/10', text: 'Found 2 subscriptions to review ($34/mo)' },
+            { icon: Target, color: 'text-blue-400', bg: 'bg-blue-400/10', text: "You'll hit your food budget in ~8 days at this pace" },
+          ].map((insight, i) => (
+            <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg bg-[#0d1514] border border-border">
+              <div className={`w-7 h-7 rounded-md ${insight.bg} flex items-center justify-center shrink-0`}>
+                <insight.icon className={`w-3.5 h-3.5 ${insight.color}`} />
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed pt-1">{insight.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Quick actions */}
+      <div className="grid grid-cols-3 gap-3">
+        {[
+          { icon: Receipt, label: 'Scan Receipt' },
+          { icon: ScanLine, label: 'Quick Add' },
+          { icon: MessageSquare, label: 'Ask AI' },
+        ].map((action) => (
+          <div key={action.label} className="glass-card rounded-xl p-3 text-center">
+            <action.icon className="w-5 h-5 mx-auto text-[#1a7a6d] mb-1.5" />
+            <p className="text-xs text-muted-foreground">{action.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MockBudgets() {
+  const budgets = [
+    { name: 'Food & Dining', icon: Utensils, spent: 342, budget: 500, color: '#1a7a6d' },
+    { name: 'Transportation', icon: Car, spent: 156, budget: 200, color: '#3b82f6' },
+    { name: 'Shopping', icon: ShoppingBag, spent: 426, budget: 300, color: '#ef4444' },
+    { name: 'Entertainment', icon: Film, spent: 89, budget: 150, color: '#ec4899' },
+  ];
+
+  return (
+    <div className="space-y-5 animate-[fadeSlideIn_400ms_ease-out]">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-xs text-muted-foreground">February 2026</p>
+          <h3 className="text-lg font-display font-bold">Budgets</h3>
+        </div>
+        <Button size="sm" className="gradient-btn border-0 text-xs h-8">
+          <Brain className="w-3.5 h-3.5 mr-1.5" /> AI Auto-Budget
+        </Button>
+      </div>
+
+      {/* Budget health bar */}
+      <div className="glass-card rounded-xl p-5">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-sm font-medium">Budget Health</span>
+          <span className="text-sm text-muted-foreground">3 of 4 on track</span>
+        </div>
+        <div className="flex gap-1 h-3 rounded-full overflow-hidden">
+          <div className="bg-emerald-500 rounded-l-full" style={{ width: '75%' }} />
+          <div className="bg-red-500 rounded-r-full" style={{ width: '25%' }} />
+        </div>
+      </div>
+
+      {/* Budget grid */}
+      <div className="space-y-3">
+        {budgets.map((b) => {
+          const pct = (b.spent / b.budget) * 100;
+          const over = pct > 100;
+          return (
+            <div key={b.name} className="glass-card rounded-xl p-4">
+              <div className="flex items-center justify-between mb-2.5">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${b.color}20` }}>
+                    <b.icon className="w-4 h-4" style={{ color: b.color }} />
+                  </div>
+                  <span className="text-sm font-medium">{b.name}</span>
+                </div>
+                <div className="text-right">
+                  <span className={`text-sm font-mono font-bold ${over ? 'text-red-400' : ''}`}>${b.spent}</span>
+                  <span className="text-xs text-muted-foreground"> / ${b.budget}</span>
+                </div>
+              </div>
+              <div className="h-2 rounded-full bg-[#1a2826] overflow-hidden">
+                <div
+                  className={`h-full rounded-full ${over ? 'bg-red-500' : ''}`}
+                  style={{
+                    width: `${Math.min(pct, 100)}%`,
+                    backgroundColor: over ? undefined : b.color,
+                  }}
+                />
+              </div>
+              {over && <p className="text-xs text-red-400 mt-1.5">${b.spent - b.budget} over budget</p>}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function MockAITools() {
+  return (
+    <div className="space-y-5 animate-[fadeSlideIn_400ms_ease-out]">
+      <div>
+        <p className="text-xs text-muted-foreground">Powered by AI</p>
+        <h3 className="text-lg font-display font-bold">AI Tools</h3>
+      </div>
+
+      {/* Chat preview */}
+      <div className="glass-card rounded-xl p-5">
+        <div className="flex items-center gap-2 mb-4">
+          <Bot className="w-4 h-4 text-[#1a7a6d]" />
+          <span className="text-sm font-medium">Budget Pro Chat</span>
+        </div>
+        <div className="space-y-3">
+          <div className="flex justify-end">
+            <div className="max-w-[75%] p-3 rounded-xl rounded-br-sm bg-[#1a7a6d] text-sm text-white">
+              Can I afford a $200 guitar this month?
+            </div>
+          </div>
+          <div className="flex justify-start">
+            <div className="max-w-[85%] p-3 rounded-xl rounded-bl-sm bg-[#1a2826] border border-border text-sm text-muted-foreground">
+              Looking at your budget... You have <span className="text-foreground font-medium">$247 remaining</span> in Shopping. A $200 guitar would leave only $47 buffer. I&apos;d suggest waiting 6 days — your Entertainment budget resets and you could split the cost. 💡
+            </div>
+          </div>
+        </div>
+        <div className="mt-3 flex gap-2">
+          <div className="flex-1 h-9 rounded-lg bg-[#0d1514] border border-border flex items-center px-3">
+            <span className="text-xs text-muted-foreground">Ask anything about your money...</span>
+          </div>
+          <div className="w-9 h-9 rounded-lg bg-[#1a7a6d] flex items-center justify-center">
+            <ArrowUp className="w-4 h-4 text-white" />
+          </div>
+        </div>
+      </div>
+
+      {/* AI Action cards */}
+      <div className="grid grid-cols-2 gap-3">
+        {[
+          { icon: ScanLine, title: 'Scan Receipt', desc: 'Camera → transactions', color: '#1a7a6d' },
+          { icon: Brain, title: 'Auto-Budget', desc: 'AI builds your budget', color: '#3b82f6' },
+          { icon: TrendingUp, title: 'Spending Analysis', desc: 'Patterns & anomalies', color: '#22c55e' },
+          { icon: Zap, title: 'Find Savings', desc: 'Cut hidden costs', color: '#f97316' },
+        ].map((tool) => (
+          <div key={tool.title} className="glass-card rounded-xl p-4 hover:border-[#1a7a6d]/30 transition-colors cursor-pointer">
+            <div className="w-9 h-9 rounded-lg flex items-center justify-center mb-2.5" style={{ backgroundColor: `${tool.color}15`, border: `1px solid ${tool.color}30` }}>
+              <tool.icon className="w-4.5 h-4.5" style={{ color: tool.color }} />
+            </div>
+            <p className="text-sm font-medium">{tool.title}</p>
+            <p className="text-xs text-muted-foreground">{tool.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MockDebts() {
+  const debts = [
+    { name: 'Chase Sapphire', type: 'Credit Card', balance: 2847, apr: 24.99, payment: 285, color: '#3b82f6' },
+    { name: 'Student Loan', type: 'Federal', balance: 12450, apr: 5.5, payment: 250, color: '#22c55e' },
+    { name: 'Car Payment', type: 'Auto Loan', balance: 8920, apr: 6.9, payment: 320, color: '#1a7a6d' },
+  ];
+  const total = debts.reduce((s, d) => s + d.balance, 0);
+
+  return (
+    <div className="space-y-5 animate-[fadeSlideIn_400ms_ease-out]">
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-xs text-muted-foreground">Payoff Tracker</p>
+          <h3 className="text-lg font-display font-bold">Debts</h3>
+        </div>
+        <div className="flex gap-2">
+          <div className="px-3 py-1.5 rounded-lg bg-[#1a7a6d] text-xs text-white font-medium">Avalanche</div>
+          <div className="px-3 py-1.5 rounded-lg bg-[#1a2826] border border-border text-xs text-muted-foreground">Snowball</div>
+        </div>
+      </div>
+
+      {/* Total */}
+      <div className="glass-card rounded-xl p-5">
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <p className="text-xs text-muted-foreground">Total Debt</p>
+            <p className="text-2xl font-display font-bold text-red-400">${total.toLocaleString()}</p>
+          </div>
+          <div className="text-right">
+            <p className="text-xs text-muted-foreground">Debt-free in</p>
+            <p className="text-lg font-display font-bold text-emerald-400">~18 months</p>
+          </div>
+        </div>
+        <div className="h-2.5 rounded-full bg-[#1a2826] overflow-hidden">
+          <div className="h-full w-[32%] rounded-full bg-gradient-to-r from-emerald-500 to-[#1a7a6d]" />
+        </div>
+        <p className="text-xs text-muted-foreground mt-2">32% paid off — $11,783 eliminated so far</p>
+      </div>
+
+      {/* Debt list */}
+      <div className="space-y-3">
+        {debts.map((d) => (
+          <div key={d.name} className="glass-card rounded-xl p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${d.color}20` }}>
+                  <CreditCard className="w-4 h-4" style={{ color: d.color }} />
+                </div>
+                <div>
+                  <p className="text-sm font-medium">{d.name}</p>
+                  <p className="text-xs text-muted-foreground">{d.type} · {d.apr}% APR</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-mono font-bold">${d.balance.toLocaleString()}</p>
+                <p className="text-xs text-muted-foreground">${d.payment}/mo</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MockScore() {
+  return (
+    <div className="space-y-5 animate-[fadeSlideIn_400ms_ease-out]">
+      <div className="text-center">
+        <p className="text-xs text-muted-foreground">Financial Health</p>
+        <h3 className="text-lg font-display font-bold">Your Score</h3>
+      </div>
+
+      {/* Mini score ring */}
+      <div className="flex justify-center">
+        <div className="relative w-40 h-40">
+          <svg viewBox="0 0 160 160" className="w-full h-full -rotate-90">
+            <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(26,122,109,0.1)" strokeWidth="6" />
+            <circle cx="80" cy="80" r="70" fill="none" stroke="#22c55e" strokeWidth="6" strokeLinecap="round"
+              strokeDasharray={`${2 * Math.PI * 70}`}
+              strokeDashoffset={`${2 * Math.PI * 70 * (1 - 742/1000)}`}
+              style={{ filter: 'drop-shadow(0 0 6px rgba(34,197,94,0.4))' }}
+            />
+          </svg>
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="text-3xl font-display font-bold text-emerald-400">742</span>
+            <span className="text-xs text-muted-foreground">Wealth Builder</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Pillars */}
+      <div className="grid grid-cols-3 gap-3">
+        {[
+          { name: 'Trajectory', score: 320, max: 400, color: '#3b82f6' },
+          { name: 'Behavior', score: 280, max: 350, color: '#22c55e' },
+          { name: 'Position', score: 142, max: 250, color: '#eab308' },
+        ].map((p) => (
+          <div key={p.name} className="glass-card rounded-xl p-3 text-center">
+            <p className="text-xs text-muted-foreground mb-1">{p.name}</p>
+            <p className="text-lg font-display font-bold" style={{ color: p.color }}>{p.score}</p>
+            <p className="text-xs text-muted-foreground">/ {p.max}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Factor bars */}
+      <div className="glass-card rounded-xl p-5 space-y-3">
+        {[
+          { name: 'Wealth Building', score: 63, max: 200 },
+          { name: 'Debt Velocity', score: 165, max: 200 },
+          { name: 'Payment Consistency', score: 185, max: 200 },
+          { name: 'Budget Discipline', score: 120, max: 150 },
+          { name: 'Emergency Buffer', score: 93, max: 125 },
+          { name: 'Debt-to-Income', score: 106, max: 125 },
+        ].map((f) => (
+          <div key={f.name}>
+            <div className="flex items-center justify-between text-xs mb-1">
+              <span className="text-muted-foreground">{f.name}</span>
+              <span className="font-mono">{f.score}/{f.max}</span>
+            </div>
+            <div className="h-1.5 rounded-full bg-[#1a2826] overflow-hidden">
+              <div
+                className="h-full rounded-full bg-[#1a7a6d]"
+                style={{ width: `${(f.score / f.max) * 100}%` }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
 // MAIN PAGE
 // ============================================================
 export default function Home() {
@@ -468,6 +887,27 @@ export default function Home() {
             </FadeIn>
           </div>
         </div>
+      </section>
+
+      {/* ============================================================
+          PRODUCT SHOWCASE — See what's inside
+          ============================================================ */}
+      <section className="relative z-10 max-w-6xl mx-auto px-6 py-24">
+        <FadeIn>
+          <div className="text-center mb-12">
+            <p className="text-sm font-medium text-[#1a7a6d] mb-3 tracking-wide uppercase">See What&apos;s Inside</p>
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+              A complete financial toolkit
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              AI-powered budgeting, smart debt payoff, savings tracking, and a financial health score that actually means something — all in one app.
+            </p>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={150}>
+          <ProductShowcase />
+        </FadeIn>
       </section>
 
       {/* ============================================================
