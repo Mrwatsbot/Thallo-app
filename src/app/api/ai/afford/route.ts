@@ -193,9 +193,6 @@ ${accountStr}`;
         result: null,
         raw: response.content,
         error: 'Failed to parse AI response as JSON',
-        model: response.model,
-        usage: response.usage,
-        estimatedCost: response.estimatedCost,
         generated_at: new Date().toISOString(),
       });
     }
@@ -214,9 +211,6 @@ ${accountStr}`;
 
     return NextResponse.json({
       result,
-      model: response.model,
-      usage: response.usage,
-      estimatedCost: response.estimatedCost,
       generated_at: new Date().toISOString(),
     });
   } catch (error) {

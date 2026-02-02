@@ -44,9 +44,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         error: 'Could not parse document',
         raw: result.content,
-        model: result.model,
-        usage: result.usage,
-        estimatedCost: result.estimatedCost,
       }, { status: 422 });
     }
 
@@ -62,9 +59,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       data: Array.isArray(extracted) ? extracted : [extracted],
-      model: result.model,
-      usage: result.usage,
-      estimatedCost: result.estimatedCost,
     });
 
   } catch (error) {

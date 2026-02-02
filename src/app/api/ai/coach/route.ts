@@ -99,9 +99,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       result: response.content,
       type,
-      model: response.model,
-      usage: response.usage,
-      estimatedCost: response.estimatedCost,
       generated_at: new Date().toISOString(),
     });
   } catch (error) {

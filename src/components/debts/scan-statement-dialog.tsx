@@ -37,7 +37,6 @@ export function ScanStatementDialog() {
   const [error, setError] = useState('');
   const [scannedDebts, setScannedDebts] = useState<ScannedDebt[]>([]);
   const [preview, setPreview] = useState<string | null>(null);
-  const [scanResult, setScanResult] = useState<{ model?: string; estimatedCost?: number } | null>(null);
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -83,7 +82,6 @@ export function ScanStatementDialog() {
       }
 
       setScannedDebts(result.data);
-      setScanResult({ model: result.model, estimatedCost: result.estimatedCost });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Scan failed');
     } finally {
@@ -121,7 +119,6 @@ export function ScanStatementDialog() {
       setOpen(false);
       setScannedDebts([]);
       setPreview(null);
-      setScanResult(null);
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to save');
@@ -134,7 +131,6 @@ export function ScanStatementDialog() {
     setScannedDebts([]);
     setPreview(null);
     setError('');
-    setScanResult(null);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
@@ -254,12 +250,6 @@ export function ScanStatementDialog() {
                 </div>
               </div>
             ))}
-
-            {scanResult && (
-              <p className="text-xs text-muted-foreground">
-                Scanned with {scanResult.model} · Cost: ~${scanResult.estimatedCost?.toFixed(4) || '?'}
-              </p>
-            )}
 
             <div className="flex gap-2 pt-2">
               <Button variant="outline" onClick={reset} className="flex-1">

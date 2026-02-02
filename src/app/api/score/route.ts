@@ -78,8 +78,8 @@ export async function GET() {
   // Parallel fetch all data needed for scoring
   const [
     profileRes,
-    debtsRes,
     accountsRes,
+    debtsRes,
     savingsGoalsRes,
     savingsContribRes,
     debtPaymentsRes,

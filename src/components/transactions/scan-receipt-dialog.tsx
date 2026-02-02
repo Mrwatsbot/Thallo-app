@@ -73,7 +73,6 @@ export function ScanReceiptDialog({ categories, accounts, userId, onRefresh }: S
   const [error, setError] = useState('');
   const [receiptData, setReceiptData] = useState<ReceiptData | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  const [scanResult, setScanResult] = useState<{ model?: string; estimatedCost?: number } | null>(null);
 
   const { tier } = useAILimits();
   const isFree = tier === 'free' || tier === 'basic';
@@ -120,7 +119,6 @@ export function ScanReceiptDialog({ categories, accounts, userId, onRefresh }: S
       }
 
       setReceiptData(result.data);
-      setScanResult({ model: result.model, estimatedCost: result.estimatedCost });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Scan failed');
     } finally {
@@ -228,7 +226,6 @@ export function ScanReceiptDialog({ categories, accounts, userId, onRefresh }: S
     setReceiptData(null);
     setPreview(null);
     setError('');
-    setScanResult(null);
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
@@ -383,12 +380,6 @@ export function ScanReceiptDialog({ categories, accounts, userId, onRefresh }: S
                       ))}
                     </div>
                   </div>
-                )}
-
-                {scanResult && (
-                  <p className="text-xs text-muted-foreground">
-                    Scanned with {scanResult.model} · Cost: ~${scanResult.estimatedCost?.toFixed(4) || '?'}
-                  </p>
                 )}
 
                 {/* Action buttons */}

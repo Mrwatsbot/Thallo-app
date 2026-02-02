@@ -199,9 +199,6 @@ ${savings.length > 0 ? `SAVINGS GOALS: The user has ${savings.length} savings go
         result: null,
         raw: response.content,
         error: 'Failed to parse AI response as JSON',
-        model: response.model,
-        usage: response.usage,
-        estimatedCost: response.estimatedCost,
         generated_at: new Date().toISOString(),
       });
     }
@@ -220,9 +217,6 @@ ${savings.length > 0 ? `SAVINGS GOALS: The user has ${savings.length} savings go
 
     return NextResponse.json({
       result,
-      model: response.model,
-      usage: response.usage,
-      estimatedCost: response.estimatedCost,
       generated_at: new Date().toISOString(),
     });
   } catch (error) {

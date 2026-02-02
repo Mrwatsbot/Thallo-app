@@ -60,9 +60,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       result: response.content,
-      model: response.model,
-      usage: response.usage,
-      estimatedCost: response.estimatedCost,
     });
   } catch (error) {
     console.error('AI API error:', error);
