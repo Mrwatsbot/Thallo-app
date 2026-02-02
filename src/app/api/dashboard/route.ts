@@ -115,12 +115,12 @@ export async function GET(request: Request) {
 
   // Score data — derive level title from score
   function getLevelTitle(score: number): string {
-    if (score >= 900) return 'Elite';
-    if (score >= 750) return 'Strong';
-    if (score >= 600) return 'Good';
-    if (score >= 400) return 'Building';
-    if (score >= 200) return 'Starting';
-    return 'Beginning';
+    if (score >= 900) return 'Financial Freedom';
+    if (score >= 750) return 'Wealth Builder';
+    if (score >= 600) return 'Solid Ground';
+    if (score >= 400) return 'Foundation';
+    if (score >= 200) return 'Getting Started';
+    return 'Starting Point';
   }
 
   const scoreData = scoreRes.data ? {

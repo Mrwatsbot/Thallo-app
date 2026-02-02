@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, type ReactNode } from 'react';
-import { useDashboard } from '@/lib/hooks/use-data';
+import { useDashboard, useScore } from '@/lib/hooks/use-data';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Plus, Building2 } from 'lucide-react';
@@ -19,6 +19,7 @@ import { getBudgetHealthColor } from '@/lib/budget-health';
 
 export function DashboardContent() {
   const { data, isLoading, refresh } = useDashboard();
+  const { score: liveScore, isLoading: scoreLoading } = useScore();
   const [editingIncome, setEditingIncome] = useState(false);
   const [incomeValue, setIncomeValue] = useState('');
   const [savingIncome, setSavingIncome] = useState(false);
@@ -98,12 +99,12 @@ export function DashboardContent() {
       />
     ) : null,
 
-    'score-widget': scoreData ? (
+    'score-widget': (liveScore || scoreData) ? (
       <ScoreWidget
-        score={scoreData.score}
-        level={scoreData.level}
-        levelTitle={scoreData.levelTitle}
-        previousScore={scoreData.previousScore}
+        score={liveScore?.total ?? scoreData?.score ?? 0}
+        level={liveScore?.level ?? scoreData?.level ?? 0}
+        levelTitle={liveScore?.levelTitle ?? scoreData?.levelTitle ?? ''}
+        previousScore={liveScore?.previousScore ?? scoreData?.previousScore ?? null}
         recentAchievements={recentAchievements}
       />
     ) : null,

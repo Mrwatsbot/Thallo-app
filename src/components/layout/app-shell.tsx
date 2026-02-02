@@ -1,7 +1,7 @@
 'use client';
 
 import { ThalloLogo } from '@/components/ui/thallo-logo';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { 
@@ -31,6 +31,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { createClient } from '@/lib/supabase/client';
+import { prefetchAllData } from '@/lib/hooks/use-data';
 import { MobileAppView } from '@/components/layout/mobile-app-view';
 // Ambient background is now pure CSS on body (globals.css) — no component needed
 
@@ -86,6 +87,15 @@ export function AppShell({ children, user, isDemo = false }: AppShellProps) {
   const router = useRouter();
   const isMobile = useIsMobile();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const prefetched = useRef(false);
+
+  // Prefetch all page data on first mount so navigation is instant
+  useEffect(() => {
+    if (!isDemo && !prefetched.current) {
+      prefetched.current = true;
+      prefetchAllData();
+    }
+  }, [isDemo]);
   
   const navigation = getNavigation(isDemo);
   const homeLink = isDemo ? '/demo' : '/dashboard';

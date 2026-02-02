@@ -486,7 +486,7 @@ function MockBudgets() {
                   <span className="text-sm font-medium">{b.name}</span>
                 </div>
                 <div className="text-right">
-                  <span className={`text-sm font-mono font-bold ${over ? 'text-red-400' : ''}`}>${b.spent}</span>
+                  <span className={`text-sm font-display font-bold ${over ? 'text-red-400' : ''}`}>${b.spent}</span>
                   <span className="text-xs text-muted-foreground"> / ${b.budget}</span>
                 </div>
               </div>
@@ -616,7 +616,7 @@ function MockDebts() {
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-sm font-mono font-bold">${d.balance.toLocaleString()}</p>
+                <p className="text-sm font-display font-bold">${d.balance.toLocaleString()}</p>
                 <p className="text-xs text-muted-foreground">${d.payment}/mo</p>
               </div>
             </div>
@@ -734,7 +734,7 @@ export default function Home() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/thallo-logo-white.png" alt="Thallo" className="w-full h-full object-contain" />
           </div>
-          <span className="text-xl font-bold">Thallo</span>
+          <span className="text-xl font-display font-bold">Thallo</span>
         </Link>
         <div className="flex items-center gap-4">
           <Link href="/demo" className="hidden sm:block">
@@ -1335,7 +1335,7 @@ export default function Home() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/thallo-logo-white.png" alt="Thallo" className="w-full h-full object-contain" />
                 </div>
-                <span className="font-semibold">Thallo</span>
+                <span className="font-display font-semibold">Thallo</span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Financial health, measured right.

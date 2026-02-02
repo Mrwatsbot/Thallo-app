@@ -117,6 +117,36 @@ export function useSavings() {
 }
 
 // ============================================================
+// PREFETCH — warm SWR cache for all main pages on initial load
+// ============================================================
+
+/**
+ * Prefetch all core API routes into the SWR cache.
+ * Call once when the app shell mounts so navigating between
+ * pages hits warm cache instead of showing skeletons.
+ */
+export function prefetchAllData() {
+  const monthStr = getLocalMonthStr();
+
+  // These fire in parallel. SWR's mutate() with a fetcher
+  // populates the cache without needing a mounted hook.
+  const endpoints = [
+    `/api/dashboard?month=${monthStr}`,
+    '/api/transactions',
+    `/api/budgets?month=${monthStr}`,
+    '/api/debts',
+    '/api/score',
+    '/api/savings',
+    '/api/settings',
+  ];
+
+  endpoints.forEach((url) => {
+    // Only prefetch if not already in cache
+    mutate(url, fetcher(url), { revalidate: false });
+  });
+}
+
+// ============================================================
 // GLOBAL REVALIDATION
 // ============================================================
 
