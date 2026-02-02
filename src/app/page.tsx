@@ -372,7 +372,7 @@ export default function Home() {
 
             <FadeIn delay={200}>
               <p className="text-lg text-muted-foreground mb-8 max-w-lg leading-relaxed">
-                FICO measures how profitable you are to banks. Thallo measures your <em>real</em> financial health — and gives you AI-powered tools to improve it.
+                FICO predicts your value as a borrower to lenders. Thallo measures your <em>real</em> financial health — and gives you AI-powered tools to improve it.
               </p>
             </FadeIn>
 
@@ -481,8 +481,8 @@ export default function Home() {
               Your credit score doesn&apos;t work for <em>you</em>.
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              FICO was designed to measure risk for <strong>lenders</strong>. It rewards having more credit lines, 
-              penalizes you for paying off debt, and ignores savings entirely.
+              FICO was designed to predict default risk for <strong>lenders</strong>. It ignores your savings, 
+              penalizes you for closing paid-off accounts, and has zero visibility into your actual financial habits.
             </p>
           </div>
         </FadeIn>
@@ -503,12 +503,12 @@ export default function Home() {
               </div>
               <ul className="space-y-3 text-sm">
                 {[
-                  'Rewards having MORE debt (credit utilization)',
-                  'Ignores savings & investments completely',
-                  'Penalizes closing paid-off accounts',
-                  'Doesn\'t track budgeting or spending habits',
-                  'Opaque — you can\'t see the formula',
-                  'Measures bank profitability, not your health',
+                  'Requires you to carry available debt to optimize your score',
+                  'Ignores savings, investments & net worth completely',
+                  'Can drop when you close paid-off accounts',
+                  'Has zero visibility into spending habits or budgeting',
+                  'Exact formula is proprietary — you only see broad categories',
+                  'Predicts lender profitability, not your financial wellbeing',
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-2 text-muted-foreground">
                     <span className="text-red-400 mt-0.5">✕</span>
@@ -534,12 +534,12 @@ export default function Home() {
               </div>
               <ul className="space-y-3 text-sm">
                 {[
-                  'Rewards paying OFF debt — not having more',
-                  'Tracks savings, investments & wealth building',
-                  'Celebrates becoming debt-free',
-                  'Measures budgeting discipline & consistency',
-                  'Fully transparent — see every factor',
-                  'Measures YOUR actual financial health',
+                  'Rewards paying OFF debt — your score rises as balances fall',
+                  'Tracks savings, investments & wealth building rate',
+                  'Scores improve when you become debt-free',
+                  'Measures budgeting discipline & payment consistency',
+                  'Fully transparent — see every factor and its exact weight',
+                  'Measures YOUR financial health, not your value to lenders',
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-[#1a7a6d] mt-0.5 shrink-0" />
@@ -719,8 +719,8 @@ export default function Home() {
                   Not all debt is created equal.
                 </h2>
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  A mortgage and a payday loan are nothing alike — but credit scores treat them similarly. 
-                  Thallo weights each debt type by real financial risk: interest rate, asset backing, and delinquency data.
+                  A mortgage and a payday loan carry vastly different financial risk — yet most budgeting tools treat a dollar of debt as a dollar of debt.
+                  Thallo weights each type by real risk factors: interest rate, asset backing, and delinquency data.
                 </p>
                 <div className="space-y-3 text-sm">
                   <div className="flex items-center justify-between py-2 border-b border-border">
