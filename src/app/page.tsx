@@ -372,7 +372,7 @@ export default function Home() {
 
             <FadeIn delay={200}>
               <p className="text-lg text-muted-foreground mb-8 max-w-lg leading-relaxed">
-                FICO predicts your value as a borrower to lenders. Thallo measures your <em>real</em> financial health — and gives you AI-powered tools to improve it.
+                FICO predicts your default risk for lenders. Thallo measures your <em>real</em> financial health — and gives you AI-powered tools to improve it.
               </p>
             </FadeIn>
 
@@ -394,13 +394,13 @@ export default function Home() {
             <FadeIn delay={400}>
               <div className="flex items-center gap-6 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#1a7a6d]" /> Free forever tier
+                  <CheckCircle2 className="w-4 h-4 text-[#1a7a6d]" /> Free tier available
                 </span>
                 <span className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-[#1a7a6d]" /> No credit card
                 </span>
                 <span className="flex items-center gap-1.5 hidden sm:flex">
-                  <CheckCircle2 className="w-4 h-4 text-[#1a7a6d]" /> 2 min setup
+                  <CheckCircle2 className="w-4 h-4 text-[#1a7a6d]" /> Quick setup
                 </span>
               </div>
             </FadeIn>
@@ -503,12 +503,12 @@ export default function Home() {
               </div>
               <ul className="space-y-3 text-sm">
                 {[
-                  'Requires you to carry available debt to optimize your score',
+                  'Optimized by keeping credit cards open with low usage — not by building wealth',
                   'Ignores savings, investments & net worth completely',
-                  'Can drop when you close paid-off accounts',
-                  'Has zero visibility into spending habits or budgeting',
-                  'Exact formula is proprietary — you only see broad categories',
-                  'Predicts lender profitability, not your financial wellbeing',
+                  'Can drop when you close paid-off credit accounts',
+                  'Can\'t see your budget, spending habits, or savings rate',
+                  'Exact formula is proprietary — weights vary per person and aren\'t disclosed',
+                  'Predicts your default risk for lenders, not your financial wellbeing',
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-2 text-muted-foreground">
                     <span className="text-red-400 mt-0.5">✕</span>
@@ -749,19 +749,19 @@ export default function Home() {
 
             <FadeIn delay={200}>
               <div className="glass-card rounded-2xl p-8 text-center">
-                <p className="text-sm text-muted-foreground mb-4">Research-backed multipliers from</p>
+                <p className="text-sm text-muted-foreground mb-4">Multipliers informed by public data from</p>
                 <div className="grid grid-cols-3 gap-4 text-xs text-muted-foreground">
                   <div className="p-3 rounded-lg bg-[#1a2826]">
                     <p className="font-medium text-foreground mb-1">NY Fed</p>
-                    <p>Delinquency rates</p>
+                    <p>Delinquency rates by loan type</p>
                   </div>
                   <div className="p-3 rounded-lg bg-[#1a2826]">
                     <p className="font-medium text-foreground mb-1">CFPB</p>
-                    <p>Consumer risk data</p>
+                    <p>Consumer debt risk research</p>
                   </div>
                   <div className="p-3 rounded-lg bg-[#1a2826]">
                     <p className="font-medium text-foreground mb-1">Fannie Mae</p>
-                    <p>Asset guidelines</p>
+                    <p>Collateral &amp; underwriting guidelines</p>
                   </div>
                 </div>
                 <div className="mt-8 p-4 rounded-xl bg-[#1a7a6d]/10 border border-[#1a7a6d]/20">
@@ -799,10 +799,10 @@ export default function Home() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { icon: Lock, label: 'Bank-level encryption', detail: 'AES-256 at rest' },
+                  { icon: Lock, label: 'AES-256 encryption', detail: 'At rest and in transit' },
                   { icon: Shield, label: 'Row-level security', detail: 'Data isolation per user' },
                   { icon: Eye, label: 'No data selling', detail: 'Ever. Period.' },
-                  { icon: Star, label: 'SOC 2 infrastructure', detail: 'Via Supabase + Vercel' },
+                  { icon: Star, label: 'SOC 2 certified hosts', detail: 'Supabase + Vercel' },
                 ].map((item) => (
                   <div key={item.label} className="p-4 rounded-xl bg-[#0d1514] border border-border">
                     <item.icon className="w-5 h-5 text-[#1a7a6d] mb-2" />
@@ -842,7 +842,7 @@ export default function Home() {
             />
             <FAQ
               question="What AI model powers the features?"
-              answer="We use state-of-the-art language models via OpenRouter, with your data anonymized before it reaches any AI. Your personal identifiers are stripped out — the AI sees spending patterns, not your name or account numbers."
+              answer="We use language models via OpenRouter. Before any data is sent, personal identifiers like names and account numbers are stripped out — the AI only sees anonymized spending categories and amounts, never who you are."
             />
             <FAQ
               question="Can I export my data?"
@@ -883,7 +883,7 @@ export default function Home() {
                 </Link>
               </div>
               <p className="text-sm text-muted-foreground mt-6">
-                Free forever. No credit card required. Set up in 2 minutes.
+                Free to start. No credit card required.
               </p>
             </div>
           </div>
