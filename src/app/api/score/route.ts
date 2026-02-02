@@ -158,7 +158,10 @@ export async function GET() {
   const achievementDefs = achievementDefsRes.data || [];
 
   // --- Calculate Monthly Income ---
-  // Use this month's income transactions, fallback to 3-month average
+  // Priority: this month's income txns → 3-month avg txns → profile's monthly_income
+  const profile = profileRes.data;
+  const profileIncome = profile?.monthly_income || 0;
+
   const thisMonthTransactions = allTransactions.filter(
     (t: { date: string }) => t.date >= monthStr
   );
@@ -169,13 +172,25 @@ export async function GET() {
   const totalIncome3Mo = allTransactions
     .filter((t: { amount: number }) => t.amount > 0)
     .reduce((sum: number, t: { amount: number }) => sum + t.amount, 0);
-  const monthlyIncome = incomeThisMonth > 0 ? incomeThisMonth : totalIncome3Mo / 3;
+  const avgIncome3Mo = totalIncome3Mo / 3;
+
+  // Use transaction-based income if available, otherwise fall back to profile
+  const monthlyIncome = incomeThisMonth > 0
+    ? incomeThisMonth
+    : avgIncome3Mo > 0
+      ? avgIncome3Mo
+      : profileIncome;
 
   // --- Calculate Monthly Expenses ---
   const totalExpenses3Mo = allTransactions
     .filter((t: { amount: number }) => t.amount < 0)
     .reduce((sum: number, t: { amount: number }) => sum + Math.abs(t.amount), 0);
-  const monthlyExpenses = totalExpenses3Mo / 3;
+  // If few transactions, estimate from debts + a reasonable baseline
+  const txnBasedExpenses = totalExpenses3Mo / 3;
+  const totalDebtPmts = debts.reduce((sum: number, d: { monthly_payment: number }) => sum + (d.monthly_payment || 0), 0);
+  const monthlyExpenses = txnBasedExpenses > totalDebtPmts
+    ? txnBasedExpenses
+    : Math.max(totalDebtPmts, monthlyIncome * 0.6); // At least debt payments or 60% of income
 
   // --- Wealth Building Rate ---
   // Use monthly_contribution from savings goals (what user says they contribute)
