@@ -274,7 +274,7 @@ export function BudgetGrid({ categoryBudgets, userId, currentMonth, onRefresh, s
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2.5">
-            <span className="text-lg">{group.icon}</span>
+            <group.icon className="w-5 h-5" style={{ color: group.color }} />
             <div>
               <h3 className="text-sm font-bold uppercase tracking-wider" style={{ color: group.color }}>{group.label}</h3>
               <p className="text-xs text-muted-foreground">{group.sublabel}</p>

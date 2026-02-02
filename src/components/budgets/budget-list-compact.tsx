@@ -530,7 +530,7 @@ export function BudgetListCompact({ categoryBudgets, userId, currentMonth, onRef
         {/* Group header */}
         <div className="flex items-center justify-between px-1 pb-1.5 mb-0.5">
           <div className="flex items-center gap-2">
-            <span className="text-base">{group.icon}</span>
+            <group.icon className="w-4 h-4" style={{ color: group.color }} />
             <div>
               <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: group.color }}>
                 {group.label}

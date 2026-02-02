@@ -3,6 +3,8 @@
  * Used by the budget list, budget grid, and month-end review for consistent grouping.
  */
 
+import { ShieldCheck, Sparkles, PiggyBank, type LucideIcon } from 'lucide-react';
+
 export type BudgetGroupKey = 'needs' | 'wants' | 'savings';
 
 export interface BudgetGroup {
@@ -17,8 +19,8 @@ export interface BudgetGroup {
   bgColor: string;
   /** Border color */
   borderColor: string;
-  /** Icon/emoji */
-  icon: string;
+  /** Lucide icon component */
+  icon: LucideIcon;
 }
 
 export const BUDGET_GROUPS: Record<BudgetGroupKey, BudgetGroup> = {
@@ -30,7 +32,7 @@ export const BUDGET_GROUPS: Record<BudgetGroupKey, BudgetGroup> = {
     color: '#4a90d9',
     bgColor: 'rgba(74, 144, 217, 0.06)',
     borderColor: 'rgba(74, 144, 217, 0.20)',
-    icon: '🏠',
+    icon: ShieldCheck,
   },
   wants: {
     key: 'wants',
@@ -40,7 +42,7 @@ export const BUDGET_GROUPS: Record<BudgetGroupKey, BudgetGroup> = {
     color: '#2aaa9a',
     bgColor: 'rgba(42, 170, 154, 0.06)',
     borderColor: 'rgba(42, 170, 154, 0.20)',
-    icon: '✨',
+    icon: Sparkles,
   },
   savings: {
     key: 'savings',
@@ -50,7 +52,7 @@ export const BUDGET_GROUPS: Record<BudgetGroupKey, BudgetGroup> = {
     color: '#6db555',
     bgColor: 'rgba(109, 181, 85, 0.06)',
     borderColor: 'rgba(109, 181, 85, 0.20)',
-    icon: '💰',
+    icon: PiggyBank,
   },
 };
 
