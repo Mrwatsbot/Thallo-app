@@ -16,28 +16,14 @@ interface ScoreWidgetProps {
   }>;
 }
 
-function getScoreColor(score: number): string {
-  if (score >= 900) return 'text-emerald-500';
-  if (score >= 750) return 'text-blue-500';
-  if (score >= 600) return 'text-yellow-500';
-  if (score >= 400) return 'text-teal-600';
-  return 'text-red-500';
-}
-
-function getStrokeColor(score: number): string {
-  if (score >= 900) return '#10b981';
-  if (score >= 750) return '#3b82f6';
-  if (score >= 600) return '#eab308';
-  if (score >= 400) return '#1a7a6d';
-  return '#ef4444';
-}
-
-function getBadgeBg(score: number): string {
-  if (score >= 900) return 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
-  if (score >= 750) return 'bg-blue-500/20 text-blue-400 border-[#5b8fd9]4d';
-  if (score >= 600) return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
-  if (score >= 400) return 'bg-teal-600/20 text-teal-400 border-teal-600/30';
-  return 'bg-red-500/20 text-red-400 border-red-500/30';
+/** Score tiers — consistent with ScoreGauge */
+function getScoreTier(score: number) {
+  if (score >= 900) return { text: 'text-emerald-400', stroke: '#34d399', glow: '#34d39960', bg: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' };
+  if (score >= 750) return { text: 'text-blue-400', stroke: '#60a5fa', glow: '#60a5fa50', bg: 'bg-blue-500/15 text-blue-400 border-blue-500/30' };
+  if (score >= 600) return { text: 'text-sky-400', stroke: '#38bdf8', glow: '#38bdf840', bg: 'bg-sky-500/15 text-sky-400 border-sky-500/30' };
+  if (score >= 400) return { text: 'text-amber-400', stroke: '#fbbf24', glow: '#fbbf2440', bg: 'bg-amber-500/15 text-amber-400 border-amber-500/30' };
+  if (score >= 200) return { text: 'text-orange-400', stroke: '#fb923c', glow: '#fb923c40', bg: 'bg-orange-500/15 text-orange-400 border-orange-500/30' };
+  return { text: 'text-red-400', stroke: '#f87171', glow: '#f8717140', bg: 'bg-red-500/15 text-red-400 border-red-500/30' };
 }
 
 export function ScoreWidget({ score, levelTitle, level, previousScore, recentAchievements }: ScoreWidgetProps) {
@@ -45,7 +31,7 @@ export function ScoreWidget({ score, levelTitle, level, previousScore, recentAch
   const radius = 44;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
-  const strokeColor = getStrokeColor(score);
+  const tier = getScoreTier(score);
   const change = previousScore !== null ? score - previousScore : 0;
 
   return (
@@ -62,14 +48,24 @@ export function ScoreWidget({ score, levelTitle, level, previousScore, recentAch
         {/* Compact gauge */}
         <div className="relative w-24 h-24 shrink-0">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
+            <defs>
+              <filter id="widgetGlow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="2" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
             <circle
               cx="50" cy="50" r={radius}
-              stroke="#2e2926" strokeWidth="6" fill="none"
+              stroke="#1f1d1b" strokeWidth="6" fill="none" opacity="0.8"
             />
             <circle
               cx="50" cy="50" r={radius}
-              stroke={strokeColor} strokeWidth="6" fill="none"
+              stroke={tier.stroke} strokeWidth="6" fill="none"
               strokeLinecap="round"
+              filter="url(#widgetGlow)"
               style={{
                 strokeDasharray: circumference,
                 strokeDashoffset,
@@ -78,7 +74,7 @@ export function ScoreWidget({ score, levelTitle, level, previousScore, recentAch
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className={cn('text-2xl font-bold tabular-nums', getScoreColor(score))}>
+            <span className={cn('text-2xl font-bold tabular-nums', tier.text)}>
               <AnimatedNumber value={score} format="integer" />
             </span>
           </div>
@@ -88,7 +84,7 @@ export function ScoreWidget({ score, levelTitle, level, previousScore, recentAch
         <div className="flex-1 min-w-0">
           <div className={cn(
             'inline-flex px-2.5 py-1 rounded-full border text-xs font-medium mb-2',
-            getBadgeBg(score)
+            tier.bg
           )}>
             Level {level} · {levelTitle}
           </div>
