@@ -89,7 +89,7 @@ export function RevenueSummaryCards() {
 
           <div className="space-y-1">
             <p className="text-xs text-white/60">{card.label}</p>
-            <p className="text-2xl font-bold text-white">{card.value}</p>
+            <p className="text-2xl font-display font-bold text-white">{card.value}</p>
             <div className="flex items-center gap-2">
               <p className="text-xs text-white/60">{card.subtext}</p>
               {card.status && (

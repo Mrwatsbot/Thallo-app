@@ -25,7 +25,7 @@ export function ReviewContent() {
   return (
     <div className="space-y-6 max-w-lg mx-auto">
       <div>
-        <h1 className="text-2xl font-bold">Month in Review</h1>
+        <h1 className="text-2xl font-display font-bold">Month in Review</h1>
         <p className="text-muted-foreground">{data?.month || 'Previous Month'}</p>
       </div>
 
@@ -33,7 +33,7 @@ export function ReviewContent() {
         /* Empty state */
         <div className="glass-card rounded-xl p-8 text-center">
           <Sparkles className="w-10 h-10 text-[#1a7a6d] mx-auto mb-4 opacity-50" />
-          <h3 className="text-lg font-semibold mb-2">No data yet</h3>
+          <h3 className="text-lg font-display font-semibold mb-2">No data yet</h3>
           <p className="text-sm text-muted-foreground">
             Your first Month in Review will be ready after a full month of tracking.
             Keep logging transactions!
@@ -46,7 +46,7 @@ export function ReviewContent() {
             <p className="text-xs text-[#1a7a6d] font-semibold uppercase tracking-wider mb-3">
               {data.month}
             </p>
-            <p className="text-4xl font-bold text-[#1a7a6d] mb-1">{fmt(data.headline.totalSpent)}</p>
+            <p className="text-4xl font-display font-bold text-[#1a7a6d] mb-1">{fmt(data.headline.totalSpent)}</p>
             <p className="text-sm text-muted-foreground mb-4">total spent this month</p>
             <div className="flex justify-between py-3 border-t border-border">
               <span className="text-sm text-muted-foreground">Income</span>
@@ -95,7 +95,7 @@ export function ReviewContent() {
             <p className="text-xs text-[#1a7a6d] font-semibold uppercase tracking-wider mb-3">
               {data.month}
             </p>
-            <p className="text-4xl font-bold text-[#1a7a6d] mb-1">{fmt(data.headline.totalSpent)}</p>
+            <p className="text-4xl font-display font-bold text-[#1a7a6d] mb-1">{fmt(data.headline.totalSpent)}</p>
             <p className="text-sm text-muted-foreground mb-4">total spent this month</p>
             <div className="flex justify-between py-3 border-t border-border">
               <span className="text-sm text-muted-foreground">Income</span>
@@ -121,7 +121,7 @@ export function ReviewContent() {
             {data.wins && (
               <div className="glass-card rounded-xl p-4 text-center">
                 <Target className="w-5 h-5 text-[#1a7a6d] mx-auto mb-2" />
-                <p className="text-xl font-bold text-[#6db555]">
+                <p className="text-xl font-display font-bold text-[#6db555]">
                   {data.wins.categoriesOnBudget}/{data.wins.totalCategories}
                 </p>
                 <p className="text-xs text-muted-foreground">On budget</p>
@@ -130,7 +130,7 @@ export function ReviewContent() {
             {data.score && (
               <div className="glass-card rounded-xl p-4 text-center">
                 <Trophy className="w-5 h-5 text-[#1a7a6d] mx-auto mb-2" />
-                <p className="text-xl font-bold">{data.score.current}</p>
+                <p className="text-xl font-display font-bold">{data.score.current}</p>
                 <p className="text-xs text-muted-foreground">
                   Health Score
                   {data.score.change !== 0 && (

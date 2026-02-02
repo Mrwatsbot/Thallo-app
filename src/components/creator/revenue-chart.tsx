@@ -99,7 +99,7 @@ export function RevenueChart() {
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div>
           <div className="flex items-baseline gap-3">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white">
+            <h2 className="text-2xl sm:text-3xl font-display font-bold text-white">
               {formatCurrency(totalRevenue)}
             </h2>
             <span className={cn(

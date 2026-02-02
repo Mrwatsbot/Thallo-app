@@ -323,7 +323,7 @@ export function BudgetGrid({ categoryBudgets, userId, currentMonth, onRefresh, s
       <div className="space-y-8">
         {hasGroupedBudgets && (
           <div>
-            <h2 className="text-lg font-semibold mb-4">Active Budgets</h2>
+            <h2 className="text-lg font-display font-semibold mb-4">Active Budgets</h2>
             <div className="space-y-4">
               {GROUP_ORDER.map((groupKey) => (
                 <GroupSection key={groupKey} groupKey={groupKey} items={groupedBudgets[groupKey]} />
@@ -334,7 +334,7 @@ export function BudgetGrid({ categoryBudgets, userId, currentMonth, onRefresh, s
 
         {unbudgetedCategories.length > 0 && (
           <div>
-            <h2 className="text-lg font-semibold mb-4 text-muted-foreground">
+            <h2 className="text-lg font-display font-semibold mb-4 text-muted-foreground">
               {budgetedCategories.length > 0 ? 'Add More Budgets' : 'Set Your First Budget'}
             </h2>
             <div className="space-y-4">

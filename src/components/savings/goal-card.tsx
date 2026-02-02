@@ -195,7 +195,7 @@ export function GoalCard({ goal, onRefresh }: GoalCardProps) {
         </div>
 
         {/* Current Amount */}
-        <p className="text-2xl font-bold mb-2">
+        <p className="text-2xl font-display font-bold mb-2">
           ${goal.current_amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}
         </p>
 

@@ -127,7 +127,7 @@ export function EarningHeatmap() {
     <div className="glass-card p-6 space-y-6">
       {/* Header */}
       <div>
-        <h2 className="text-xl font-bold text-white mb-1">Earning Days</h2>
+        <h2 className="text-xl font-display font-bold text-white mb-1">Earning Days</h2>
         <p className="text-sm text-gray-400">Last 12 weeks of daily earnings</p>
       </div>
 

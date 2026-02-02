@@ -68,7 +68,7 @@ export function SavingsBudgetSection() {
       <div className="flex items-center justify-between px-1">
         <div className="flex items-center gap-2">
           <TrendingUp className="h-5 w-5 text-[#7aba5c]" />
-          <h2 className="text-lg font-semibold">Savings & Investments</h2>
+          <h2 className="text-lg font-display font-semibold">Savings & Investments</h2>
         </div>
       </div>
 
@@ -77,7 +77,7 @@ export function SavingsBudgetSection() {
         <div className="grid grid-cols-2 gap-4 mb-3">
           <div className="text-center">
             <p className="text-xs sm:text-sm text-muted-foreground">Monthly Target</p>
-            <p className="text-base sm:text-xl font-bold text-[#7aba5c]">
+            <p className="text-base sm:text-xl font-display font-bold text-[#7aba5c]">
               ${totalMonthlyTarget.toFixed(2)}
             </p>
           </div>
@@ -85,7 +85,7 @@ export function SavingsBudgetSection() {
             <p className="text-xs sm:text-sm text-muted-foreground">Contributed</p>
             <p
               className={cn(
-                'text-base sm:text-xl font-bold',
+                'text-base sm:text-xl font-display font-bold',
                 isOnTrack ? 'text-[#7aba5c]' : 'text-teal-400'
               )}
             >

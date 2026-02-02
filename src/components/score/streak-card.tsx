@@ -83,7 +83,7 @@ export function StreakCard({ type, currentCount, longestCount, freezeAvailable }
         <p className="text-sm font-medium mb-1">{config.label} Streak</p>
 
         <div className="flex items-baseline gap-1 mb-2">
-          <span className={cn('text-2xl font-bold tabular-nums', config.color)}>
+          <span className={cn('text-2xl font-display font-bold tabular-nums', config.color)}>
             {currentCount}
           </span>
           <span className="text-xs text-muted-foreground">

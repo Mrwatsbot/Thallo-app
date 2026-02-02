@@ -121,7 +121,7 @@ function DebtCard({ debt }: { debt: DebtWithPayments }) {
 
             {/* Balance + APR */}
             <div className="flex items-baseline gap-3 mt-1">
-              <span className="text-2xl font-bold">
+              <span className="text-2xl font-display font-bold">
                 ${debt.current_balance.toLocaleString('en-US', { minimumFractionDigits: 2 })}
               </span>
               {debt.apr > 0 && (
@@ -282,7 +282,7 @@ export function DebtList({ debts }: DebtListProps) {
           <Card>
             <CardContent className="p-3 text-center">
               <p className="text-xs text-muted-foreground">Total Debt</p>
-              <p className="text-lg font-bold text-red-400">
+              <p className="text-lg font-display font-bold text-red-400">
                 ${totalDebt.toLocaleString('en-US', { minimumFractionDigits: 2 })}
               </p>
             </CardContent>
@@ -290,7 +290,7 @@ export function DebtList({ debts }: DebtListProps) {
           <Card>
             <CardContent className="p-3 text-center">
               <p className="text-xs text-muted-foreground">Monthly Payments</p>
-              <p className="text-lg font-bold">
+              <p className="text-lg font-display font-bold">
                 ${totalMonthly.toLocaleString('en-US', { minimumFractionDigits: 2 })}
               </p>
             </CardContent>
@@ -298,7 +298,7 @@ export function DebtList({ debts }: DebtListProps) {
           <Card>
             <CardContent className="p-3 text-center">
               <p className="text-xs text-muted-foreground">Highest APR</p>
-              <p className="text-lg font-bold text-teal-400">
+              <p className="text-lg font-display font-bold text-teal-400">
                 {highestApr > 0 ? `${highestApr}%` : '—'}
               </p>
             </CardContent>

@@ -74,7 +74,7 @@ export function ScoreWidget({ score, levelTitle, level, previousScore, recentAch
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className={cn('text-2xl font-bold tabular-nums', tier.text)}>
+            <span className={cn('text-2xl font-display font-bold tabular-nums', tier.text)}>
               <AnimatedNumber value={score} format="integer" />
             </span>
           </div>

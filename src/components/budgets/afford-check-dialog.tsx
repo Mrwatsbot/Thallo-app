@@ -583,7 +583,7 @@ export function AffordCheckDialog({ currentMonth, onBudgetAdjusted }: AffordChec
                 {/* Verdict */}
                 <div className={`flex flex-col items-center text-center p-5 rounded-xl border ${vConfig.bg} ${vConfig.border}`}>
                   <VerdictIcon className={`w-12 h-12 ${vConfig.color} mb-2`} />
-                  <p className={`text-lg font-semibold ${vConfig.color}`}>{vConfig.label}</p>
+                  <p className={`text-lg font-display font-semibold ${vConfig.color}`}>{vConfig.label}</p>
                 </div>
 
                 {/* Reasoning */}

@@ -21,7 +21,7 @@ export function SavingsContent() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Savings & Investments</h1>
+          <h1 className="text-2xl font-display font-bold">Savings & Investments</h1>
           <p className="text-muted-foreground">Track your path to financial freedom</p>
         </div>
         <AddGoalDialog onRefresh={refresh} />
@@ -36,7 +36,7 @@ export function SavingsContent() {
             <Card>
               <CardContent className="p-3 text-center">
                 <p className="text-xs text-muted-foreground">Total Saved</p>
-                <p className="text-lg font-bold text-[#7aba5c]">
+                <p className="text-lg font-display font-bold text-[#7aba5c]">
                   ${totalSaved.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                 </p>
               </CardContent>
@@ -44,7 +44,7 @@ export function SavingsContent() {
             <Card>
               <CardContent className="p-3 text-center">
                 <p className="text-xs text-muted-foreground">Total Target</p>
-                <p className="text-lg font-bold text-[#1a7a6d]">
+                <p className="text-lg font-display font-bold text-[#1a7a6d]">
                   ${totalTarget.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                 </p>
               </CardContent>
@@ -52,7 +52,7 @@ export function SavingsContent() {
             <Card>
               <CardContent className="p-3 text-center">
                 <p className="text-xs text-muted-foreground">Monthly Contributions</p>
-                <p className="text-lg font-bold text-blue-400">
+                <p className="text-lg font-display font-bold text-blue-400">
                   ${totalMonthly.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                 </p>
               </CardContent>
@@ -60,7 +60,7 @@ export function SavingsContent() {
             <Card>
               <CardContent className="p-3 text-center">
                 <p className="text-xs text-muted-foreground">Active Goals</p>
-                <p className="text-lg font-bold text-teal-400">{activeCount}</p>
+                <p className="text-lg font-display font-bold text-teal-400">{activeCount}</p>
               </CardContent>
             </Card>
           </div>

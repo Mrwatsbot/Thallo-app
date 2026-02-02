@@ -336,7 +336,7 @@ export function ScanReceiptDialog({ categories, accounts, userId, onRefresh }: S
                       <p className="text-sm text-muted-foreground">{receiptData.date}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-xl font-bold">{formatCurrency(receiptData.total)}</p>
+                      <p className="text-xl font-display font-bold">{formatCurrency(receiptData.total)}</p>
                       {receiptData.suggested_category && (
                         <p className="text-xs text-[#1a7a6d]">{receiptData.suggested_category}</p>
                       )}

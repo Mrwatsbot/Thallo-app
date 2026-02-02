@@ -93,7 +93,7 @@ export function ConnectedAccounts({ connections, onConnectionsChange }: Connecte
         <CardContent className="pt-6">
           <div className="flex flex-col items-center justify-center py-8 text-center">
             <Building2 className="h-12 w-12 text-muted-foreground mb-4" />
-            <h3 className="text-lg font-semibold mb-2">No Connected Accounts</h3>
+            <h3 className="text-lg font-display font-semibold mb-2">No Connected Accounts</h3>
             <p className="text-sm text-muted-foreground max-w-md">
               Connect your bank to automatically import transactions and keep your budget up to date.
             </p>

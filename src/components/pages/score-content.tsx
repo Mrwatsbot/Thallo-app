@@ -42,7 +42,7 @@ export function ScoreContent() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold">Financial Health Score</h1>
+        <h1 className="text-2xl font-display font-bold">Financial Health Score</h1>
         <p className="text-muted-foreground">Your 0-1,000 score with full breakdown</p>
       </div>
 
@@ -148,7 +148,7 @@ export function ScoreContent() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Flame className="w-5 h-5 text-teal-400" />
-                <h2 className="text-lg font-semibold">Streaks</h2>
+                <h2 className="text-lg font-display font-semibold">Streaks</h2>
               </div>
               <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
                 {(['payment', 'budget', 'savings', 'logging'] as StreakType[]).map((type) => {
@@ -173,7 +173,7 @@ export function ScoreContent() {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   <Award className="w-5 h-5 text-[#1a7a6d]" />
-                  <h2 className="text-lg font-semibold">Achievements</h2>
+                  <h2 className="text-lg font-display font-semibold">Achievements</h2>
                 </div>
                 <span className="text-sm text-muted-foreground">
                   {achievements.length} / {achievementDefinitions.length} unlocked

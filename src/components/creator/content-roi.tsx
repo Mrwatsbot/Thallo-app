@@ -178,7 +178,7 @@ export function ContentROI() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center py-6 bg-white/5 rounded-lg border border-white/10"
         >
-          <div className="text-4xl font-bold text-white mb-1">
+          <div className="text-4xl font-display font-bold text-white mb-1">
             {formatCurrency(calculateAverage())}
             <span className="text-lg text-white/60">/hour</span>
           </div>
@@ -221,7 +221,7 @@ export function ContentROI() {
                     <span className="font-medium text-white">{platform.platform}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-lg font-semibold text-white">
+                    <span className="text-lg font-display font-semibold text-white">
                       {getDisplayValue(platform)}
                     </span>
                     {platform.trend > 0 ? (

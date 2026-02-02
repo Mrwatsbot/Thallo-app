@@ -172,7 +172,7 @@ function PlatformCard({
       {/* Revenue */}
       <div className="mb-4">
         <div className="flex items-baseline gap-2">
-          <span className="text-2xl font-bold text-white">
+          <span className="text-2xl font-display font-bold text-white">
             {formatCurrency(platform.revenue)}
           </span>
           <span
@@ -208,7 +208,7 @@ function PlatformCard({
       <div className="flex items-center justify-between mb-3">
         <div>
           <p className="text-xs text-gray-400">{platform.metric.label}</p>
-          <p className="text-lg font-semibold text-white">{platform.metric.value}</p>
+          <p className="text-lg font-display font-semibold text-white">{platform.metric.value}</p>
         </div>
       </div>
 

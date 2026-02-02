@@ -21,7 +21,7 @@ export function CreatorDashboardContent() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-1">Creator Dashboard</h1>
+          <h1 className="text-3xl font-display font-bold text-white mb-1">Creator Dashboard</h1>
           <p className="text-white/60">{currentMonth}</p>
         </div>
         <Button

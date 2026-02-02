@@ -166,7 +166,7 @@ function LockedState() {
           {['Minimum only', 'Extra $50/mo', 'Extra $100/mo', 'Extra $200/mo'].map((label) => (
             <div key={label} className="p-4 rounded-xl bg-muted/20 border border-border">
               <p className="text-xs text-muted-foreground mb-2">{label}</p>
-              <p className="text-3xl font-bold">36</p>
+              <p className="text-3xl font-display font-bold">36</p>
               <p className="text-xs text-muted-foreground">months to debt-free</p>
               <p className="text-sm mt-2">$4,200 in interest</p>
             </div>
@@ -275,7 +275,7 @@ function ScenarioCard({ scenario, isMinimum, isSweetSpot }: { scenario: Scenario
 
       {/* Big month number */}
       <div className="flex items-baseline gap-1 mb-1">
-        <span className="text-3xl font-bold">{scenario.total_months}</span>
+        <span className="text-3xl font-display font-bold">{scenario.total_months}</span>
         <span className="text-sm text-muted-foreground">months</span>
       </div>
 
@@ -410,7 +410,7 @@ export function PayoffPlan({ debts }: PayoffPlanProps) {
             <Calculator className="w-5 h-5 text-[#1a7a6d]" />
           </div>
           <div>
-            <h2 className="text-lg font-semibold">Smart Payoff Plan</h2>
+            <h2 className="text-lg font-display font-semibold">Smart Payoff Plan</h2>
             <p className="text-sm text-muted-foreground">AI-powered debt elimination strategy</p>
           </div>
         </div>

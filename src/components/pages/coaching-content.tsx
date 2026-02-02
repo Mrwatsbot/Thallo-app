@@ -129,7 +129,7 @@ export function CoachingContent() {
           <Brain className="w-6 h-6 text-[#1a7a6d]" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold">AI Financial Coach</h1>
+          <h1 className="text-2xl font-display font-bold">AI Financial Coach</h1>
           <p className="text-muted-foreground">Personalized analysis powered by AI</p>
         </div>
       </div>
@@ -139,7 +139,7 @@ export function CoachingContent() {
         <Card className="border-[#1a7a6d33]">
           <CardContent className="p-8 text-center">
             <Lock className="w-12 h-12 text-[#1a7a6d] mx-auto mb-4" />
-            <h2 className="text-xl font-bold mb-2">Unlock AI Coaching</h2>
+            <h2 className="text-xl font-display font-bold mb-2">Unlock AI Coaching</h2>
             <p className="text-muted-foreground mb-2 max-w-md mx-auto">
               Get personalized financial analysis, debt payoff strategies, budget optimization, and score coaching — all powered by AI.
             </p>
@@ -163,7 +163,7 @@ export function CoachingContent() {
           {/* Quick Analysis Section */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-lg font-semibold">Quick Analysis</h2>
+              <h2 className="text-lg font-display font-semibold">Quick Analysis</h2>
               {!isUnlimited && totalLimit > 0 && (
                 <span className="text-xs text-muted-foreground">
                   {remainingUses} of {totalLimit} analyses remaining this month
@@ -226,7 +226,7 @@ export function CoachingContent() {
           {/* Results */}
           {results.length > 0 && (
             <div className="space-y-4">
-              <h2 className="text-lg font-semibold">Results</h2>
+              <h2 className="text-lg font-display font-semibold">Results</h2>
               {results.map((result) => {
                 const analysis = analysisTypes.find((a) => a.type === result.type);
                 const IconComponent = analysis?.icon || Brain;

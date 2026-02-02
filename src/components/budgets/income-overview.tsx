@@ -25,13 +25,13 @@ export function IncomeOverview({ monthlyIncome, totalSpent, totalBudgeted }: Inc
             <Wallet className="w-5 h-5 text-[#7aba5c]" />
           </div>
           <div>
-            <h2 className="text-lg font-semibold">Monthly Income</h2>
-            <p className="text-2xl font-bold text-[#7aba5c]">${monthlyIncome.toLocaleString()}</p>
+            <h2 className="text-lg font-display font-semibold">Monthly Income</h2>
+            <p className="text-2xl font-display font-bold text-[#7aba5c]">${monthlyIncome.toLocaleString()}</p>
           </div>
         </div>
         <div className="text-right">
           <p className="text-sm text-muted-foreground">Safe to spend</p>
-          <p className={`text-xl font-bold ${remaining > 0 ? 'text-[#7aba5c]' : 'text-red-400'}`}>
+          <p className={`text-xl font-display font-bold ${remaining > 0 ? 'text-[#7aba5c]' : 'text-red-400'}`}>
             ${remaining.toLocaleString()}
           </p>
         </div>

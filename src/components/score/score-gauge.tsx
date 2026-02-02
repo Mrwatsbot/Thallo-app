@@ -81,7 +81,7 @@ export function ScoreGauge({ score, levelTitle, level, previousScore }: ScoreGau
 
         {/* Score center */}
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className={cn('text-5xl font-bold tabular-nums', tier.text)}>
+          <span className={cn('text-5xl font-display font-bold tabular-nums', tier.text)}>
             {score}
           </span>
           <span className="text-sm text-muted-foreground mt-1">/ 1,000</span>

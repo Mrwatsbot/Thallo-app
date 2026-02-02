@@ -227,7 +227,7 @@ export function InsightsPanel({ page, pageData }: InsightsPanelProps) {
             <Sparkles className="w-5 h-5 text-[#1a7a6d]" />
           </div>
           <div>
-            <h2 className="text-lg font-semibold">AI Insights</h2>
+            <h2 className="text-lg font-display font-semibold">AI Insights</h2>
             <p className="text-sm text-muted-foreground">Personalized analysis for this page</p>
           </div>
         </div>

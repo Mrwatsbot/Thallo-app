@@ -82,7 +82,7 @@ export function LevelProgress() {
         {/* Current Level */}
         <div className="text-center py-6 bg-gradient-to-br from-[#1a7a6d]/20 to-transparent rounded-lg border border-[#1a7a6d]/30">
           <div className="text-5xl mb-2">{currentLevel.emoji}</div>
-          <div className="text-2xl font-bold text-white mb-1">{currentLevel.name}</div>
+          <div className="text-2xl font-display font-bold text-white mb-1">{currentLevel.name}</div>
           <div className="text-sm text-white/60">Level {currentLevel.level}</div>
         </div>
 
@@ -119,7 +119,7 @@ export function LevelProgress() {
 
         {/* Achievements */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-white">Achievements</h3>
+          <h3 className="text-lg font-display font-semibold text-white">Achievements</h3>
 
           {/* Unlocked */}
           <div className="space-y-2">

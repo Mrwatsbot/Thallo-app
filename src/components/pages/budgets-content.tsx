@@ -74,7 +74,7 @@ export function BudgetsContent() {
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-2xl font-bold">Budgets</h1>
+              <h1 className="text-2xl font-display font-bold">Budgets</h1>
               <p className="text-muted-foreground">{monthName}</p>
             </div>
             
@@ -114,20 +114,20 @@ export function BudgetsContent() {
             <div className="grid grid-cols-3 gap-2 sm:gap-6">
               <div className="text-center min-w-0">
                 <p className="text-xs sm:text-sm text-muted-foreground">Budgeted</p>
-                <p className="text-base sm:text-xl font-bold truncate">${grandTotalBudgeted.toFixed(2)}</p>
+                <p className="text-base sm:text-xl font-display font-bold truncate">${grandTotalBudgeted.toFixed(2)}</p>
                 {totalSavingsMonthly > 0 && (
                   <p className="text-[10px] text-muted-foreground/70 truncate">incl. ${totalSavingsMonthly.toFixed(0)} savings</p>
                 )}
               </div>
               <div className="text-center min-w-0 border-x border-border">
                 <p className="text-xs sm:text-sm text-muted-foreground">Spent</p>
-                <p className={`text-base sm:text-xl font-bold truncate ${grandTotalSpent > grandTotalBudgeted ? 'text-red-400' : 'text-[#7aba5c]'}`}>
+                <p className={`text-base sm:text-xl font-display font-bold truncate ${grandTotalSpent > grandTotalBudgeted ? 'text-red-400' : 'text-[#7aba5c]'}`}>
                   ${grandTotalSpent.toFixed(2)}
                 </p>
               </div>
               <div className="text-center min-w-0">
                 <p className="text-xs sm:text-sm text-muted-foreground">Remaining</p>
-                <p className={`text-base sm:text-xl font-bold truncate ${grandTotalBudgeted - grandTotalSpent < 0 ? 'text-red-400' : 'text-[#7aba5c]'}`}>
+                <p className={`text-base sm:text-xl font-display font-bold truncate ${grandTotalBudgeted - grandTotalSpent < 0 ? 'text-red-400' : 'text-[#7aba5c]'}`}>
                   ${(grandTotalBudgeted - grandTotalSpent).toFixed(2)}
                 </p>
               </div>

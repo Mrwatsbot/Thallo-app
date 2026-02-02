@@ -79,7 +79,7 @@ export function CreatorHealthScore() {
 
         {/* Score Info */}
         <div className="flex-1 text-center sm:text-left">
-          <h2 className="text-xl font-bold text-white mb-2">Creator Health Score</h2>
+          <h2 className="text-xl font-display font-bold text-white mb-2">Creator Health Score</h2>
           <p className="text-sm text-gray-400 leading-relaxed">
             Your overall financial health based on income diversification, stability, savings, and
             tax preparedness.
@@ -189,7 +189,7 @@ function CircularGauge({ score, size }: { score: number; size: number }) {
 
       {/* Score text */}
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-4xl font-bold text-white">{score}</span>
+        <span className="text-4xl font-display font-bold text-white">{score}</span>
         <span className="text-xs text-gray-400 uppercase tracking-wider">Score</span>
       </div>
     </div>
