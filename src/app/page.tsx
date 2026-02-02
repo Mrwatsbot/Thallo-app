@@ -25,16 +25,12 @@ import {
   Star,
   Wallet,
   Receipt,
-  MessageSquare,
   LayoutDashboard,
   Utensils,
   Car,
   ShoppingBag,
   Film,
-  Bot,
   ScanLine,
-  ArrowDown,
-  ArrowUp,
 } from 'lucide-react';
 
 // ============================================================
@@ -346,7 +342,7 @@ function ProductShowcase() {
           <div className="flex-1 flex justify-center">
             <div className="px-4 py-1 rounded-md bg-[#0d1514] border border-border text-xs text-muted-foreground flex items-center gap-2">
               <Lock className="w-3 h-3 text-[#1a7a6d]" />
-              app.thallo.finance
+              usethallo.com
             </div>
           </div>
         </div>
@@ -431,7 +427,7 @@ function MockDashboard() {
         {[
           { icon: Receipt, label: 'Scan Receipt' },
           { icon: ScanLine, label: 'Quick Add' },
-          { icon: MessageSquare, label: 'Ask AI' },
+          { icon: Brain, label: 'Can I Afford?' },
         ].map((action) => (
           <div key={action.label} className="glass-card rounded-xl p-3 text-center">
             <action.icon className="w-5 h-5 mx-auto text-[#1a7a6d] mb-1.5" />
@@ -520,45 +516,42 @@ function MockAITools() {
         <h3 className="text-lg font-display font-bold">AI Tools</h3>
       </div>
 
-      {/* Chat preview */}
+      {/* Can I Afford This — product scan */}
       <div className="glass-card rounded-xl p-5">
         <div className="flex items-center gap-2 mb-4">
-          <Bot className="w-4 h-4 text-[#1a7a6d]" />
-          <span className="text-sm font-medium">Budget Pro Chat</span>
+          <ScanLine className="w-4 h-4 text-[#1a7a6d]" />
+          <span className="text-sm font-medium">Can I Afford This?</span>
         </div>
-        <div className="space-y-3">
-          <div className="flex justify-end">
-            <div className="max-w-[75%] p-3 rounded-xl rounded-br-sm bg-[#1a7a6d] text-sm text-white">
-              Can I afford a $200 guitar this month?
+        <div className="flex gap-4">
+          {/* Product image placeholder */}
+          <div className="w-20 h-20 rounded-xl bg-[#1a2826] border border-border flex flex-col items-center justify-center shrink-0">
+            <ShoppingBag className="w-6 h-6 text-muted-foreground mb-1" />
+            <p className="text-[10px] text-muted-foreground">Photo</p>
+          </div>
+          <div className="flex-1">
+            <p className="text-sm font-medium mb-1">Fender Player Stratocaster</p>
+            <p className="text-xs text-muted-foreground mb-2">AI detected: <span className="text-foreground">$849.99</span> at Guitar Center</p>
+            <div className="p-2.5 rounded-lg bg-orange-400/10 border border-orange-400/20">
+              <p className="text-xs text-orange-400 font-medium">⚠️ Tight fit</p>
+              <p className="text-xs text-muted-foreground mt-0.5">This would use 92% of your remaining Shopping budget. Consider saving for 2 months.</p>
             </div>
-          </div>
-          <div className="flex justify-start">
-            <div className="max-w-[85%] p-3 rounded-xl rounded-bl-sm bg-[#1a2826] border border-border text-sm text-muted-foreground">
-              Looking at your budget... You have <span className="text-foreground font-medium">$247 remaining</span> in Shopping. A $200 guitar would leave only $47 buffer. I&apos;d suggest waiting 6 days — your Entertainment budget resets and you could split the cost. 💡
-            </div>
-          </div>
-        </div>
-        <div className="mt-3 flex gap-2">
-          <div className="flex-1 h-9 rounded-lg bg-[#0d1514] border border-border flex items-center px-3">
-            <span className="text-xs text-muted-foreground">Ask anything about your money...</span>
-          </div>
-          <div className="w-9 h-9 rounded-lg bg-[#1a7a6d] flex items-center justify-center">
-            <ArrowUp className="w-4 h-4 text-white" />
           </div>
         </div>
       </div>
 
-      {/* AI Action cards */}
+      {/* AI Action cards — only real features */}
       <div className="grid grid-cols-2 gap-3">
         {[
-          { icon: ScanLine, title: 'Scan Receipt', desc: 'Camera → transactions', color: '#1a7a6d' },
-          { icon: Brain, title: 'Auto-Budget', desc: 'AI builds your budget', color: '#3b82f6' },
-          { icon: TrendingUp, title: 'Spending Analysis', desc: 'Patterns & anomalies', color: '#22c55e' },
-          { icon: Zap, title: 'Find Savings', desc: 'Cut hidden costs', color: '#f97316' },
+          { icon: Receipt, title: 'Scan Receipt', desc: 'Photo → auto-categorized transactions', color: '#1a7a6d' },
+          { icon: Brain, title: 'AI Auto-Budget', desc: 'Generate a full budget in seconds', color: '#3b82f6' },
+          { icon: TrendingUp, title: 'Spending Analysis', desc: 'AI finds patterns & anomalies', color: '#22c55e' },
+          { icon: Zap, title: 'AI Payoff Plan', desc: 'Optimized debt-free date', color: '#f97316' },
+          { icon: Target, title: 'Budget Tune', desc: 'AI rebalances your budget', color: '#ec4899' },
+          { icon: BarChart3, title: 'Statement Import', desc: 'Upload PDF → all transactions', color: '#eab308' },
         ].map((tool) => (
           <div key={tool.title} className="glass-card rounded-xl p-4 hover:border-[#1a7a6d]/30 transition-colors cursor-pointer">
             <div className="w-9 h-9 rounded-lg flex items-center justify-center mb-2.5" style={{ backgroundColor: `${tool.color}15`, border: `1px solid ${tool.color}30` }}>
-              <tool.icon className="w-4.5 h-4.5" style={{ color: tool.color }} />
+              <tool.icon className="w-4 h-4" style={{ color: tool.color }} />
             </div>
             <p className="text-sm font-medium">{tool.title}</p>
             <p className="text-xs text-muted-foreground">{tool.desc}</p>
@@ -1095,8 +1088,8 @@ export default function Home() {
           {[
             {
               icon: Brain,
-              title: 'AI Budget Assistant',
-              desc: 'Auto-categorize transactions, generate budgets, analyze spending patterns. Ask it anything about your money.',
+              title: 'AI-Powered Budgeting',
+              desc: 'Auto-generate budgets, tune allocations, analyze spending patterns, and check affordability — all with structured AI tools.',
               color: '#1a7a6d',
             },
             {
