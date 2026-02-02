@@ -591,6 +591,34 @@ body::after {
   border: 1px solid rgba(26, 122, 109, 0.15);
 }
 
+/* ========================================
+   TYPOGRAPHY — Cormorant Garamond (Refined Luxury)
+   Display serif for all headings, stat numbers, card titles
+   ======================================== */
+
+/* All heading elements get the display serif font */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* Large stat numbers, scores, monetary values */
+.hero-number,
+[class*="text-2xl"][class*="font-bold"],
+[class*="text-3xl"][class*="font-bold"],
+[class*="text-4xl"],
+[class*="text-5xl"],
+[class*="text-6xl"] {
+  font-family: var(--font-display);
+}
+
+/* Card titles and section headers */
+[class*="font-semibold"][class*="text-lg"],
+[class*="font-semibold"][class*="text-xl"],
+[class*="font-bold"][class*="text-lg"],
+[class*="font-bold"][class*="text-xl"] {
+  font-family: var(--font-display);
+}
+
 /* Hero display numbers — large, bold with teal glow */
 .hero-number {
   font-family: var(--font-display);

@@ -2,7 +2,7 @@
 
 import { useMonthReview } from '@/lib/hooks/use-data';
 import { useState, useEffect, useRef } from 'react';
-import { Lock, Sparkles } from 'lucide-react';
+import { Lock, Sparkles, Target, Wallet, TrendingDown, Flame, Trophy, BarChart3, UtensilsCrossed, Lightbulb } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
@@ -236,7 +236,7 @@ export default function MonthReviewPage() {
                 <div className="grid grid-cols-2 gap-3">
                   {[1, 2, 3, 4].map((i) => (
                     <div key={i} className="bg-[#ffffff08] border border-[#1a7a6d26] rounded-2xl p-5 text-center">
-                      <div className="text-2xl mb-2">🎯</div>
+                      <div className="mb-2"><Target className="w-8 h-8 text-[#1a7a6d] mx-auto" /></div>
                       <div className="text-2xl font-bold text-[#6db555] mb-1">6/10</div>
                       <div className="text-xs text-[#8a9490]">Categories on budget</div>
                     </div>
@@ -272,13 +272,13 @@ export default function MonthReviewPage() {
               
               <div className="grid grid-cols-2 gap-3">
                 <div className="animate opacity-0 bg-[#ffffff08] border border-[#1a7a6d26] rounded-2xl p-5 text-center">
-                  <div className="text-2xl mb-2">🎯</div>
+                  <div className="mb-2"><Target className="w-8 h-8 text-[#1a7a6d] mx-auto" /></div>
                   <div className="text-2xl font-bold text-[#6db555] mb-1">{wins.categoriesOnBudget}/{wins.totalCategories}</div>
                   <div className="text-xs text-[#8a9490] leading-tight">Categories on or under budget</div>
                 </div>
                 
                 <div className="animate opacity-0 bg-[#ffffff08] border border-[#1a7a6d26] rounded-2xl p-5 text-center">
-                  <div className="text-2xl mb-2">💰</div>
+                  <div className="mb-2"><Wallet className="w-8 h-8 text-[#1a7a6d] mx-auto" /></div>
                   <div className="text-2xl font-bold text-[#6db555] mb-1">${wins.totalSavedVsBudget}</div>
                   <div className="text-xs text-[#8a9490] leading-tight">Saved vs. budgeted</div>
                 </div>
@@ -286,13 +286,13 @@ export default function MonthReviewPage() {
                 {wins.bestCategory && (
                   <>
                     <div className="animate opacity-0 bg-[#ffffff08] border border-[#1a7a6d26] rounded-2xl p-5 text-center">
-                      <div className="text-2xl mb-2">📉</div>
+                      <div className="mb-2"><TrendingDown className="w-8 h-8 text-[#6db555] mx-auto" /></div>
                       <div className="text-2xl font-bold text-[#6db555] mb-1">{wins.bestCategory.pctUnder}%</div>
                       <div className="text-xs text-[#8a9490] leading-tight">Under on {wins.bestCategory.name}</div>
                     </div>
                     
                     <div className="animate opacity-0 bg-[#ffffff08] border border-[#1a7a6d26] rounded-2xl p-5 text-center">
-                      <div className="text-2xl mb-2">🔥</div>
+                      <div className="mb-2"><Flame className="w-8 h-8 text-[#6db555] mx-auto" /></div>
                       <div className="text-2xl font-bold text-[#6db555] mb-1">{wins.surplusStreak} mo</div>
                       <div className="text-xs text-[#8a9490] leading-tight">Consecutive surplus months</div>
                     </div>
@@ -302,7 +302,7 @@ export default function MonthReviewPage() {
 
               {wins.bestCategory && (
                 <div className="animate opacity-0 bg-[#6db55515] border border-[#6db55533] rounded-2xl p-5 flex items-center gap-4 mt-3">
-                  <div className="text-4xl">🏆</div>
+                  <Trophy className="w-10 h-10 text-[#6db555]" />
                   <div>
                     <div className="text-lg font-bold text-[#e8e6e1] mb-1">Best: {wins.bestCategory.name}</div>
                     <div className="text-xs text-[#8a9490]">${wins.bestCategory.savedAmount} under budget — {wins.bestCategory.pctUnder}% savings</div>
@@ -525,26 +525,31 @@ export default function MonthReviewPage() {
                 )}
 
                 <div className="animate opacity-0 text-left space-y-0">
-                  {score.factors.map((f: { name: string; description: string; impact: number }, i: number) => (
-                    <div key={i} className="flex items-center gap-3 py-3 border-b border-[#ffffff0a]">
-                      <div className={cn(
-                        "w-8 h-8 rounded-lg flex items-center justify-center text-base",
-                        f.impact > 0 ? "bg-[#6db55526]" : f.impact < 0 ? "bg-[#e0525226]" : "bg-[#ffffff0a]"
-                      )}>
-                        {f.name === 'Budget Adherence' ? '📊' : f.name === 'Savings Rate' ? '💰' : '🍽️'}
+                  {score.factors.map((f: { name: string; description: string; impact: number }, i: number) => {
+                    const IconComponent = f.name === 'Budget Adherence' ? BarChart3 : f.name === 'Savings Rate' ? Wallet : UtensilsCrossed;
+                    const iconColor = f.impact > 0 ? "#6db555" : f.impact < 0 ? "#e05252" : "#2aaa9a";
+                    
+                    return (
+                      <div key={i} className="flex items-center gap-3 py-3 border-b border-[#ffffff0a]">
+                        <div className={cn(
+                          "w-8 h-8 rounded-lg flex items-center justify-center",
+                          f.impact > 0 ? "bg-[#6db55526]" : f.impact < 0 ? "bg-[#e0525226]" : "bg-[#ffffff0a]"
+                        )}>
+                          <IconComponent className="w-4 h-4" style={{ color: iconColor }} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium text-[#e8e6e1]">{f.name}</div>
+                          <div className="text-xs text-[#8a9490]">{f.description}</div>
+                        </div>
+                        <div className={cn(
+                          "text-sm font-semibold",
+                          f.impact > 0 ? "text-[#6db555]" : f.impact < 0 ? "text-[#e05252]" : "text-[#8a9490]"
+                        )}>
+                          {f.impact > 0 ? '+' : ''}{f.impact}
+                        </div>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium text-[#e8e6e1]">{f.name}</div>
-                        <div className="text-xs text-[#8a9490]">{f.description}</div>
-                      </div>
-                      <div className={cn(
-                        "text-sm font-semibold",
-                        f.impact > 0 ? "text-[#6db555]" : f.impact < 0 ? "text-[#e05252]" : "text-[#8a9490]"
-                      )}>
-                        {f.impact > 0 ? '+' : ''}{f.impact}
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -564,12 +569,12 @@ export default function MonthReviewPage() {
                 {nudge ? (
                   <>
                     <div className="animate opacity-0 bg-[#1a7a6d14] border border-[#1a7a6d33] rounded-2xl p-7 mb-4">
-                      <div className="text-3xl mb-4">{nudge.primary.emoji}</div>
+                      <div className="mb-4"><Lightbulb className="w-10 h-10 text-[#2aaa9a]" /></div>
                       <div className="text-base leading-relaxed text-[#e8e6e1] mb-4">
                         {nudge.primary.text}
                       </div>
-                      <div className="text-[13px] text-[#2aaa9a] font-medium">
-                        💡 {nudge.primary.impact}
+                      <div className="text-[13px] text-[#2aaa9a] font-medium flex items-center gap-2">
+                        <Lightbulb className="w-4 h-4" /> {nudge.primary.impact}
                       </div>
                     </div>
 

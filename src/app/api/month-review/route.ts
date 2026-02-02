@@ -346,7 +346,6 @@ Top spending categories: ${trends.slice(0, 3).map(t => t.category).join(', ')}
       // Fallback nudge
       nudge = {
         primary: {
-          emoji: '💡',
           text: `Keep up the momentum! Your ${surplus > 0 ? 'surplus' : 'spending'} this month shows ${surplus > 0 ? 'discipline' : 'room for improvement'}.`,
           impact: 'Continue tracking to see patterns',
         },
