@@ -3,10 +3,11 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Pencil, Check, X, Loader2, TrendingUp, TrendingDown, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Pencil, Check, X, Loader2, TrendingUp, TrendingDown, CheckCircle, AlertTriangle, Calendar } from 'lucide-react';
 import { AnimatedNumber } from '@/components/ui/animated-number';
 import { toast } from 'sonner';
 import { AffordCheckDialog } from '@/components/budgets/afford-check-dialog';
+import { getPaychecksInMonth, getPerPaycheckAmount, type PayFrequency } from '@/lib/paycheck-helpers';
 
 interface MonthlyPulseProps {
   monthlyIncome: number;
@@ -22,6 +23,8 @@ interface MonthlyPulseProps {
   onBudgetAdjusted: () => void;
   totalBalance?: number;
   accountCount?: number;
+  payFrequency?: string;
+  nextPayDate?: string | null;
 }
 
 export function MonthlyPulse({
@@ -38,6 +41,8 @@ export function MonthlyPulse({
   onBudgetAdjusted,
   totalBalance,
   accountCount,
+  payFrequency = 'monthly',
+  nextPayDate,
 }: MonthlyPulseProps) {
   // Calculate "Left to Spend"
   const leftToSpend = totalBudgeted - monthlyExpenses;
@@ -64,6 +69,15 @@ export function MonthlyPulse({
     setIncomeValue(monthlyIncome > 0 ? monthlyIncome.toString() : '');
     setEditingIncome(true);
   };
+
+  // Paycheck calculations
+  const showPaycheckInfo = payFrequency !== 'monthly' && nextPayDate;
+  const paychecksThisMonth = showPaycheckInfo 
+    ? getPaychecksInMonth(nextPayDate!, payFrequency as PayFrequency)
+    : 0;
+  const perPaycheckAmount = showPaycheckInfo
+    ? getPerPaycheckAmount(monthlyIncome, payFrequency as PayFrequency)
+    : 0;
 
   return (
     <div className="glass-card rounded-xl p-5 sm:p-6">
@@ -165,21 +179,36 @@ export function MonthlyPulse({
             </Button>
           </div>
         ) : (
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <span>Income:</span>
-              <span className="font-medium text-foreground">
-                ${monthlyIncome.toLocaleString('en-US', { minimumFractionDigits: 2 })}/mo
-              </span>
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <span>Income:</span>
+                <span className="font-medium text-foreground">
+                  ${monthlyIncome.toLocaleString('en-US', { minimumFractionDigits: 2 })}/mo
+                </span>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7 text-muted-foreground hover:text-foreground"
+                onClick={handleEditIncome}
+              >
+                <Pencil className="h-3.5 w-3.5" />
+              </Button>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-7 w-7 text-muted-foreground hover:text-foreground"
-              onClick={handleEditIncome}
-            >
-              <Pencil className="h-3.5 w-3.5" />
-            </Button>
+            {showPaycheckInfo && (
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <Calendar className="w-3 h-3 text-[#1a7a6d]" />
+                <span>
+                  ${perPaycheckAmount.toLocaleString('en-US', { minimumFractionDigits: 2 })}/check
+                  {paychecksThisMonth > 2 && (
+                    <span className="ml-1.5 px-1.5 py-0.5 rounded bg-[#7aba5c20] text-[#7aba5c] font-medium">
+                      {paychecksThisMonth} paychecks this month
+                    </span>
+                  )}
+                </span>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -30,7 +30,7 @@ export function DashboardContent() {
     return <DashboardLoading />;
   }
 
-  const { totalBalance, monthlyIncome, monthlyExpenses, recentTransactions, budgets, totalBudgeted, totalSavingsTarget, user, accounts, budgetedMonthlyIncome, scoreData, recentAchievements, plaidLastSynced, monthlySummary, ytdSurplus } = data;
+  const { totalBalance, monthlyIncome, monthlyExpenses, recentTransactions, budgets, totalBudgeted, totalSavingsTarget, user, accounts, budgetedMonthlyIncome, payFrequency, nextPayDate, scoreData, recentAchievements, plaidLastSynced, monthlySummary, ytdSurplus } = data;
   const currentMonth = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   const hasIncome = budgetedMonthlyIncome > 0;
 
@@ -97,6 +97,8 @@ export function DashboardContent() {
         onBudgetAdjusted={refresh}
         totalBalance={totalBalance}
         accountCount={accounts?.length || 0}
+        payFrequency={payFrequency}
+        nextPayDate={nextPayDate}
       />
     ) : null,
 
