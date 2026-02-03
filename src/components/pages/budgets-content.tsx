@@ -8,6 +8,7 @@ import { InsightsPanel } from '@/components/ai/insights-panel';
 import { AutoBudgetDialog } from '@/components/budgets/auto-budget-dialog';
 import { BudgetTuneDialog } from '@/components/budgets/budget-tune-dialog';
 import { AffordCheckDialog } from '@/components/budgets/afford-check-dialog';
+import { TransferDialog } from '@/components/budgets/transfer-dialog';
 import { getBudgetHealthColor } from '@/lib/budget-health';
 import { getAllocationBarStyle } from '@/lib/bar-colors';
 
@@ -25,11 +26,16 @@ export function BudgetsContent() {
   const expenseCategories = categories.filter((c: { type: string }) => c.type === 'expense');
 
   // Build budget map from API data
-  const budgetMap: Record<string, { id: string; budgeted: number }> = {};
-  budgets.forEach((b: { id: string; budgeted: number; category_id: string; category?: { id: string } | null }) => {
+  const budgetMap: Record<string, { id: string; budgeted: number; rollover: boolean; rollover_amount: number }> = {};
+  budgets.forEach((b: { id: string; budgeted: number; rollover?: boolean; rollover_amount?: number; category_id: string; category?: { id: string } | null }) => {
     const catId = b.category?.id || b.category_id;
     if (catId) {
-      budgetMap[catId] = { id: b.id, budgeted: b.budgeted };
+      budgetMap[catId] = { 
+        id: b.id, 
+        budgeted: b.budgeted,
+        rollover: b.rollover ?? true,
+        rollover_amount: b.rollover_amount || 0,
+      };
     }
   });
 
@@ -41,11 +47,14 @@ export function BudgetsContent() {
     categoryColor: cat.color,
     budgetId: budgetMap[cat.id]?.id || null,
     budgeted: budgetMap[cat.id]?.budgeted || 0,
+    rollover: budgetMap[cat.id]?.rollover ?? true,
+    rollover_amount: budgetMap[cat.id]?.rollover_amount || 0,
     spent: spentByCategory[cat.id] || 0,
   }));
 
   // Calculate totals
   const totalBudgeted = categoryBudgets.reduce((sum: number, b: { budgeted: number }) => sum + b.budgeted, 0);
+  const totalRollover = categoryBudgets.reduce((sum: number, b: { rollover_amount?: number }) => sum + (b.rollover_amount || 0), 0);
   const totalSpent = categoryBudgets.reduce((sum: number, b: { spent: number }) => sum + b.spent, 0);
 
   // Calculate savings totals (include in summary)
@@ -80,6 +89,15 @@ export function BudgetsContent() {
             </div>
             
             <div className="flex items-center gap-2 flex-wrap">
+              {/* Transfer button */}
+              {hasBudgets && (
+                <TransferDialog
+                  categoryBudgets={categoryBudgets}
+                  currentMonth={currentMonthStr}
+                  onTransferred={() => { refresh(); refreshSavings(); }}
+                />
+              )}
+              
               {/* AI buttons */}
               <AutoBudgetDialog
                 currentMonth={currentMonthStr}
@@ -115,7 +133,14 @@ export function BudgetsContent() {
             <div className="grid grid-cols-3 gap-2 sm:gap-6">
               <div className="text-center min-w-0">
                 <p className="text-xs sm:text-sm text-muted-foreground">Budgeted</p>
-                <p className="text-base sm:text-xl font-display font-bold truncate">${grandTotalBudgeted.toFixed(2)}</p>
+                <p className="text-base sm:text-xl font-display font-bold truncate">
+                  ${grandTotalBudgeted.toFixed(2)}
+                  {totalRollover !== 0 && (
+                    <span className={`text-xs ${totalRollover > 0 ? 'text-green-400' : 'text-red-400'}`}>
+                      {' ('}{totalRollover > 0 ? '+' : ''}{totalRollover.toFixed(0)})
+                    </span>
+                  )}
+                </p>
                 {totalSavingsMonthly > 0 && (
                   <p className="text-[10px] text-muted-foreground/70 truncate">+ ${totalSavingsMonthly.toFixed(0)} savings</p>
                 )}

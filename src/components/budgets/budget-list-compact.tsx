@@ -40,6 +40,8 @@ interface CategoryBudget {
   budgetId: string | null;
   budgeted: number;
   spent: number;
+  rollover?: boolean;
+  rollover_amount?: number;
 }
 
 interface SavingsGoalItem {
@@ -309,7 +311,8 @@ export function BudgetListCompact({ categoryBudgets, userId, currentMonth, onRef
     };
     for (const budget of sortedBudgets) {
       const group = classifyCategory(budget.categoryName);
-      totals[group].budgeted += budget.budgeted;
+      const totalAvailable = budget.budgeted + (budget.rollover_amount || 0);
+      totals[group].budgeted += totalAvailable;
       totals[group].spent += budget.spent;
     }
     // Add savings goals to the savings group totals
@@ -362,7 +365,14 @@ export function BudgetListCompact({ categoryBudgets, userId, currentMonth, onRef
               <span className={`text-sm font-semibold ${isOver ? 'text-red-400' : ''}`}>
                 $<AnimatedNumber value={budget.spent} format="integer" />
               </span>
-              <span className="text-xs text-muted-foreground"> / $<AnimatedNumber value={budget.budgeted} format="integer" /></span>
+              <span className="text-xs text-muted-foreground">
+                {' / $'}<AnimatedNumber value={budget.budgeted} format="integer" />
+                {budget.rollover_amount !== 0 && budget.rollover_amount !== undefined && (
+                  <span className={budget.rollover_amount > 0 ? 'text-green-400' : 'text-red-400'}>
+                    {' ('}{budget.rollover_amount > 0 ? '+' : ''}{budget.rollover_amount.toFixed(0)})
+                  </span>
+                )}
+              </span>
             </div>
             <Button
               variant="ghost"
@@ -393,7 +403,8 @@ export function BudgetListCompact({ categoryBudgets, userId, currentMonth, onRef
 
   const BudgetRow = ({ budget }: { budget: CategoryBudget }) => {
     const Icon = getCategoryIcon(budget.categoryIcon, budget.categoryName);
-    const percentage = budget.budgeted > 0 ? (budget.spent / budget.budgeted) * 100 : 0;
+    const totalAvailable = budget.budgeted + (budget.rollover_amount || 0);
+    const percentage = totalAvailable > 0 ? (budget.spent / totalAvailable) * 100 : 0;
     const isOver = percentage > 100;
 
     return (
@@ -407,7 +418,14 @@ export function BudgetListCompact({ categoryBudgets, userId, currentMonth, onRef
             <span className={`text-sm font-semibold ${isOver ? 'text-red-400' : ''}`}>
               $<AnimatedNumber value={budget.spent} format="integer" />
             </span>
-            <span className="text-xs text-muted-foreground"> / $<AnimatedNumber value={budget.budgeted} format="integer" /></span>
+            <span className="text-xs text-muted-foreground">
+              {' / $'}<AnimatedNumber value={budget.budgeted} format="integer" />
+              {budget.rollover_amount !== 0 && budget.rollover_amount !== undefined && (
+                <span className={budget.rollover_amount > 0 ? 'text-green-400' : 'text-red-400'}>
+                  {' ('}{budget.rollover_amount > 0 ? '+' : ''}{budget.rollover_amount.toFixed(0)})
+                </span>
+              )}
+            </span>
           </div>
           <Button
             variant="ghost"

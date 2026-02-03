@@ -19,6 +19,8 @@ interface CategoryBudget {
   budgetId: string | null;
   budgeted: number;
   spent: number;
+  rollover?: boolean;
+  rollover_amount?: number;
 }
 
 interface SavingsGoalItem {

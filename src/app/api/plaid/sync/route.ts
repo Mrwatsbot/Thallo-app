@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 import { plaidClient } from '@/lib/plaid/client';
 import { decryptToken } from '@/lib/plaid/crypto';
 import { Transaction, AccountBase, AccountType, AccountSubtype } from 'plaid';
+import { applyCategoryRules } from '@/lib/category-rules';
 
 // Rate limit: max once per hour per connection
 const SYNC_RATE_LIMIT_MS = 60 * 60 * 1000;
@@ -139,8 +140,13 @@ export async function POST(request: NextRequest) {
 
         // Process added transactions
         for (const txn of added) {
-          // Only extract minimal fields
-          const categoryId = findCategoryMatch(txn.personal_finance_category?.primary ? [txn.personal_finance_category.primary] : null, userCategories || []);
+          const payee = txn.merchant_name || txn.name || 'Unknown';
+          
+          // Try category rules first, then fall back to Plaid category matching
+          let categoryId = await applyCategoryRules(supabase, user.id, payee);
+          if (!categoryId) {
+            categoryId = findCategoryMatch(txn.personal_finance_category?.primary ? [txn.personal_finance_category.primary] : null, userCategories || []);
+          }
           
           // Insert transaction (with conflict handling for deduplication)
           const { error: insertError } = await (supabase.from as any)('transactions')
@@ -153,8 +159,8 @@ export async function POST(request: NextRequest) {
               // So we negate: Plaid +50 (debit) → App -50 (expense)
               //               Plaid -50 (credit) → App +50 (income)
               amount: -txn.amount,
-              payee_original: txn.merchant_name || txn.name || 'Unknown',
-              payee_clean: txn.merchant_name || txn.name || 'Unknown',
+              payee_original: payee,
+              payee_clean: payee,
               date: txn.date,
               category_id: categoryId,
               memo: txn.name !== txn.merchant_name ? txn.name : null,
@@ -174,13 +180,19 @@ export async function POST(request: NextRequest) {
 
         // Process modified transactions
         for (const txn of modified) {
-          const categoryId = findCategoryMatch(txn.personal_finance_category?.primary ? [txn.personal_finance_category.primary] : null, userCategories || []);
+          const payee = txn.merchant_name || txn.name || 'Unknown';
+          
+          // Try category rules first, then fall back to Plaid category matching
+          let categoryId = await applyCategoryRules(supabase, user.id, payee);
+          if (!categoryId) {
+            categoryId = findCategoryMatch(txn.personal_finance_category?.primary ? [txn.personal_finance_category.primary] : null, userCategories || []);
+          }
           
           const { error: updateError } = await (supabase.from as any)('transactions')
             .update({
               amount: -txn.amount, // Negate Plaid sign convention
-              payee_original: txn.merchant_name || txn.name || 'Unknown',
-              payee_clean: txn.merchant_name || txn.name || 'Unknown',
+              payee_original: payee,
+              payee_clean: payee,
               date: txn.date,
               category_id: categoryId,
               memo: txn.name !== txn.merchant_name ? txn.name : null,

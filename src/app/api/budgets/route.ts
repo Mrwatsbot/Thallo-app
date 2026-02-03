@@ -23,28 +23,61 @@ export async function GET(request: Request) {
     ? `${yearNum + 1}-01-01`
     : `${yearNum}-${String(monthNum + 1).padStart(2, '0')}-01`;
 
-  const [categoriesRes, budgetsRes, transactionsRes, savingsRes] = await Promise.all([
+  // Compute previous month string for rollover calculation
+  const prevMonth = monthNum === 1
+    ? `${yearNum - 1}-12-01`
+    : `${yearNum}-${String(monthNum - 1).padStart(2, '0')}-01`;
+
+  const [categoriesRes, budgetsRes, prevBudgetsRes, transactionsRes, prevTransactionsRes, savingsRes] = await Promise.all([
     supabase.from('categories').select('id, name, icon, type, color').order('sort_order'),
-    supabase.from('budgets')
-      .select('id, budgeted, category_id, category:categories(id, name, icon, color)')
+    (supabase.from as any)('budgets')
+      .select('id, budgeted, rollover, rollover_amount, category_id, category:categories(id, name, icon, color)')
       .eq('user_id', user.id)
       .eq('month', monthStr),
+    (supabase.from as any)('budgets')
+      .select('id, budgeted, rollover, rollover_amount, category_id')
+      .eq('user_id', user.id)
+      .eq('month', prevMonth),
     supabase.from('transactions')
       .select('id, amount, category:categories(id)')
       .eq('user_id', user.id)
       .gte('date', monthStr)
       .lt('date', nextMonth),
+    supabase.from('transactions')
+      .select('id, amount, category:categories(id)')
+      .eq('user_id', user.id)
+      .gte('date', prevMonth)
+      .lt('date', monthStr),
     (supabase.from as any)('savings_goals')
       .select('monthly_contribution')
       .eq('user_id', user.id)
       .eq('is_active', true),
   ]);
 
-  // Spent per category
+  // Spent per category for current month
   const spentByCategory: Record<string, number> = {};
   (transactionsRes.data || []).filter((t: { amount: number }) => t.amount < 0).forEach((t: { amount: number; category: { id: string } | null }) => {
     if (t.category?.id) {
       spentByCategory[t.category.id] = (spentByCategory[t.category.id] || 0) + Math.abs(t.amount);
+    }
+  });
+
+  // Spent per category for previous month
+  const prevSpentByCategory: Record<string, number> = {};
+  (prevTransactionsRes.data || []).filter((t: { amount: number }) => t.amount < 0).forEach((t: { amount: number; category: { id: string } | null }) => {
+    if (t.category?.id) {
+      prevSpentByCategory[t.category.id] = (prevSpentByCategory[t.category.id] || 0) + Math.abs(t.amount);
+    }
+  });
+
+  // Calculate rollover amounts from previous month
+  const rolloverByCategory: Record<string, number> = {};
+  (prevBudgetsRes.data || []).forEach((prevBudget: { category_id: string; budgeted: number; rollover: boolean; rollover_amount: number }) => {
+    if (prevBudget.rollover) {
+      const prevSpent = prevSpentByCategory[prevBudget.category_id] || 0;
+      // Rollover = (budgeted + rollover_amount) - spent
+      const rollover = (prevBudget.budgeted + (prevBudget.rollover_amount || 0)) - prevSpent;
+      rolloverByCategory[prevBudget.category_id] = rollover;
     }
   });
 
@@ -64,9 +97,10 @@ export async function GET(request: Request) {
 
   return NextResponse.json({
     categories: categoriesRes.data || [],
-    budgets: (budgetsRes.data || []).map((b: { id: string; budgeted: number; category_id: string; category: { id: string; name: string; icon: string | null; color: string | null } | null }) => ({
+    budgets: (budgetsRes.data || []).map((b: { id: string; budgeted: number; rollover: boolean; rollover_amount: number; category_id: string; category: { id: string; name: string; icon: string | null; color: string | null } | null }) => ({
       ...b,
       spent: spentByCategory[b.category?.id || b.category_id || ''] || 0,
+      rollover_amount: rolloverByCategory[b.category_id] || b.rollover_amount || 0,
     })),
     spentByCategory,
     monthlyIncome,
@@ -77,4 +111,38 @@ export async function GET(request: Request) {
       full_name: user.user_metadata?.full_name || user.email?.split('@')[0],
     },
   });
+}
+
+export async function PUT(request: Request) {
+  const guard = await apiGuard(60);
+  if (guard.error) return guard.error;
+  const { user, supabase } = guard;
+
+  try {
+    const body = await request.json();
+    const { budgetId, rollover } = body;
+
+    if (!budgetId || typeof rollover !== 'boolean') {
+      return NextResponse.json(
+        { error: 'budgetId and rollover (boolean) are required' },
+        { status: 400 }
+      );
+    }
+
+    const { data, error } = await (supabase.from as any)('budgets')
+      .update({ rollover })
+      .eq('id', budgetId)
+      .eq('user_id', user.id)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return NextResponse.json({ success: true, budget: data });
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: error.message || 'Failed to update budget' },
+      { status: 500 }
+    );
+  }
 }

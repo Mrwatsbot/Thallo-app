@@ -44,6 +44,7 @@ import {
   X,
   Download,
   Info,
+  Filter,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -516,6 +517,136 @@ function AccountsSection({ accounts, onRefresh }: { accounts: AccountItem[]; onR
 }
 
 // ============================================================
+// CATEGORY RULES SECTION
+// ============================================================
+
+interface CategoryRule {
+  id: string;
+  payee_pattern: string;
+  match_type: string;
+  created_at: string;
+  category: {
+    id: string;
+    name: string;
+    icon: string;
+    color: string;
+  };
+}
+
+function CategoryRulesSection() {
+  const [rules, setRules] = useState<CategoryRule[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [deleting, setDeleting] = useState<string | null>(null);
+
+  const fetchRules = async () => {
+    try {
+      const response = await fetch('/api/category-rules');
+      if (!response.ok) throw new Error('Failed to fetch rules');
+      const data = await response.json();
+      setRules(data.rules || []);
+    } catch (error) {
+      toast.error('Failed to load category rules');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchRules();
+  }, []);
+
+  const handleDelete = async (id: string) => {
+    setDeleting(id);
+    try {
+      const response = await fetch(`/api/category-rules?id=${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) throw new Error('Failed to delete rule');
+      toast.success('Rule deleted');
+      await fetchRules();
+    } catch (error) {
+      toast.error('Failed to delete rule');
+    } finally {
+      setDeleting(null);
+    }
+  };
+
+  return (
+    <Card>
+      <CardHeader>
+        <div className="flex items-center gap-2">
+          <Filter className="h-5 w-5 text-[#1a7a6d]" />
+          <CardTitle>Category Rules</CardTitle>
+        </div>
+        <CardDescription>
+          Auto-categorization rules for transactions
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        {loading ? (
+          <div className="flex items-center justify-center py-6">
+            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+          </div>
+        ) : rules.length === 0 ? (
+          <div className="text-center py-6">
+            <Filter className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
+            <p className="text-muted-foreground mb-2">No rules yet</p>
+            <p className="text-xs text-muted-foreground">
+              Change a transaction&apos;s category to create your first rule
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {rules.map((rule) => (
+              <div
+                key={rule.id}
+                className="flex items-center gap-3 rounded-lg border border-border p-3 hover:bg-secondary/30 transition-colors"
+              >
+                <div
+                  className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+                  style={{
+                    backgroundColor: `${rule.category.color}20`,
+                  }}
+                >
+                  <div style={{ color: rule.category.color }}>
+                    {/* Icon placeholder - could use getCategoryIcon here */}
+                    <Filter className="h-4 w-4" />
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium truncate">
+                    {rule.payee_pattern}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    → {rule.category.name}
+                    <span className="ml-2 opacity-60">
+                      ({rule.match_type === 'exact' ? 'Exact match' : 'Contains'})
+                    </span>
+                  </p>
+                </div>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => handleDelete(rule.id)}
+                  disabled={deleting === rule.id}
+                  className="h-8 w-8 p-0 text-red-400 hover:text-red-300"
+                >
+                  {deleting === rule.id ? (
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  ) : (
+                    <Trash2 className="h-3.5 w-3.5" />
+                  )}
+                </Button>
+              </div>
+            ))}
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
+// ============================================================
 // SUBSCRIPTION SECTION
 // ============================================================
 
@@ -820,6 +951,7 @@ export function SettingsContent() {
         <div className="space-y-6">
           <ProfileSection profile={profile} onSave={refresh} />
           <IncomeSection profile={profile} onSave={refresh} />
+          <CategoryRulesSection />
           <AIKeySection profile={profile} onSave={refresh} />
         </div>
         <div className="space-y-6">

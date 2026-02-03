@@ -88,6 +88,7 @@ export function TransactionsContent() {
           {viewMode === 'list' ? (
             <TransactionList
               transactions={transactions || []}
+              categories={categories || []}
               showAccount={!!(accounts && accounts.length > 1)}
               onRefresh={refresh}
             />

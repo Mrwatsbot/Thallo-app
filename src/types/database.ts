@@ -114,6 +114,8 @@ export interface Budget {
   category_id: string;
   month: string;
   budgeted: number;
+  rollover: boolean;
+  rollover_amount: number;
   created_at: string;
   updated_at: string;
   // Computed/joined

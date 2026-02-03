@@ -5,7 +5,9 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Pencil, Check, X, Loader2, DollarSign } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { Pencil, Check, X, Loader2, DollarSign, TrendingUp, TrendingDown } from 'lucide-react';
 import { getCategoryIcon } from '@/lib/category-icons';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
@@ -19,6 +21,8 @@ interface BudgetCardProps {
   budgetId: string | null;
   budgeted: number;
   spent: number;
+  rollover?: boolean;
+  rolloverAmount?: number;
   userId: string;
   currentMonth: string;
   onRefresh?: () => void;
@@ -32,6 +36,8 @@ export function BudgetCard({
   budgetId,
   budgeted,
   spent,
+  rollover = true,
+  rolloverAmount = 0,
   userId,
   currentMonth,
   onRefresh,
@@ -42,11 +48,13 @@ export function BudgetCard({
   const [loading, setLoading] = useState(false);
   const [amount, setAmount] = useState(budgeted.toString());
   const [spentAmount, setSpentAmount] = useState(spent.toString());
+  const [rolloverEnabled, setRolloverEnabled] = useState(rollover);
 
   const IconComponent = getCategoryIcon(categoryIcon, categoryName);
-  const percentage = budgeted > 0 ? (spent / budgeted) * 100 : 0;
+  const totalAvailable = budgeted + rolloverAmount;
+  const percentage = totalAvailable > 0 ? (spent / totalAvailable) * 100 : 0;
   const isOver = percentage > 100;
-  const remaining = budgeted - spent;
+  const remaining = totalAvailable - spent;
 
   const handleSave = async () => {
     const newAmount = parseFloat(amount);
@@ -71,7 +79,7 @@ export function BudgetCard({
         } else {
           const { error } = await supabase
             .from('budgets')
-            .update({ budgeted: newAmount })
+            .update({ budgeted: newAmount, rollover: rolloverEnabled })
             .eq('id', budgetId);
           if (error) throw error;
         }
@@ -82,6 +90,7 @@ export function BudgetCard({
           category_id: categoryId,
           month: currentMonth,
           budgeted: newAmount,
+          rollover: rolloverEnabled,
         });
         if (error) throw error;
       }
@@ -124,11 +133,28 @@ export function BudgetCard({
           <div>
             <h3 className="font-medium">{categoryName}</h3>
             {budgeted > 0 && !editing && (
-              <p className={`text-sm ${isOver ? 'text-red-400' : 'text-muted-foreground'}`}>
-                {isOver 
-                  ? `$${Math.abs(remaining).toFixed(2)} over` 
-                  : `$${remaining.toFixed(2)} left`}
-              </p>
+              <div className="flex flex-col gap-0.5">
+                {rolloverAmount !== 0 && (
+                  <p className={`text-xs flex items-center gap-1 ${rolloverAmount > 0 ? 'text-green-400' : 'text-red-400'}`}>
+                    {rolloverAmount > 0 ? (
+                      <>
+                        <TrendingUp className="h-3 w-3" />
+                        ${rolloverAmount.toFixed(2)} rollover
+                      </>
+                    ) : (
+                      <>
+                        <TrendingDown className="h-3 w-3" />
+                        ${Math.abs(rolloverAmount).toFixed(2)} overspend
+                      </>
+                    )}
+                  </p>
+                )}
+                <p className={`text-sm ${isOver ? 'text-red-400' : 'text-muted-foreground'}`}>
+                  {isOver 
+                    ? `$${Math.abs(remaining).toFixed(2)} over` 
+                    : `$${remaining.toFixed(2)} left`}
+                </p>
+              </div>
             )}
           </div>
         </div>
@@ -159,6 +185,16 @@ export function BudgetCard({
               className="pl-7 bg-secondary/50 border-border"
               placeholder="0.00"
               autoFocus
+            />
+          </div>
+          <div className="flex items-center justify-between p-3 rounded-lg bg-secondary/30 border border-border">
+            <Label htmlFor="rollover-toggle" className="text-sm cursor-pointer">
+              Roll over unspent funds
+            </Label>
+            <Switch
+              id="rollover-toggle"
+              checked={rolloverEnabled}
+              onCheckedChange={setRolloverEnabled}
             />
           </div>
           <div className="flex gap-2">
@@ -242,7 +278,18 @@ export function BudgetCard({
                 <DollarSign className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 ${spent.toFixed(2)} spent
               </button>
-              <span className="font-medium">${budgeted.toFixed(2)}</span>
+              <span className="font-medium">
+                {rolloverAmount !== 0 ? (
+                  <span className="flex items-center gap-1">
+                    ${budgeted.toFixed(2)}
+                    <span className={rolloverAmount > 0 ? 'text-green-400' : 'text-red-400'}>
+                      ({rolloverAmount > 0 ? '+' : ''}{rolloverAmount.toFixed(2)})
+                    </span>
+                  </span>
+                ) : (
+                  `$${budgeted.toFixed(2)}`
+                )}
+              </span>
             </div>
           )}
           <div className="h-2 rounded-full bg-border/10 overflow-hidden progress-bar-container">
