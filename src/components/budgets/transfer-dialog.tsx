@@ -121,7 +121,7 @@ export function TransferDialog({ categoryBudgets, currentMonth, onTransferred }:
       <DialogTrigger asChild>
         <Button variant="outline" size="sm" className="gap-2">
           <ArrowLeftRight className="w-4 h-4" />
-          <span className="hidden sm:inline">Move Money</span>
+          Move Money
         </Button>
       </DialogTrigger>
       <DialogContent className="glass-card border-border sm:max-w-md">

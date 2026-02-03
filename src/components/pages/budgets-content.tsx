@@ -89,15 +89,6 @@ export function BudgetsContent() {
             </div>
             
             <div className="flex items-center gap-2 flex-wrap">
-              {/* Transfer button */}
-              {hasBudgets && (
-                <TransferDialog
-                  categoryBudgets={categoryBudgets}
-                  currentMonth={currentMonthStr}
-                  onTransferred={() => { refresh(); refreshSavings(); }}
-                />
-              )}
-              
               {/* AI buttons */}
               <AutoBudgetDialog
                 currentMonth={currentMonthStr}
@@ -176,6 +167,17 @@ export function BudgetsContent() {
               </div>
             )}
           </div>
+
+          {/* Move Money — above budget categories */}
+          {hasBudgets && (
+            <div className="flex">
+              <TransferDialog
+                categoryBudgets={categoryBudgets}
+                currentMonth={currentMonthStr}
+                onTransferred={() => { refresh(); refreshSavings(); }}
+              />
+            </div>
+          )}
 
           {/* Budget Display — Compact list on mobile, grid on desktop */}
           <div className="lg:hidden">
