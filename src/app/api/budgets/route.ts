@@ -39,12 +39,12 @@ export async function GET(request: Request) {
       .eq('user_id', user.id)
       .eq('month', prevMonth),
     supabase.from('transactions')
-      .select('id, amount, category:categories(id)')
+      .select('id, amount, category:categories(id), is_split, parent_transaction_id')
       .eq('user_id', user.id)
       .gte('date', monthStr)
       .lt('date', nextMonth),
     supabase.from('transactions')
-      .select('id, amount, category:categories(id)')
+      .select('id, amount, category:categories(id), is_split, parent_transaction_id')
       .eq('user_id', user.id)
       .gte('date', prevMonth)
       .lt('date', monthStr),
@@ -55,20 +55,29 @@ export async function GET(request: Request) {
   ]);
 
   // Spent per category for current month
+  // Exclude parent transactions that are split (count only the children)
   const spentByCategory: Record<string, number> = {};
-  (transactionsRes.data || []).filter((t: { amount: number }) => t.amount < 0).forEach((t: { amount: number; category: { id: string } | null }) => {
-    if (t.category?.id) {
-      spentByCategory[t.category.id] = (spentByCategory[t.category.id] || 0) + Math.abs(t.amount);
-    }
-  });
+  (transactionsRes.data || [])
+    .filter((t: { amount: number; is_split?: boolean; parent_transaction_id?: string | null }) => 
+      t.amount < 0 && !t.is_split
+    )
+    .forEach((t: { amount: number; category: { id: string } | null }) => {
+      if (t.category?.id) {
+        spentByCategory[t.category.id] = (spentByCategory[t.category.id] || 0) + Math.abs(t.amount);
+      }
+    });
 
   // Spent per category for previous month
   const prevSpentByCategory: Record<string, number> = {};
-  (prevTransactionsRes.data || []).filter((t: { amount: number }) => t.amount < 0).forEach((t: { amount: number; category: { id: string } | null }) => {
-    if (t.category?.id) {
-      prevSpentByCategory[t.category.id] = (prevSpentByCategory[t.category.id] || 0) + Math.abs(t.amount);
-    }
-  });
+  (prevTransactionsRes.data || [])
+    .filter((t: { amount: number; is_split?: boolean; parent_transaction_id?: string | null }) => 
+      t.amount < 0 && !t.is_split
+    )
+    .forEach((t: { amount: number; category: { id: string } | null }) => {
+      if (t.category?.id) {
+        prevSpentByCategory[t.category.id] = (prevSpentByCategory[t.category.id] || 0) + Math.abs(t.amount);
+      }
+    });
 
   // Calculate rollover amounts from previous month
   const rolloverByCategory: Record<string, number> = {};

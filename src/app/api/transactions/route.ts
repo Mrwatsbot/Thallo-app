@@ -15,8 +15,9 @@ export async function GET(request: NextRequest) {
     supabase.from('categories').select('id, name, icon, type, color').order('sort_order'),
     supabase.from('accounts').select('id, name, type').eq('user_id', user.id).eq('is_active', true).order('created_at'),
     supabase.from('transactions')
-      .select('id, amount, payee_clean, payee_original, date, memo, is_cleared, category:categories(id, name, icon, color), account:accounts(id, name)')
+      .select('id, amount, payee_clean, payee_original, date, memo, is_cleared, parent_transaction_id, is_split, category:categories(id, name, icon, color), account:accounts(id, name)')
       .eq('user_id', user.id)
+      .is('parent_transaction_id', null)
       .order('date', { ascending: false })
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1),

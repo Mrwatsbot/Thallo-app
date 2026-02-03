@@ -101,6 +101,8 @@ export interface Transaction {
   ai_categorized: boolean;
   ai_confidence: number | null;
   plaid_transaction_id: string | null;
+  parent_transaction_id: string | null;
+  is_split: boolean;
   created_at: string;
   updated_at: string;
   // Joined data
