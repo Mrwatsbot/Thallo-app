@@ -311,8 +311,7 @@ export function BudgetListCompact({ categoryBudgets, userId, currentMonth, onRef
     };
     for (const budget of sortedBudgets) {
       const group = classifyCategory(budget.categoryName);
-      const totalAvailable = budget.budgeted + (budget.rollover_amount || 0);
-      totals[group].budgeted += totalAvailable;
+      totals[group].budgeted += budget.budgeted;
       totals[group].spent += budget.spent;
     }
     // Add savings goals to the savings group totals

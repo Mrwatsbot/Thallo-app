@@ -133,14 +133,12 @@ export function BudgetsContent() {
             <div className="grid grid-cols-3 gap-2 sm:gap-6">
               <div className="text-center min-w-0">
                 <p className="text-xs sm:text-sm text-muted-foreground">Budgeted</p>
-                <p className="text-base sm:text-xl font-display font-bold truncate">
-                  ${grandTotalBudgeted.toFixed(2)}
-                  {totalRollover !== 0 && (
-                    <span className={`text-xs ${totalRollover > 0 ? 'text-green-400' : 'text-red-400'}`}>
-                      {' ('}{totalRollover > 0 ? '+' : ''}{totalRollover.toFixed(0)})
-                    </span>
-                  )}
-                </p>
+                <p className="text-base sm:text-xl font-display font-bold truncate">${grandTotalBudgeted.toFixed(2)}</p>
+                {totalRollover !== 0 && (
+                  <p className={`text-[10px] truncate ${totalRollover > 0 ? 'text-green-400/70' : 'text-red-400/70'}`}>
+                    {totalRollover > 0 ? '+' : ''}{totalRollover.toFixed(0)} rollover
+                  </p>
+                )}
                 {totalSavingsMonthly > 0 && (
                   <p className="text-[10px] text-muted-foreground/70 truncate">+ ${totalSavingsMonthly.toFixed(0)} savings</p>
                 )}
