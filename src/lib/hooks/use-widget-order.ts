@@ -7,6 +7,7 @@ const DEFAULT_ORDER = [
   'score-widget',
   'year-at-a-glance',
   'budget-overview',
+  'recurring-charges',
   'recent-transactions',
   'insights',
 ];

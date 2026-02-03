@@ -45,11 +45,13 @@ import {
   Download,
   Info,
   Filter,
+  Calendar,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { PlaidConnectSection } from '@/components/plaid/plaid-connect-section';
 import { getUserTier } from '@/lib/ai/rate-limiter';
+import { ExportDialog } from '@/components/export/export-dialog';
 
 // ============================================================
 // ACCOUNT TYPE HELPERS
@@ -220,6 +222,102 @@ function IncomeSection({ profile, onSave }: { profile: Record<string, unknown> |
         >
           {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
           Save Income
+        </Button>
+      </CardContent>
+    </Card>
+  );
+}
+
+// ============================================================
+// PAY SCHEDULE SECTION
+// ============================================================
+
+function PayScheduleSection({ profile, onSave }: { profile: Record<string, unknown> | null; onSave: () => void }) {
+  const [payFrequency, setPayFrequency] = useState('monthly');
+  const [nextPayDate, setNextPayDate] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (profile?.pay_frequency) setPayFrequency(profile.pay_frequency as string);
+    if (profile?.next_pay_date) setNextPayDate(profile.next_pay_date as string);
+  }, [profile]);
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      await updateSettings({ 
+        pay_frequency: payFrequency,
+        next_pay_date: nextPayDate || null,
+      });
+      toast.success('Pay schedule updated');
+      onSave();
+    } catch (err: unknown) {
+      toast.error(err instanceof Error ? err.message : 'Failed to update pay schedule');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const hasChanges = 
+    payFrequency !== (profile?.pay_frequency || 'monthly') ||
+    nextPayDate !== (profile?.next_pay_date || '');
+
+  return (
+    <Card>
+      <CardHeader>
+        <div className="flex items-center gap-2">
+          <Calendar className="h-5 w-5 text-[#1a7a6d]" />
+          <CardTitle>Pay Schedule</CardTitle>
+        </div>
+        <CardDescription>When and how often you get paid</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="pay-frequency">Pay Frequency</Label>
+          <Select value={payFrequency} onValueChange={setPayFrequency}>
+            <SelectTrigger id="pay-frequency">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="monthly">Monthly</SelectItem>
+              <SelectItem value="biweekly">Bi-weekly (every 2 weeks)</SelectItem>
+              <SelectItem value="semimonthly">Semi-monthly (twice per month)</SelectItem>
+              <SelectItem value="weekly">Weekly</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        
+        {payFrequency !== 'monthly' && (
+          <div className="space-y-2">
+            <Label htmlFor="next-pay-date">Next Pay Date</Label>
+            <Input
+              id="next-pay-date"
+              type="date"
+              value={nextPayDate}
+              onChange={e => setNextPayDate(e.target.value)}
+            />
+            <p className="text-xs text-muted-foreground">
+              This helps us show which bills are covered by each paycheck
+            </p>
+          </div>
+        )}
+
+        {payFrequency !== 'monthly' && (
+          <div className="flex items-start gap-2 rounded-lg bg-[#1a7a6d1a] border border-[#1a7a6d33] p-3">
+            <Info className="h-4 w-4 text-[#1a7a6d] mt-0.5 shrink-0" />
+            <p className="text-xs text-muted-foreground">
+              We&apos;ll show a paycheck planner on your budgets page to help allocate expenses across paychecks.
+            </p>
+          </div>
+        )}
+
+        <Button
+          onClick={handleSave}
+          disabled={saving || !hasChanges}
+          className="gradient-btn border-0"
+        >
+          {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+          Save Pay Schedule
         </Button>
       </CardContent>
     </Card>
@@ -851,11 +949,15 @@ function DangerZone() {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex flex-col sm:flex-row gap-3">
-          <Button variant="outline" disabled>
-            <Download className="mr-2 h-4 w-4" />
-            Export Data
-            <Badge variant="outline" className="ml-2 text-xs">Coming Soon</Badge>
-          </Button>
+          <ExportDialog 
+            mode="full" 
+            trigger={
+              <Button variant="outline">
+                <Download className="mr-2 h-4 w-4" />
+                Export Data
+              </Button>
+            }
+          />
 
           <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
             <DialogTrigger asChild>
@@ -951,6 +1053,7 @@ export function SettingsContent() {
         <div className="space-y-6">
           <ProfileSection profile={profile} onSave={refresh} />
           <IncomeSection profile={profile} onSave={refresh} />
+          <PayScheduleSection profile={profile} onSave={refresh} />
           <CategoryRulesSection />
           <AIKeySection profile={profile} onSave={refresh} />
         </div>

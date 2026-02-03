@@ -10,7 +10,7 @@ export async function GET() {
   const [profileRes, accountsRes] = await Promise.all([
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (supabase.from as any)('profiles')
-      .select('id, full_name, email, monthly_income, subscription_tier, subscription_status, openrouter_api_key')
+      .select('id, full_name, email, monthly_income, subscription_tier, subscription_status, openrouter_api_key, pay_frequency, next_pay_date')
       .eq('id', user.id)
       .single(),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -46,7 +46,7 @@ export async function PUT(request: NextRequest) {
   const { user, supabase } = guard;
 
   const body = await request.json();
-  const { full_name, monthly_income, openrouter_api_key } = body;
+  const { full_name, monthly_income, openrouter_api_key, pay_frequency, next_pay_date } = body;
 
   // Build update object with only provided fields
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -67,6 +67,19 @@ export async function PUT(request: NextRequest) {
   if (openrouter_api_key !== undefined) {
     // Allow null/empty to clear the key
     updates.openrouter_api_key = openrouter_api_key || null;
+  }
+
+  if (pay_frequency !== undefined) {
+    const validFrequencies = ['weekly', 'biweekly', 'semimonthly', 'monthly'];
+    if (!validFrequencies.includes(pay_frequency)) {
+      return NextResponse.json({ error: 'Invalid pay frequency' }, { status: 400 });
+    }
+    updates.pay_frequency = pay_frequency;
+  }
+
+  if (next_pay_date !== undefined) {
+    // Allow null to clear the date
+    updates.next_pay_date = next_pay_date || null;
   }
 
   if (Object.keys(updates).length === 0) {

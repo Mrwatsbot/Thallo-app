@@ -10,7 +10,8 @@ import { SpendingCalendar } from '@/components/transactions/spending-calendar';
 import { ListLoading } from '@/components/layout/page-loading';
 import { InsightsPanel } from '@/components/ai/insights-panel';
 import { Button } from '@/components/ui/button';
-import { List, CalendarDays } from 'lucide-react';
+import { List, CalendarDays, Download } from 'lucide-react';
+import { ExportDialog } from '@/components/export/export-dialog';
 
 type ViewMode = 'list' | 'calendar';
 
@@ -35,24 +36,36 @@ export function TransactionsContent() {
                   {transactions?.length || 0} transactions
                 </p>
               </div>
-              {/* View Toggle — always fits */}
-              <div className="flex items-center rounded-lg border border-border bg-muted/30 p-0.5">
-                <Button
-                  variant={viewMode === 'list' ? 'secondary' : 'ghost'}
-                  size="icon-sm"
-                  onClick={() => setViewMode('list')}
-                  aria-label="List view"
-                >
-                  <List className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant={viewMode === 'calendar' ? 'secondary' : 'ghost'}
-                  size="icon-sm"
-                  onClick={() => setViewMode('calendar')}
-                  aria-label="Calendar view"
-                >
-                  <CalendarDays className="h-4 w-4" />
-                </Button>
+              <div className="flex items-center gap-2">
+                {/* Export Button */}
+                <ExportDialog 
+                  mode="transactions" 
+                  trigger={
+                    <Button variant="outline" size="sm">
+                      <Download className="h-4 w-4 sm:mr-2" />
+                      <span className="hidden sm:inline">Export</span>
+                    </Button>
+                  }
+                />
+                {/* View Toggle — always fits */}
+                <div className="flex items-center rounded-lg border border-border bg-muted/30 p-0.5">
+                  <Button
+                    variant={viewMode === 'list' ? 'secondary' : 'ghost'}
+                    size="icon-sm"
+                    onClick={() => setViewMode('list')}
+                    aria-label="List view"
+                  >
+                    <List className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant={viewMode === 'calendar' ? 'secondary' : 'ghost'}
+                    size="icon-sm"
+                    onClick={() => setViewMode('calendar')}
+                    aria-label="Calendar view"
+                  >
+                    <CalendarDays className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
             </div>
             {/* Action buttons — separate row on mobile */}

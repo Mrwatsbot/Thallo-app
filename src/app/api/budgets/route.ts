@@ -81,15 +81,19 @@ export async function GET(request: Request) {
     }
   });
 
-  // Fetch monthly income
+  // Fetch monthly income and pay schedule
   let monthlyIncome = 0;
+  let payFrequency = 'monthly';
+  let nextPayDate = null;
   try {
     const { data: profileData } = await (supabase.from as any)('profiles')
-      .select('monthly_income')
+      .select('monthly_income, pay_frequency, next_pay_date')
       .eq('id', user.id)
       .single();
     monthlyIncome = profileData?.monthly_income || 0;
-  } catch { /* column may not exist yet */ }
+    payFrequency = profileData?.pay_frequency || 'monthly';
+    nextPayDate = profileData?.next_pay_date || null;
+  } catch { /* columns may not exist yet */ }
 
   // Compute total savings target from active savings goals
   const savingsGoals = savingsRes.data || [];
@@ -105,6 +109,8 @@ export async function GET(request: Request) {
     spentByCategory,
     monthlyIncome,
     totalSavingsTarget,
+    payFrequency,
+    nextPayDate,
     user: {
       id: user.id,
       email: user.email,

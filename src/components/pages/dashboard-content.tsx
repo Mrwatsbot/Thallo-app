@@ -12,6 +12,7 @@ import { DashboardLoading } from '@/components/layout/page-loading';
 import { InsightsPanel } from '@/components/ai/insights-panel';
 import { MonthlyPulse } from '@/components/dashboard/monthly-pulse';
 import { YearAtAGlance } from '@/components/dashboard/year-at-a-glance';
+import { RecurringChargesWidget } from '@/components/dashboard/recurring-charges';
 import { DraggableDashboard, type Widget } from '@/components/dashboard/draggable-dashboard';
 import { useWidgetOrder } from '@/lib/hooks/use-widget-order';
 import { toast } from 'sonner';
@@ -159,6 +160,8 @@ export function DashboardContent() {
         </div>
       </div>
     ),
+
+    'recurring-charges': <RecurringChargesWidget />,
 
     'recent-transactions': (
       <div className="glass-card rounded-xl p-5">

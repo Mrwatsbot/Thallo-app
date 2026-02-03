@@ -83,6 +83,8 @@ export function useBudgets() {
     spentByCategory: data?.spentByCategory || {},
     monthlyIncome: data?.monthlyIncome || 0,
     totalSavingsTarget: data?.totalSavingsTarget || 0,
+    payFrequency: data?.payFrequency || 'monthly',
+    nextPayDate: data?.nextPayDate || null,
     user: data?.user,
     error,
     isLoading,
