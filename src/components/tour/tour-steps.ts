@@ -1,9 +1,14 @@
-import { Step } from 'react-joyride';
-
 export type TourType = 'main' | 'budgets' | 'transactions' | 'debts' | 'savings' | 'score';
 
+export interface TourStep {
+  target: string; // data-tour selector value
+  title?: string;
+  content: string;
+  placement?: 'top' | 'bottom' | 'left' | 'right' | 'center';
+}
+
 export interface TourStepConfig {
-  [key: string]: Step[];
+  [key: string]: TourStep[];
 }
 
 export const TOUR_STEPS: TourStepConfig = {
@@ -12,7 +17,6 @@ export const TOUR_STEPS: TourStepConfig = {
       target: 'body',
       content: 'Welcome to Thallo! Let\'s show you around and help you get started with your financial wellness journey.',
       placement: 'center',
-      disableBeacon: true,
     },
     {
       target: '[data-tour="score-widget"]',

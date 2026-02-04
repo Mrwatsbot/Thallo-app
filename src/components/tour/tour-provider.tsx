@@ -1,9 +1,9 @@
 'use client';
 
-import { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import Joyride, { CallBackProps, STATUS, EVENTS, ACTIONS } from 'react-joyride';
+import { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { TourTooltip } from './tour-tooltip';
-import { TOUR_STEPS, TourType, isTourCompleted, markTourCompleted, getTourCompletionKey } from './tour-steps';
+import { TOUR_STEPS, TourType, TourStep, isTourCompleted, markTourCompleted, getTourCompletionKey } from './tour-steps';
 
 interface TourContextType {
   startTour: (tourType: TourType) => void;
@@ -27,11 +27,23 @@ interface TourProviderProps {
   autoStart?: boolean;
 }
 
+interface ElementRect {
+  top: number;
+  left: number;
+  width: number;
+  height: number;
+}
+
 export function TourProvider({ children, autoStart = true }: TourProviderProps) {
-  const [run, setRun] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
   const [currentTour, setCurrentTour] = useState<TourType | null>(null);
   const [stepIndex, setStepIndex] = useState(0);
+  const [targetRect, setTargetRect] = useState<ElementRect | null>(null);
+  const [tooltipPosition, setTooltipPosition] = useState<'top' | 'bottom' | 'left' | 'right' | 'center'>('bottom');
   const [savingTourState, setSavingTourState] = useState(false);
+  
+  const targetElementRef = useRef<Element | null>(null);
+  const resizeObserverRef = useRef<ResizeObserver | null>(null);
 
   // Auto-start main tour on first login
   useEffect(() => {
@@ -45,6 +57,119 @@ export function TourProvider({ children, autoStart = true }: TourProviderProps) 
       }
     }
   }, [autoStart]);
+
+  const getCurrentStep = useCallback((): TourStep | null => {
+    if (!currentTour) return null;
+    const steps = TOUR_STEPS[currentTour];
+    return steps[stepIndex] || null;
+  }, [currentTour, stepIndex]);
+
+  const updateTargetPosition = useCallback(() => {
+    const step = getCurrentStep();
+    if (!step) return;
+
+    const target = step.target === 'body' ? document.body : document.querySelector(step.target);
+    
+    if (!target) {
+      console.warn(`Tour target not found: ${step.target}`);
+      return;
+    }
+
+    targetElementRef.current = target;
+
+    const rect = target.getBoundingClientRect();
+    const padding = 8;
+    
+    setTargetRect({
+      top: rect.top - padding,
+      left: rect.left - padding,
+      width: rect.width + padding * 2,
+      height: rect.height + padding * 2,
+    });
+
+    // Calculate best tooltip position based on viewport space
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+    const centerY = rect.top + rect.height / 2;
+    const centerX = rect.left + rect.width / 2;
+
+    let position: 'top' | 'bottom' | 'left' | 'right' | 'center' = step.placement || 'bottom';
+
+    if (step.placement === 'center' || step.target === 'body') {
+      position = 'center';
+    } else {
+      // Smart positioning based on available space
+      const spaceAbove = rect.top;
+      const spaceBelow = viewportHeight - rect.bottom;
+      const spaceLeft = rect.left;
+      const spaceRight = viewportWidth - rect.right;
+
+      if (step.placement === 'top' && spaceAbove < 200) {
+        position = 'bottom';
+      } else if (step.placement === 'bottom' && spaceBelow < 200) {
+        position = 'top';
+      } else if (step.placement === 'left' && spaceLeft < 300) {
+        position = 'right';
+      } else if (step.placement === 'right' && spaceRight < 300) {
+        position = 'left';
+      }
+    }
+
+    setTooltipPosition(position);
+  }, [getCurrentStep]);
+
+  const scrollToTarget = useCallback(() => {
+    const step = getCurrentStep();
+    if (!step || step.target === 'body') return;
+
+    const target = document.querySelector(step.target);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+      // Update position after scroll
+      setTimeout(updateTargetPosition, 500);
+    }
+  }, [getCurrentStep, updateTargetPosition]);
+
+  const setupStepObserver = useCallback(() => {
+    // Clean up previous observer
+    if (resizeObserverRef.current) {
+      resizeObserverRef.current.disconnect();
+    }
+
+    const step = getCurrentStep();
+    if (!step) return;
+
+    const target = step.target === 'body' ? document.body : document.querySelector(step.target);
+    if (!target) return;
+
+    // Update position initially
+    updateTargetPosition();
+
+    // Observe resize and position changes
+    resizeObserverRef.current = new ResizeObserver(() => {
+      updateTargetPosition();
+    });
+    resizeObserverRef.current.observe(target);
+
+    // Also listen to scroll events
+    const handleScroll = () => updateTargetPosition();
+    window.addEventListener('scroll', handleScroll, true);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll, true);
+      resizeObserverRef.current?.disconnect();
+    };
+  }, [getCurrentStep, updateTargetPosition]);
+
+  // Update target position when step changes
+  useEffect(() => {
+    if (!isRunning || !currentTour) return;
+
+    scrollToTarget();
+    const cleanup = setupStepObserver();
+
+    return cleanup;
+  }, [isRunning, currentTour, stepIndex, scrollToTarget, setupStepObserver]);
 
   const startTour = useCallback((tourType: TourType) => {
     // Check if already completed
@@ -64,7 +189,7 @@ export function TourProvider({ children, autoStart = true }: TourProviderProps) 
 
     setCurrentTour(tourType);
     setStepIndex(0);
-    setRun(true);
+    setIsRunning(true);
   }, []);
 
   const resetTours = useCallback(() => {
@@ -75,9 +200,10 @@ export function TourProvider({ children, autoStart = true }: TourProviderProps) 
       tours.forEach(tour => {
         localStorage.removeItem(getTourCompletionKey(tour));
       });
-      setRun(false);
+      setIsRunning(false);
       setCurrentTour(null);
       setStepIndex(0);
+      setTargetRect(null);
     }
   }, []);
 
@@ -107,100 +233,112 @@ export function TourProvider({ children, autoStart = true }: TourProviderProps) 
     }
   }, [savingTourState]);
 
-  const handleJoyrideCallback = useCallback(
-    (data: CallBackProps) => {
-      const { status, action, index, type } = data;
+  const handleNext = useCallback(() => {
+    if (!currentTour) return;
+    
+    const steps = TOUR_STEPS[currentTour];
+    if (stepIndex < steps.length - 1) {
+      setStepIndex(stepIndex + 1);
+    } else {
+      // Tour completed
+      saveTourCompletion(currentTour);
+      setIsRunning(false);
+      setCurrentTour(null);
+      setStepIndex(0);
+      setTargetRect(null);
+    }
+  }, [currentTour, stepIndex, saveTourCompletion]);
 
-      // Handle tour completion or skip
-      if (
-        status === STATUS.FINISHED ||
-        status === STATUS.SKIPPED ||
-        action === ACTIONS.CLOSE
-      ) {
-        if (currentTour) {
-          if (status === STATUS.FINISHED) {
-            // Mark as completed only if user finished the tour
-            saveTourCompletion(currentTour);
-          }
-        }
-        setRun(false);
-        setCurrentTour(null);
-        setStepIndex(0);
-        return;
-      }
+  const handleBack = useCallback(() => {
+    if (stepIndex > 0) {
+      setStepIndex(stepIndex - 1);
+    }
+  }, [stepIndex]);
 
-      // Update step index for back/next navigation
-      if (type === EVENTS.STEP_AFTER || type === EVENTS.TARGET_NOT_FOUND) {
-        setStepIndex(index + (action === ACTIONS.PREV ? -1 : 1));
+  const handleSkip = useCallback(() => {
+    setIsRunning(false);
+    setCurrentTour(null);
+    setStepIndex(0);
+    setTargetRect(null);
+  }, []);
 
-        // If target not found, try scrolling to it
-        if (type === EVENTS.TARGET_NOT_FOUND && currentTour) {
-          const steps = TOUR_STEPS[currentTour];
-          const step = steps[index];
-          if (step?.target && typeof step.target === 'string' && step.target !== 'body') {
-            const element = document.querySelector(step.target);
-            if (element) {
-              element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-          }
-        }
-      }
-    },
-    [currentTour, saveTourCompletion]
-  );
+  const handleClose = useCallback(() => {
+    setIsRunning(false);
+    setCurrentTour(null);
+    setStepIndex(0);
+    setTargetRect(null);
+  }, []);
 
+  const step = getCurrentStep();
   const steps = currentTour ? TOUR_STEPS[currentTour] : [];
+  const totalSteps = steps.length;
 
   return (
     <TourContext.Provider
       value={{
         startTour,
         resetTours,
-        isRunning: run,
+        isRunning,
         currentTour,
       }}
     >
       {children}
-      <Joyride
-        steps={steps}
-        run={run}
-        stepIndex={stepIndex}
-        continuous
-        showProgress
-        showSkipButton
-        callback={handleJoyrideCallback}
-        tooltipComponent={TourTooltip}
-        disableOverlayClose
-        disableCloseOnEsc={false}
-        spotlightClicks={false}
-        scrollToFirstStep
-        scrollOffset={100}
-        styles={{
-          options: {
-            zIndex: 10000,
-            arrowColor: '#18181b',
-            backgroundColor: '#18181b',
-            primaryColor: '#1a7a6d',
-            textColor: '#e8eded',
-          },
-          overlay: {
-            backgroundColor: 'rgba(13, 21, 20, 0.85)',
-            mixBlendMode: 'normal' as any,
-          },
-          spotlight: {
-            backgroundColor: 'transparent',
-            border: '2px solid #1a7a6d',
-            borderRadius: '12px',
-          },
-          beaconInner: {
-            backgroundColor: '#1a7a6d',
-          },
-          beaconOuter: {
-            backgroundColor: 'rgba(26, 122, 109, 0.2)',
-            border: '2px solid #1a7a6d',
-          },
-        }}
-      />
+      
+      <AnimatePresence>
+        {isRunning && step && (
+          <>
+            {/* Spotlight Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-[9999] pointer-events-none"
+              style={{
+                background: 'rgba(13, 21, 20, 0.85)',
+              }}
+            >
+              {/* Cutout for target element */}
+              {targetRect && tooltipPosition !== 'center' && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute"
+                  style={{
+                    top: targetRect.top,
+                    left: targetRect.left,
+                    width: targetRect.width,
+                    height: targetRect.height,
+                    boxShadow: `
+                      0 0 0 9999px rgba(13, 21, 20, 0.85),
+                      0 0 0 2px #1a7a6d,
+                      0 0 20px rgba(26, 122, 109, 0.5)
+                    `,
+                    borderRadius: '12px',
+                    pointerEvents: 'none',
+                  }}
+                />
+              )}
+            </motion.div>
+
+            {/* Tooltip */}
+            <TourTooltip
+              step={step}
+              index={stepIndex}
+              total={totalSteps}
+              onNext={handleNext}
+              onBack={handleBack}
+              onSkip={handleSkip}
+              onClose={handleClose}
+              isFirst={stepIndex === 0}
+              isLast={stepIndex === totalSteps - 1}
+              position={tooltipPosition}
+              targetRect={targetRect}
+            />
+          </>
+        )}
+      </AnimatePresence>
     </TourContext.Provider>
   );
 }
