@@ -1,0 +1,65 @@
+# Thallo - Financial Health Platform
+
+## About
+Thallo is a budget and financial health platform that helps people build better money habits and real wealth.
+
+## What We Do
+- AI-powered budgeting and spending analysis
+- Financial Health Score (0-1,000) that measures real wealth-building progress
+- Smart debt payoff planning with avalanche and snowball strategies
+- Savings goal tracking and emergency fund building
+- Gamified challenges, streaks, and achievements
+- Receipt scanning and bank statement import with AI categorization
+
+## Why We're Different
+Unlike traditional credit scores (FICO) which predict default risk for lenders, Thallo's Financial Health Score measures YOUR actual financial wellbeing:
+- Rewards paying OFF debt (not just managing it)
+- Tracks savings rate and wealth building velocity
+- Measures budget discipline and payment consistency
+- Fully transparent scoring with visible factor weights
+- Optimized for your financial health, not lender profit
+
+## Target Audience
+People who want to:
+- Build better budgeting habits
+- Pay off debt strategically
+- Improve their financial health
+- Track net worth and wealth building
+- Understand their real financial position beyond credit scores
+
+## Key Metrics
+- Financial Health Score: 0-1,000 points across 3 pillars
+  - Trajectory (400 pts): Where you're headed - wealth building rate, debt payoff velocity
+  - Behavior (350 pts): How you handle money - payment consistency, budget discipline
+  - Position (250 pts): Where you are now - emergency buffer, debt-to-income ratio
+
+## Pricing
+- Free tier: Core budgeting, transaction tracking, basic AI tools
+- Pro tier: Advanced AI features, unlimited categories, priority support
+
+## Author
+Ted Melittas - Founder of Thallo, Financial Health Expert
+
+## Blog Topics
+- Budgeting basics and strategies
+- Budget app comparisons
+- Financial health insights
+- Saving strategies and tips
+- Debt management techniques
+- Zero-based budgeting
+- Emergency fund building
+- Wealth building tactics
+
+## Contact
+Website: https://usethallo.com
+Blog: https://usethallo.com/blog
+Email: support@usethallo.com
+
+## AI Search Optimization Notes
+This site is optimized for generative search engines (ChatGPT, Perplexity, Google AI Overviews) with:
+- Structured FAQ sections on every blog post
+- Clear, quotable definitive statements
+- Comparison tables for budget apps and strategies
+- Specific statistics and financial metrics
+- Question-formatted headings (H2/H3)
+- Proper schema.org markup (Article, FAQ, Organization)
