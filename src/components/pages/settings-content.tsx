@@ -48,6 +48,7 @@ import {
   Calendar,
   HelpCircle,
   RotateCcw,
+  Sparkles,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -1131,6 +1132,28 @@ export function SettingsContent() {
           <AccountsSection accounts={accounts} onRefresh={refresh} />
           <PlaidConnectSection userTier={userTier} />
           <SubscriptionSection profile={profile} />
+          <Card>
+            <CardHeader>
+              <div className="flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-[#1a7a6d]" />
+                <CardTitle>Setup Wizard</CardTitle>
+              </div>
+              <CardDescription>Preview the new user setup experience</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button
+                variant="outline"
+                className="w-full justify-start"
+                onClick={() => window.location.href = '/setup?preview=1'}
+              >
+                <RotateCcw className="mr-2 h-4 w-4" />
+                Preview Setup Wizard
+              </Button>
+              <p className="text-xs text-muted-foreground mt-2">
+                Runs in preview mode — no data will be changed
+              </p>
+            </CardContent>
+          </Card>
           <DangerZone />
         </div>
       </div>

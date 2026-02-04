@@ -28,6 +28,7 @@ import { toast } from 'sonner';
 
 interface SetupWizardProps {
   userId: string;
+  preview?: boolean;
 }
 
 const QUICK_PICK_AMOUNTS = [3000, 4000, 5000, 6000, 8000];
@@ -39,7 +40,7 @@ const ACCOUNT_TYPES = [
   { value: 'cash', label: 'Cash', icon: Banknote },
 ];
 
-export function SetupWizard({ userId }: SetupWizardProps) {
+export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -77,6 +78,10 @@ export function SetupWizard({ userId }: SetupWizardProps) {
         toast.error('Please enter your monthly income');
         return;
       }
+      if (preview) {
+        setStep(3);
+        return;
+      }
       setLoading(true);
       try {
         const response = await fetch('/api/settings', {
@@ -98,6 +103,30 @@ export function SetupWizard({ userId }: SetupWizardProps) {
         return;
       }
       setLoading(true);
+      
+      if (preview) {
+        // Preview mode — show mock budget data, skip writes
+        setStep(4);
+        setGeneratingBudget(true);
+        const income = parseFloat(monthlyIncome);
+        setTimeout(() => {
+          setBudgets([
+            { category_name: 'Housing', amount: Math.round(income * 0.30) },
+            { category_name: 'Food & Dining', amount: Math.round(income * 0.10) },
+            { category_name: 'Transportation', amount: Math.round(income * 0.08) },
+            { category_name: 'Entertainment', amount: Math.round(income * 0.05) },
+            { category_name: 'Subscriptions', amount: Math.round(income * 0.03) },
+            { category_name: 'Shopping', amount: Math.round(income * 0.06) },
+            { category_name: 'Health', amount: Math.round(income * 0.04) },
+            { category_name: 'Savings', amount: Math.round(income * 0.15) },
+            { category_name: 'Other', amount: Math.round(income * 0.05) },
+          ]);
+          setGeneratingBudget(false);
+          setLoading(false);
+        }, 1500);
+        return;
+      }
+      
       try {
         const supabase = createClient();
         const accountNames: Record<string, string> = {
@@ -142,6 +171,30 @@ export function SetupWizard({ userId }: SetupWizardProps) {
     } else if (step === 4) {
       // Save budgets
       setLoading(true);
+      
+      const animateScore = (target: number) => {
+        let current = 0;
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            setAnimatedScore(target);
+            clearInterval(timer);
+          } else {
+            setAnimatedScore(Math.floor(current));
+          }
+        }, 16);
+      };
+      
+      if (preview) {
+        setStep(5);
+        setScore({ score: 420, level: 2 });
+        animateScore(420);
+        setLoading(false);
+        return;
+      }
+      
       try {
         const now = new Date();
         const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
@@ -165,22 +218,7 @@ export function SetupWizard({ userId }: SetupWizardProps) {
         if (!scoreResponse.ok) throw new Error('Failed to fetch score');
         const scoreData = await scoreResponse.json();
         setScore(scoreData);
-        
-        // Animate score from 0 to actual
-        let current = 0;
-        const target = scoreData.score || 420;
-        const duration = 2000;
-        const increment = target / (duration / 16);
-        
-        const timer = setInterval(() => {
-          current += increment;
-          if (current >= target) {
-            setAnimatedScore(target);
-            clearInterval(timer);
-          } else {
-            setAnimatedScore(Math.floor(current));
-          }
-        }, 16);
+        animateScore(scoreData.score || 420);
         
       } catch (error: any) {
         toast.error(error.message || 'Failed to complete setup');
