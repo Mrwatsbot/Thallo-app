@@ -1360,8 +1360,8 @@ export default function Home() {
             <div>
               <p className="font-medium text-sm mb-3">Legal</p>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><span className="cursor-default">Privacy Policy</span></li>
-                <li><span className="cursor-default">Terms of Service</span></li>
+                <li><Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link></li>
               </ul>
             </div>
           </div>

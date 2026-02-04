@@ -52,6 +52,7 @@ import { cn } from '@/lib/utils';
 import { PlaidConnectSection } from '@/components/plaid/plaid-connect-section';
 import { getUserTier } from '@/lib/ai/rate-limiter';
 import { ExportDialog } from '@/components/export/export-dialog';
+import { FinancialDisclaimer } from '@/components/financial-disclaimer';
 
 // ============================================================
 // ACCOUNT TYPE HELPERS
@@ -1131,6 +1132,9 @@ export function SettingsContent() {
           <DangerZone />
         </div>
       </div>
+
+      {/* Financial Disclaimer */}
+      <FinancialDisclaimer />
     </div>
   );
 }
