@@ -73,6 +73,9 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
   const [budgets, setBudgets] = useState<any[]>([]);
   const [generatingBudget, setGeneratingBudget] = useState(false);
 
+  // Step 4: AI cost tracking
+  const [aiCost, setAiCost] = useState<{ model: string; tokens_input: number; tokens_output: number; estimated_cost_usd: number } | null>(null);
+
   // Step 5: Score
   const [score, setScore] = useState<any>(null);
   const [animatedScore, setAnimatedScore] = useState(0);
@@ -192,6 +195,9 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
           const allocations = budgetData.result?.allocations || budgetData.allocations || [];
           if (allocations.length > 0) {
             setBudgets(allocations);
+            if (budgetData.usage) {
+              setAiCost(budgetData.usage);
+            }
           } else {
             throw new Error('Empty allocations');
           }
@@ -600,6 +606,11 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
                       <p className="text-sm text-muted-foreground text-center">
                         These are starting points — you can adjust everything later.
                       </p>
+                      {aiCost && (
+                        <p className="text-xs text-muted-foreground/60 text-center mt-2 font-mono">
+                          {aiCost.model} · {aiCost.tokens_input} in / {aiCost.tokens_output} out · ${aiCost.estimated_cost_usd.toFixed(6)}
+                        </p>
+                      )}
                     </div>
 
                     <Button

@@ -205,13 +205,18 @@ ${savings.length > 0 ? `SAVINGS GOALS: The user has ${savings.length} savings go
       });
     }
 
-    // Log AI usage
+    // Log AI usage with model and cost
+    const inputTokens = response.usage?.prompt_tokens || 0;
+    const outputTokens = response.usage?.completion_tokens || 0;
+    const modelUsed = response.model || 'unknown';
+    const costUsd = response.estimatedCost || 0;
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await (supabase.from as any)('ai_usage').insert({
       user_id: user.id,
       feature: 'auto_budget',
-      tokens_input: response.usage?.prompt_tokens || 0,
-      tokens_output: response.usage?.completion_tokens || 0,
+      tokens_input: inputTokens,
+      tokens_output: outputTokens,
     });
 
     // Increment rate limit counter
@@ -220,6 +225,12 @@ ${savings.length > 0 ? `SAVINGS GOALS: The user has ${savings.length} savings go
     return NextResponse.json({
       result,
       generated_at: new Date().toISOString(),
+      usage: {
+        model: modelUsed,
+        tokens_input: inputTokens,
+        tokens_output: outputTokens,
+        estimated_cost_usd: costUsd,
+      },
     });
   } catch (error) {
     console.error('Auto budget error:', error);
