@@ -16,7 +16,7 @@ export interface BlogPost {
   content: string;
 }
 
-const postsDirectory = path.join(process.cwd(), '..', 'content', 'blog');
+const postsDirectory = path.join(process.cwd(), 'content', 'blog');
 
 export function getAllPosts(): BlogPost[] {
   // Create directory if it doesn't exist

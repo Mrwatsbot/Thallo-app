@@ -19,13 +19,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogIndexPage({
+export default async function BlogIndexPage({
   searchParams,
 }: {
-  searchParams: { category?: string };
+  searchParams: Promise<{ category?: string }>;
 }) {
+  const params = await searchParams;
   const allPosts = getAllPosts().filter((post) => new Date(post.date) <= new Date());
-  const selectedCategory = searchParams.category;
+  const selectedCategory = params.category;
   
   const filteredPosts = selectedCategory
     ? allPosts.filter((post) => post.category === selectedCategory)
