@@ -5,7 +5,7 @@ export function ThalloLogo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
   
   return (
     <img 
-      src="/thallo-logo-white.png" 
+      src="/new-logo-white.svg" 
       alt="Thallo" 
       className={`${dims} object-contain`}
     />

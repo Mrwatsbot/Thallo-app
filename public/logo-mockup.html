@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thallo Logo Mockup - New vs Current</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { 
+    font-family: 'Source Sans 3', sans-serif;
+    background: #0d1514;
+    color: #e8eded;
+  }
+  
+  .section-label {
+    text-align: center;
+    padding: 40px 20px 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: #1a7a6d;
+  }
+  .section-label span {
+    font-size: 14px;
+    color: #6b8a85;
+    display: block;
+    font-family: 'Source Sans 3', sans-serif;
+    margin-top: 4px;
+  }
+  
+  .comparison { 
+    display: flex; 
+    gap: 40px; 
+    justify-content: center; 
+    padding: 20px 40px 60px;
+    flex-wrap: wrap;
+  }
+  .comparison-card {
+    flex: 1;
+    max-width: 600px;
+    min-width: 360px;
+  }
+  .comparison-card h3 {
+    text-align: center;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #6b8a85;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* === NAV BAR MOCKUP === */
+  .nav-mockup {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: rgba(13, 21, 20, 0.95);
+    border: 1px solid rgba(26, 122, 109, 0.2);
+    border-radius: 12px;
+    margin-bottom: 24px;
+  }
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-logo {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #1a7a6d;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 2px;
+    background: rgba(26, 122, 109, 0.08);
+  }
+  .nav-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #e8eded;
+  }
+  .nav-links {
+    display: flex;
+    gap: 24px;
+  }
+  .nav-links a {
+    color: #6b8a85;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .nav-cta {
+    background: #1a7a6d;
+    color: white !important;
+    padding: 8px 20px;
+    border-radius: 8px;
+  }
+
+  /* === HERO MOCKUP === */
+  .hero-mockup {
+    background: radial-gradient(125% 125% at 50% 10%, #0d1514 40%, #1a7a6d 100%);
+    border-radius: 12px;
+    padding: 60px 40px;
+    text-align: center;
+    border: 1px solid rgba(26, 122, 109, 0.15);
+    margin-bottom: 24px;
+  }
+  .hero-logo-big {
+    width: 80px;
+    height: 80px;
+    border: 3px solid #1a7a6d;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 6px;
+    background: rgba(26, 122, 109, 0.1);
+    margin-bottom: 20px;
+  }
+  .hero-logo-big img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .hero-mockup h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .hero-mockup h1 .gradient {
+    background: linear-gradient(135deg, #1a7a6d, #2dd4a8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-mockup p {
+    color: #8aaba6;
+    font-size: 18px;
+    max-width: 400px;
+    margin: 0 auto 24px;
+    line-height: 1.5;
+  }
+  .hero-btn {
+    display: inline-block;
+    background: #1a7a6d;
+    color: white;
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+  }
+
+  /* === APP ICON MOCKUP === */
+  .icon-row {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 40px 20px;
+    background: rgba(26, 122, 109, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(26, 122, 109, 0.1);
+  }
+  .icon-size {
+    text-align: center;
+  }
+  .icon-size .label {
+    color: #6b8a85;
+    font-size: 11px;
+    margin-top: 8px;
+  }
+  .app-icon {
+    border: 2px solid #1a7a6d;
+    border-radius: 22%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: rgba(26, 122, 109, 0.1);
+  }
+  .app-icon img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+  }
+  .app-icon.s120 { width: 120px; height: 120px; }
+  .app-icon.s60 { width: 60px; height: 60px; }
+  .app-icon.s40 { width: 40px; height: 40px; }
+  .app-icon.s29 { width: 29px; height: 29px; border-width: 1px; }
+  .app-icon.s16 { width: 16px; height: 16px; border-width: 1px; border-radius: 4px; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(26, 122, 109, 0.15);
+    margin: 0 40px;
+  }
+</style>
+</head>
+<body>
+
+<div class="section-label">
+  Thallo Logo Mockup
+  <span>New Recraft Logo vs Current Logo — Side by Side</span>
+</div>
+
+<div class="comparison">
+  <!-- NEW LOGO -->
+  <div class="comparison-card">
+    <h3>🆕 New Logo (Recraft)</h3>
+    
+    <div class="nav-mockup">
+      <div class="nav-left">
+        <div class="nav-logo">
+          <img src="new-logo-white.svg" alt="new">
+        </div>
+        <span class="nav-brand">Thallo</span>
+      </div>
+      <div class="nav-links">
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#" class="nav-cta">Get Started</a>
+      </div>
+    </div>
+
+    <div class="hero-mockup">
+      <div class="hero-logo-big">
+        <img src="new-logo-white.svg" alt="new">
+      </div>
+      <h1>Your finances have<br>a <span class="gradient">health score</span></h1>
+      <p>AI-powered budgeting that tells you exactly where you stand — and what to change.</p>
+      <a href="#" class="hero-btn">See Your Score →</a>
+    </div>
+
+    <div class="icon-row">
+      <div class="icon-size">
+        <div class="app-icon s120"><img src="new-logo-white.svg" alt=""></div>
+        <div class="label">120px</div>
+      </div>
+      <div class="icon-size">
+        <div class="app-icon s60"><img src="new-logo-white.svg" alt=""></div>
+        <div class="label">60px</div>
+      </div>
+      <div class="icon-size">
+        <div class="app-icon s40"><img src="new-logo-white.svg" alt=""></div>
+        <div class="label">40px</div>
+      </div>
+      <div class="icon-size">
+        <div class="app-icon s29"><img src="new-logo-white.svg" alt=""></div>
+        <div class="label">29px</div>
+      </div>
+      <div class="icon-size">
+        <div class="app-icon s16"><img src="new-logo-white.svg" alt=""></div>
+        <div class="label">16px</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CURRENT LOGO -->
+  <div class="comparison-card">
+    <h3>📌 Current Logo</h3>
+    
+    <div class="nav-mockup">
+      <div class="nav-left">
+        <div class="nav-logo">
+          <img src="thallo-logo-white.png" alt="current">
+        </div>
+        <span class="nav-brand">Thallo</span>
+      </div>
+      <div class="nav-links">
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#" class="nav-cta">Get Started</a>
+      </div>
+    </div>
+
+    <div class="hero-mockup">
+      <div class="hero-logo-big">
+        <img src="thallo-logo-white.png" alt="current">
+      </div>
+      <h1>Your finances have<br>a <span class="gradient">health score</span></h1>
+      <p>AI-powered budgeting that tells you exactly where you stand — and what to change.</p>
+      <a href="#" class="hero-btn">See Your Score →</a>
+    </div>
+
+    <div class="icon-row">
+      <div class="icon-size">
+        <div class="app-icon s120"><img src="thallo-logo-white.png" alt=""></div>
+        <div class="label">120px</div>
+      </div>
+      <div class="icon-size">
+        <div class="app-icon s60"><img src="thallo-logo-white.png" alt=""></div>
+        <div class="label">60px</div>
+      </div>
+      <div class="icon-size">
+        <div class="app-icon s40"><img src="thallo-logo-white.png" alt=""></div>
+        <div class="label">40px</div>
+      </div>
+      <div class="icon-size">
+        <div class="app-icon s29"><img src="thallo-logo-white.png" alt=""></div>
+        <div class="label">29px</div>
+      </div>
+      <div class="icon-size">
+        <div class="app-icon s16"><img src="thallo-logo-white.png" alt=""></div>
+        <div class="label">16px</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

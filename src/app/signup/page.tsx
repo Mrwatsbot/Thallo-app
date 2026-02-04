@@ -87,7 +87,7 @@ export default function SignupPage() {
         <Link href="/" className="flex items-center justify-center gap-2 mb-8">
           <div className="w-10 h-10 rounded-xl gradient-btn flex items-center justify-center p-1">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/thallo-logo-white.png" alt="Thallo" className="w-full h-full object-contain"  />
+            <img src="/new-logo-white.svg" alt="Thallo" className="w-full h-full object-contain"  />
           </div>
           <span className="text-xl font-bold">Thallo</span>
         </Link>
