@@ -282,7 +282,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         )}
 
         {/* Article Body */}
-        <div className="prose prose-invert max-w-none">
+        <div className="blog-content">
           <MDXRemote
             source={post.content}
             options={{

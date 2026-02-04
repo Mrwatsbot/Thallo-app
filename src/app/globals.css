@@ -668,3 +668,97 @@ body::after {
 .fade-slide-out {
   animation: fadeSlideOut 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* Blog content styles */
+.blog-content {
+  color: var(--foreground);
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+.blog-content h2 {
+  font-family: var(--font-display), serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+.blog-content h3 {
+  font-family: var(--font-display), serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--foreground);
+}
+.blog-content p {
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+}
+.blog-content strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.blog-content a {
+  color: #1a7a6d;
+  text-decoration: none;
+}
+.blog-content a:hover {
+  text-decoration: underline;
+}
+.blog-content ul, .blog-content ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+.blog-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+.blog-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.blog-content thead {
+  background: hsl(var(--muted) / 0.5);
+}
+.blog-content th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--foreground);
+  border-bottom: 1px solid hsl(var(--border));
+}
+.blog-content td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid hsl(var(--border));
+  font-size: 0.95rem;
+}
+.blog-content tr:last-child td {
+  border-bottom: none;
+}
+.blog-content tr:hover {
+  background: hsl(var(--muted) / 0.2);
+}
+.blog-content blockquote {
+  border-left: 3px solid #1a7a6d;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
+}
+.blog-content code {
+  background: hsl(var(--muted));
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+.blog-content hr {
+  border: none;
+  border-top: 1px solid hsl(var(--border));
+  margin: 2rem 0;
+}
