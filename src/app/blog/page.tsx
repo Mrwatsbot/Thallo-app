@@ -5,7 +5,7 @@ import { Calendar, Clock, Tag, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Blog – Thallo',
-  description: 'Learn about budgeting, financial health, debt management, and building wealth. Expert insights from the Thallo team.',
+  description: 'Practical tips on budgeting, financial health, debt management, and building wealth. Written by Ted Melittas, founder of Thallo.',
   openGraph: {
     title: 'Blog – Thallo',
     description: 'Learn about budgeting, financial health, debt management, and building wealth.',
@@ -24,7 +24,7 @@ export default function BlogIndexPage({
 }: {
   searchParams: { category?: string };
 }) {
-  const allPosts = getAllPosts();
+  const allPosts = getAllPosts().filter((post) => new Date(post.date) <= new Date());
   const selectedCategory = searchParams.category;
   
   const filteredPosts = selectedCategory
@@ -52,7 +52,7 @@ export default function BlogIndexPage({
           Financial Health Insights
         </h1>
         <p className="text-lg text-muted-foreground max-w-2xl">
-          Expert advice on budgeting, saving, debt management, and building real wealth. Written by Ted Melittas.
+          Practical tips on budgeting, saving, paying off debt, and building real wealth. Written by Ted Melittas, founder of Thallo.
         </p>
       </section>
 
