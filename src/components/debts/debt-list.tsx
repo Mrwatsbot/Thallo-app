@@ -192,7 +192,7 @@ function DebtCard({ debt }: { debt: DebtWithPayments }) {
             <Button
               size="sm"
               variant="ghost"
-              className="text-muted-foreground h-7 px-2"
+              className="text-muted-foreground min-h-[44px] min-w-[44px] px-2"
               onClick={() => setExpanded(!expanded)}
             >
               {expanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -208,11 +208,14 @@ function DebtCard({ debt }: { debt: DebtWithPayments }) {
               <Button
                 size="sm"
                 variant="ghost"
-                className="text-red-400 hover:text-red-300 h-7 gap-1"
-                onClick={handleDelete}
+                className="text-red-400 hover:text-red-300 hover:bg-red-400/10 min-h-[44px] min-w-[44px] gap-1.5 px-3"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDelete();
+                }}
                 disabled={deleting}
               >
-                <Trash2 className="h-3 w-3" />
+                <Trash2 className="h-4 w-4" />
                 {deleting ? 'Deleting...' : 'Delete Debt'}
               </Button>
             </div>
