@@ -937,6 +937,35 @@ function AIKeySection({ profile, onSave }: { profile: Record<string, unknown> | 
 function DangerZone() {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [confirmText, setConfirmText] = useState('');
+  const [deleting, setDeleting] = useState(false);
+
+  const handleDeleteAccount = async () => {
+    setDeleting(true);
+    try {
+      const response = await fetch('/api/settings/delete-account', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to delete account');
+      }
+
+      // Success - show message and redirect
+      toast.success('Account deleted successfully');
+      
+      // Sign out and redirect to home
+      // Use window.location for a full page reload to clear all state
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1000);
+    } catch (error) {
+      console.error('Delete account error:', error);
+      toast.error(error instanceof Error ? error.message : 'Failed to delete account');
+      setDeleting(false);
+    }
+  };
 
   return (
     <Card className="border-red-500/30">
@@ -959,7 +988,10 @@ function DangerZone() {
             }
           />
 
-          <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+          <Dialog open={deleteOpen} onOpenChange={(open) => {
+            setDeleteOpen(open);
+            if (!open) setConfirmText('');
+          }}>
             <DialogTrigger asChild>
               <Button variant="destructive">
                 <Trash2 className="mr-2 h-4 w-4" />
@@ -973,29 +1005,64 @@ function DangerZone() {
                   This will permanently delete your account and all associated data. This action cannot be undone.
                 </DialogDescription>
               </DialogHeader>
-              <div className="space-y-2 py-4">
-                <Label>Type &quot;DELETE&quot; to confirm</Label>
-                <Input
-                  value={confirmText}
-                  onChange={e => setConfirmText(e.target.value)}
-                  placeholder="DELETE"
-                />
+              
+              <div className="space-y-4 py-4">
+                <div className="rounded-lg bg-red-500/10 border border-red-500/20 p-4 space-y-2">
+                  <p className="text-sm font-medium text-red-400">
+                    The following will be permanently deleted:
+                  </p>
+                  <ul className="text-xs text-muted-foreground space-y-1 ml-4">
+                    <li>• All transactions and financial data</li>
+                    <li>• All budgets and spending plans</li>
+                    <li>• Savings goals and progress</li>
+                    <li>• Debt tracking and payment history</li>
+                    <li>• Connected bank accounts (Plaid)</li>
+                    <li>• Financial Health Score history</li>
+                    <li>• AI usage and insights</li>
+                    <li>• Your profile and settings</li>
+                  </ul>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="delete-confirm">Type &quot;DELETE&quot; to confirm</Label>
+                  <Input
+                    id="delete-confirm"
+                    value={confirmText}
+                    onChange={e => setConfirmText(e.target.value)}
+                    placeholder="DELETE"
+                    autoComplete="off"
+                    disabled={deleting}
+                  />
+                </div>
               </div>
+
               <DialogFooter>
-                <Button variant="outline" onClick={() => { setDeleteOpen(false); setConfirmText(''); }}>
+                <Button 
+                  variant="outline" 
+                  onClick={() => { 
+                    setDeleteOpen(false); 
+                    setConfirmText(''); 
+                  }}
+                  disabled={deleting}
+                >
                   Cancel
                 </Button>
                 <Button
                   variant="destructive"
-                  disabled={confirmText !== 'DELETE'}
-                  onClick={() => {
-                    toast.info('Account deletion is not yet implemented');
-                    setDeleteOpen(false);
-                    setConfirmText('');
-                  }}
+                  disabled={confirmText !== 'DELETE' || deleting}
+                  onClick={handleDeleteAccount}
                 >
-                  <Trash2 className="mr-2 h-4 w-4" />
-                  Permanently Delete
+                  {deleting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Deleting...
+                    </>
+                  ) : (
+                    <>
+                      <Trash2 className="mr-2 h-4 w-4" />
+                      Permanently Delete
+                    </>
+                  )}
                 </Button>
               </DialogFooter>
             </DialogContent>

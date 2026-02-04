@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // For iOS bundled build: uncomment output: 'export' and set server URL in capacitor.config.ts to undefined
+  // output: 'export',
   headers: async () => [
     {
       source: '/(.*)',
