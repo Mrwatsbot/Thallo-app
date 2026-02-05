@@ -89,6 +89,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Amount out of range' }, { status: 400 });
     }
 
+    // Validate string lengths
+    if (payee_original && payee_original.length > 150) {
+      return NextResponse.json({ error: 'Payee original too long (max 150 characters)' }, { status: 400 });
+    }
+    if (payee_clean && payee_clean.length > 150) {
+      return NextResponse.json({ error: 'Payee clean too long (max 150 characters)' }, { status: 400 });
+    }
+    if (memo && memo.length > 500) {
+      return NextResponse.json({ error: 'Memo too long (max 500 characters)' }, { status: 400 });
+    }
+
     const { data, error } = await (supabase.from as any)('transactions')
       .insert({
         user_id: user.id,

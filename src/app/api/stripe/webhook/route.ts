@@ -92,6 +92,18 @@ export async function POST(request: Request) {
   console.log(`[Stripe Webhook] ${event.type} - ${event.id}`);
 
   try {
+    // Check if this event has already been processed (idempotency check)
+    const { data: existingEvent } = await (supabaseAdmin as any)
+      .from('billing_events')
+      .select('id')
+      .eq('stripe_event_id', event.id)
+      .maybeSingle();
+
+    if (existingEvent) {
+      console.log(`Event ${event.id} already processed, skipping`);
+      return NextResponse.json({ received: true, already_processed: true });
+    }
+
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;

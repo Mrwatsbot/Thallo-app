@@ -31,6 +31,9 @@ export async function POST(request: NextRequest) {
   if (!name || !type) {
     return NextResponse.json({ error: 'Name and type are required' }, { status: 400 });
   }
+  if (name.length > 100) {
+    return NextResponse.json({ error: 'Name too long (max 100 characters)' }, { status: 400 });
+  }
 
   const accountBalance = Number(balance || 0);
   if (isNaN(accountBalance) || !isFinite(accountBalance)) {
@@ -72,7 +75,12 @@ export async function PUT(request: NextRequest) {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const updates: Record<string, any> = {};
-  if (name !== undefined) updates.name = name;
+  if (name !== undefined) {
+    if (name.length > 100) {
+      return NextResponse.json({ error: 'Name too long (max 100 characters)' }, { status: 400 });
+    }
+    updates.name = name;
+  }
   if (type !== undefined) updates.type = type;
   if (balance !== undefined) {
     const accountBalance = Number(balance);

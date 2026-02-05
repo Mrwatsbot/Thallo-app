@@ -57,6 +57,9 @@ export async function POST(request: NextRequest) {
   if (!name || typeof name !== 'string' || name.trim().length === 0) {
     return NextResponse.json({ error: 'Name is required' }, { status: 400 });
   }
+  if (name.length > 100) {
+    return NextResponse.json({ error: 'Name too long (max 100 characters)' }, { status: 400 });
+  }
   if (!type || !VALID_SAVINGS_TYPES.includes(type)) {
     return NextResponse.json({ error: 'Valid savings type is required' }, { status: 400 });
   }
@@ -112,7 +115,12 @@ export async function PUT(request: NextRequest) {
   // Whitelist allowed update fields
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const updates: Record<string, any> = { updated_at: new Date().toISOString() };
-  if (body.name !== undefined && typeof body.name === 'string') updates.name = body.name.trim();
+  if (body.name !== undefined && typeof body.name === 'string') {
+    if (body.name.length > 100) {
+      return NextResponse.json({ error: 'Name too long (max 100 characters)' }, { status: 400 });
+    }
+    updates.name = body.name.trim();
+  }
   if (body.type !== undefined && VALID_SAVINGS_TYPES.includes(body.type)) updates.type = body.type;
   if (body.target_amount !== undefined) updates.target_amount = typeof body.target_amount === 'number' ? Math.max(0, body.target_amount) : null;
   if (body.monthly_contribution !== undefined && typeof body.monthly_contribution === 'number') updates.monthly_contribution = Math.max(0, body.monthly_contribution);

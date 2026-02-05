@@ -15,24 +15,18 @@ import { createServerClient } from '@supabase/ssr';
 const WEBHOOK_SECRET = process.env.PLAID_WEBHOOK_SECRET;
 
 function verifyWebhookSignature(request: NextRequest): boolean {
-  // If a webhook secret is configured, verify it
-  if (WEBHOOK_SECRET) {
-    const providedSecret = request.headers.get('x-plaid-webhook-secret');
-    if (providedSecret !== WEBHOOK_SECRET) {
-      console.error('Plaid webhook: invalid secret');
-      return false;
-    }
-    return true;
+  // ALWAYS require webhook secret verification, regardless of environment
+  if (!WEBHOOK_SECRET) {
+    console.error('CRITICAL: PLAID_WEBHOOK_SECRET not configured - rejecting webhook');
+    return false;
   }
 
-  // In sandbox/development without a secret configured, verify basic structure
-  // but log a warning
-  if (process.env.NODE_ENV === 'production' || process.env.PLAID_ENV === 'production') {
-    console.error('CRITICAL: PLAID_WEBHOOK_SECRET not configured in production!');
-    return false; // Block unverified webhooks in production
+  const providedSecret = request.headers.get('x-plaid-webhook-secret');
+  if (providedSecret !== WEBHOOK_SECRET) {
+    console.error('Plaid webhook: invalid secret');
+    return false;
   }
 
-  console.warn('Plaid webhook: no PLAID_WEBHOOK_SECRET configured, accepting in non-production mode');
   return true;
 }
 

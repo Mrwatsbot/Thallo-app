@@ -53,6 +53,9 @@ export async function POST(request: NextRequest) {
   if (!name || typeof name !== 'string' || name.trim().length === 0) {
     return NextResponse.json({ error: 'Name is required' }, { status: 400 });
   }
+  if (name.length > 100) {
+    return NextResponse.json({ error: 'Name too long (max 100 characters)' }, { status: 400 });
+  }
   if (!type || !VALID_DEBT_TYPES.includes(type)) {
     return NextResponse.json({ error: 'Valid debt type is required' }, { status: 400 });
   }
@@ -88,7 +91,12 @@ export async function POST(request: NextRequest) {
     in_collections: in_collections === true,
   };
   if (due_day !== undefined && due_day !== null) insert.due_day = due_day;
-  if (notes && typeof notes === 'string') insert.notes = notes.trim();
+  if (notes && typeof notes === 'string') {
+    if (notes.length > 500) {
+      return NextResponse.json({ error: 'Notes too long (max 500 characters)' }, { status: 400 });
+    }
+    insert.notes = notes.trim();
+  }
   if (origination_date) insert.origination_date = origination_date;
   if (typeof term_months === 'number' && term_months > 0) insert.term_months = term_months;
 
@@ -120,6 +128,9 @@ export async function PUT(request: NextRequest) {
   if (name !== undefined && (typeof name !== 'string' || name.trim().length === 0)) {
     return NextResponse.json({ error: 'Name cannot be empty' }, { status: 400 });
   }
+  if (name !== undefined && name.length > 100) {
+    return NextResponse.json({ error: 'Name too long (max 100 characters)' }, { status: 400 });
+  }
   if (type !== undefined && !VALID_DEBT_TYPES.includes(type)) {
     return NextResponse.json({ error: 'Invalid debt type' }, { status: 400 });
   }
@@ -138,7 +149,12 @@ export async function PUT(request: NextRequest) {
   if (monthly_payment !== undefined) update.monthly_payment = Math.max(0, monthly_payment);
   if (due_day !== undefined) update.due_day = due_day;
   if (in_collections !== undefined) update.in_collections = in_collections === true;
-  if (notes !== undefined) update.notes = typeof notes === 'string' ? notes.trim() : null;
+  if (notes !== undefined) {
+    if (typeof notes === 'string' && notes.length > 500) {
+      return NextResponse.json({ error: 'Notes too long (max 500 characters)' }, { status: 400 });
+    }
+    update.notes = typeof notes === 'string' ? notes.trim() : null;
+  }
   if (origination_date !== undefined) update.origination_date = origination_date || null;
   if (term_months !== undefined) update.term_months = term_months && term_months > 0 ? term_months : null;
 

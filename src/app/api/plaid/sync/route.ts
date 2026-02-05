@@ -152,6 +152,7 @@ export async function POST(request: NextRequest) {
           }
           
           // Insert transaction (with conflict handling for deduplication)
+          // Use ignoreDuplicates: true to prevent overwriting user-edited transactions
           const { error: insertError } = await (supabase.from as any)('transactions')
             .upsert({
               user_id: user.id,
@@ -173,7 +174,7 @@ export async function POST(request: NextRequest) {
               ai_confidence: categoryId ? 0.8 : null,
             }, {
               onConflict: 'plaid_transaction_id',
-              ignoreDuplicates: false,
+              ignoreDuplicates: true, // Don't overwrite existing transactions
             });
 
           if (!insertError) {
@@ -182,29 +183,38 @@ export async function POST(request: NextRequest) {
         }
 
         // Process modified transactions
+        // Only update amount (for pending→posted changes), preserve user edits to category/memo
         for (const txn of modified) {
           const payee = txn.merchant_name || txn.name || 'Unknown';
           
-          // Try category rules first, then fall back to Plaid category matching
-          let categoryId = await applyCategoryRules(supabase, user.id, payee);
-          if (!categoryId) {
-            categoryId = findCategoryMatch(txn.personal_finance_category?.primary ? [txn.personal_finance_category.primary] : null, userCategories || []);
-          }
-          
-          const { error: updateError } = await (supabase.from as any)('transactions')
-            .update({
-              amount: -txn.amount, // Negate Plaid sign convention
-              payee_original: payee,
-              payee_clean: payee,
-              date: txn.date,
-              category_id: categoryId,
-              memo: txn.name !== txn.merchant_name ? txn.name : null,
-            })
+          // Fetch existing transaction to check if it was manually edited
+          const { data: existingTxn } = await (supabase.from as any)('transactions')
+            .select('id, category_id, memo')
             .eq('plaid_transaction_id', txn.transaction_id)
-            .eq('user_id', user.id);
+            .eq('user_id', user.id)
+            .maybeSingle();
 
-          if (!updateError) {
-            totalModified++;
+          if (existingTxn) {
+            // Only update amount and date, preserve user's category and memo if they exist
+            const updates: any = {
+              amount: -txn.amount, // Negate Plaid sign convention
+              date: txn.date,
+            };
+
+            // Only update payee if not manually edited (heuristic: if memo exists, user edited it)
+            if (!existingTxn.memo) {
+              updates.payee_original = payee;
+              updates.payee_clean = payee;
+            }
+
+            const { error: updateError } = await (supabase.from as any)('transactions')
+              .update(updates)
+              .eq('plaid_transaction_id', txn.transaction_id)
+              .eq('user_id', user.id);
+
+            if (!updateError) {
+              totalModified++;
+            }
           }
         }
 

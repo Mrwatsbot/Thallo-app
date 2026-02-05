@@ -49,6 +49,17 @@ export async function PATCH(
       return NextResponse.json({ error: 'Transaction not found' }, { status: 404 });
     }
 
+    // Whitelist allowed fields to prevent arbitrary field updates
+    const allowedFields = ['amount', 'payee_clean', 'payee_original', 'category_id', 'date', 'memo', 'is_cleared', 'account_id'];
+    const updates: Record<string, any> = {};
+    for (const field of allowedFields) {
+      if (body[field] !== undefined) updates[field] = body[field];
+    }
+
+    if (Object.keys(updates).length === 0) {
+      return NextResponse.json({ error: 'No valid fields to update' }, { status: 400 });
+    }
+
     // Log the previous state to history
     await logTransactionHistory(
       supabase,
@@ -58,10 +69,10 @@ export async function PATCH(
       currentTransaction
     );
 
-    // Update the transaction
+    // Update the transaction with whitelisted fields only
     const { data: updatedTransaction, error: updateError } = await (supabase
       .from('transactions') as any)
-      .update(body)
+      .update(updates)
       .eq('id', id)
       .eq('user_id', user.id)
       .select()

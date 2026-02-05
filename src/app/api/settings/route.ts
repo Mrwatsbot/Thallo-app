@@ -53,6 +53,9 @@ export async function PUT(request: NextRequest) {
   const updates: Record<string, any> = {};
 
   if (full_name !== undefined) {
+    if (full_name && full_name.length > 100) {
+      return NextResponse.json({ error: 'Full name too long (max 100 characters)' }, { status: 400 });
+    }
     updates.full_name = full_name;
   }
 
@@ -65,6 +68,9 @@ export async function PUT(request: NextRequest) {
   }
 
   if (openrouter_api_key !== undefined) {
+    if (openrouter_api_key && openrouter_api_key.length > 200) {
+      return NextResponse.json({ error: 'API key too long (max 200 characters)' }, { status: 400 });
+    }
     // Allow null/empty to clear the key
     updates.openrouter_api_key = openrouter_api_key || null;
   }

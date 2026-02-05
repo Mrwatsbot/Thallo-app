@@ -123,8 +123,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const headers = rows[0];
+    let headers = rows[0];
     const dataRows = rows.slice(1);
+
+    // Sanitize headers to prevent prompt injection attacks
+    headers = headers.slice(0, 50); // Limit to max 50 headers
+    headers = headers.map(h => h.slice(0, 100)); // Truncate each header to 100 chars
+    headers = headers.map(h => h.replace(/[\n\r\t\x00-\x1f]/g, ' ').trim()); // Strip control characters
 
     // Try to detect known formats
     let detectedFormat: 'ynab' | 'monarch' | 'mint' | 'auto' = 'auto';
@@ -147,7 +152,7 @@ export async function POST(request: Request) {
     if (detectedFormat === 'auto' && headers.length > 0) {
       const sampleData = {
         headers,
-        sampleRows: dataRows.slice(0, 3),
+        sampleRows: dataRows.slice(0, 5), // Limit to max 5 sample rows
       };
 
       try {
@@ -199,7 +204,7 @@ Rules:
       }
     }
 
-    // Generate sample rows with mapped values
+    // Generate sample rows with mapped values (limit to 5)
     const sampleRows = dataRows.slice(0, 5).map(row => {
       const mapped: Record<string, string> = {};
       

@@ -40,6 +40,12 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+    if (payee_pattern.length > 100) {
+      return NextResponse.json(
+        { error: 'Payee pattern too long (max 100 characters)' },
+        { status: 400 }
+      );
+    }
 
     // Check if rule already exists
     const { data: existing } = await (supabase.from as any)('category_rules')
@@ -98,7 +104,15 @@ export async function PUT(request: NextRequest) {
     }
 
     const updateData: any = {};
-    if (payee_pattern !== undefined) updateData.payee_pattern = payee_pattern;
+    if (payee_pattern !== undefined) {
+      if (payee_pattern.length > 100) {
+        return NextResponse.json(
+          { error: 'Payee pattern too long (max 100 characters)' },
+          { status: 400 }
+        );
+      }
+      updateData.payee_pattern = payee_pattern;
+    }
     if (category_id !== undefined) updateData.category_id = category_id;
     if (match_type !== undefined) updateData.match_type = match_type;
 
