@@ -25,7 +25,7 @@ export function CreatorDashboardContent() {
           <p className="text-white/60">{currentMonth}</p>
         </div>
         <Button
-          className="bg-[#1a7a6d] hover:bg-[#1a7a6d]/80 text-white gap-2"
+          className="bg-[#3D6B52] hover:bg-[#3D6B52]/80 text-white gap-2"
           size="default"
         >
           <Plus className="w-4 h-4" />

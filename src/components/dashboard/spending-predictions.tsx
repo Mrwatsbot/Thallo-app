@@ -49,7 +49,7 @@ export function SpendingPredictions() {
     return (
       <div className="glass-card rounded-xl p-5">
         <div className="flex items-center justify-center py-8">
-          <Loader2 className="w-6 h-6 animate-spin text-[#1a7a6d]" />
+          <Loader2 className="w-6 h-6 animate-spin text-[#3D6B52]" />
         </div>
       </div>
     );
@@ -67,7 +67,7 @@ export function SpendingPredictions() {
       <div className="glass-card rounded-xl p-5">
         <div className="mb-4">
           <h3 className="font-semibold text-base flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-[#1a7a6d]" />
+            <TrendingUp className="w-5 h-5 text-[#3D6B52]" />
             Spending Predictions
           </h3>
           <p className="text-xs text-muted-foreground">
@@ -89,7 +89,7 @@ export function SpendingPredictions() {
     <div className="glass-card rounded-xl p-5">
       <div className="mb-4">
         <h3 className="font-semibold text-base flex items-center gap-2">
-          <AlertTriangle className="w-5 h-5 text-[#1a7a6d]" />
+          <AlertTriangle className="w-5 h-5 text-[#3D6B52]" />
           Spending Predictions
         </h3>
         <p className="text-xs text-muted-foreground">
@@ -111,7 +111,7 @@ export function SpendingPredictions() {
                 <div className="flex items-center gap-2">
                   <Icon
                     className="w-4 h-4"
-                    style={{ color: prediction.categoryColor || '#1a7a6d' }}
+                    style={{ color: prediction.categoryColor || '#3D6B52' }}
                   />
                   <span className="font-medium text-sm">{prediction.categoryName}</span>
                 </div>
@@ -139,7 +139,7 @@ export function SpendingPredictions() {
                 />
                 {/* Current spending (darker) */}
                 <div
-                  className="absolute h-full rounded-full bg-[#1a7a6d]"
+                  className="absolute h-full rounded-full bg-[#3D6B52]"
                   style={{
                     width: `${Math.min((prediction.spent / prediction.budgetAmount) * 100, 100)}%`,
                   }}
@@ -160,7 +160,7 @@ export function SpendingPredictions() {
               {/* Legend */}
               <div className="flex items-center gap-3 text-[10px] text-muted-foreground">
                 <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 rounded-full bg-[#1a7a6d]" />
+                  <div className="w-2 h-2 rounded-full bg-[#3D6B52]" />
                   <span>Spent: ${prediction.spent.toFixed(0)}</span>
                 </div>
                 <div className="flex items-center gap-1">

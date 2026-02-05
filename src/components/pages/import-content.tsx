@@ -199,7 +199,7 @@ export function ImportContent() {
     <div className="w-full max-w-4xl mx-auto space-y-6 p-6">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-[#1a7a6d] to-[#0f5449] text-white">
+        <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-[#3D6B52] to-[#0f5449] text-white">
           <FileSpreadsheet className="h-6 w-6" />
         </div>
         <div>
@@ -214,7 +214,7 @@ export function ImportContent() {
       <div className="flex items-center gap-2 justify-center">
         <div className={cn(
           'flex items-center gap-2 px-4 py-2 rounded-full transition-colors',
-          step === 'upload' ? 'bg-[#1a7a6d] text-white' : 'bg-gray-100 dark:bg-gray-800'
+          step === 'upload' ? 'bg-[#3D6B52] text-white' : 'bg-gray-100 dark:bg-gray-800'
         )}>
           <Upload className="h-4 w-4" />
           <span className="text-sm font-medium">Upload</span>
@@ -222,7 +222,7 @@ export function ImportContent() {
         <div className="h-px w-8 bg-gray-300 dark:bg-gray-700" />
         <div className={cn(
           'flex items-center gap-2 px-4 py-2 rounded-full transition-colors',
-          step === 'preview' ? 'bg-[#1a7a6d] text-white' : 'bg-gray-100 dark:bg-gray-800'
+          step === 'preview' ? 'bg-[#3D6B52] text-white' : 'bg-gray-100 dark:bg-gray-800'
         )}>
           <FileText className="h-4 w-4" />
           <span className="text-sm font-medium">Preview</span>
@@ -230,7 +230,7 @@ export function ImportContent() {
         <div className="h-px w-8 bg-gray-300 dark:bg-gray-700" />
         <div className={cn(
           'flex items-center gap-2 px-4 py-2 rounded-full transition-colors',
-          step === 'result' ? 'bg-[#1a7a6d] text-white' : 'bg-gray-100 dark:bg-gray-800'
+          step === 'result' ? 'bg-[#3D6B52] text-white' : 'bg-gray-100 dark:bg-gray-800'
         )}>
           <CheckCircle2 className="h-4 w-4" />
           <span className="text-sm font-medium">Complete</span>
@@ -252,8 +252,8 @@ export function ImportContent() {
               className={cn(
                 'border-2 border-dashed rounded-xl p-12 text-center transition-colors cursor-pointer',
                 dragActive
-                  ? 'border-[#1a7a6d] bg-[#1a7a6d]/5'
-                  : 'border-gray-300 dark:border-gray-700 hover:border-[#1a7a6d]'
+                  ? 'border-[#3D6B52] bg-[#3D6B52]/5'
+                  : 'border-gray-300 dark:border-gray-700 hover:border-[#3D6B52]'
               )}
               onDragEnter={handleDrag}
               onDragLeave={handleDrag}
@@ -271,11 +271,11 @@ export function ImportContent() {
               
               <div className="space-y-4">
                 <div className="flex justify-center">
-                  <div className="w-16 h-16 rounded-full bg-[#1a7a6d]/10 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-[#3D6B52]/10 flex items-center justify-center">
                     {selectedFile ? (
-                      <FileText className="h-8 w-8 text-[#1a7a6d]" />
+                      <FileText className="h-8 w-8 text-[#3D6B52]" />
                     ) : (
-                      <Upload className="h-8 w-8 text-[#1a7a6d]" />
+                      <Upload className="h-8 w-8 text-[#3D6B52]" />
                     )}
                   </div>
                 </div>
@@ -347,7 +347,7 @@ export function ImportContent() {
                   Review the detected format and sample transactions
                 </CardDescription>
               </div>
-              <Badge className="bg-[#1a7a6d]">
+              <Badge className="bg-[#3D6B52]">
                 {formatNames[parsedData.format]}
               </Badge>
             </div>

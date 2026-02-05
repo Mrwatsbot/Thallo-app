@@ -53,11 +53,11 @@ export function RecurringChargesWidget() {
     return (
       <div className="glass-card rounded-xl p-5">
         <div className="flex items-center gap-2 mb-4">
-          <Repeat className="h-5 w-5 text-[#1a7a6d]" />
+          <Repeat className="h-5 w-5 text-[#3D6B52]" />
           <h3 className="font-semibold text-base">Recurring Charges</h3>
         </div>
         <div className="flex items-center justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#1a7a6d] border-t-transparent" />
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#3D6B52] border-t-transparent" />
         </div>
       </div>
     );
@@ -67,7 +67,7 @@ export function RecurringChargesWidget() {
     return (
       <div className="glass-card rounded-xl p-5">
         <div className="flex items-center gap-2 mb-4">
-          <Repeat className="h-5 w-5 text-[#1a7a6d]" />
+          <Repeat className="h-5 w-5 text-[#3D6B52]" />
           <h3 className="font-semibold text-base">Recurring Charges</h3>
         </div>
         <p className="text-center text-muted-foreground text-sm py-4">{error}</p>
@@ -79,7 +79,7 @@ export function RecurringChargesWidget() {
     return (
       <div className="glass-card rounded-xl p-5">
         <div className="flex items-center gap-2 mb-4">
-          <Repeat className="h-5 w-5 text-[#1a7a6d]" />
+          <Repeat className="h-5 w-5 text-[#3D6B52]" />
           <h3 className="font-semibold text-base">Recurring Charges</h3>
         </div>
         <p className="text-center text-muted-foreground text-sm py-8">
@@ -100,7 +100,7 @@ export function RecurringChargesWidget() {
       {/* Header */}
       <div className="mb-4">
         <div className="flex items-center gap-2 mb-1">
-          <Repeat className="h-5 w-5 text-[#1a7a6d]" />
+          <Repeat className="h-5 w-5 text-[#3D6B52]" />
           <h3 className="font-semibold text-base">Recurring Charges</h3>
         </div>
         <p className="text-xs text-muted-foreground">
@@ -133,13 +133,13 @@ export function RecurringChargesWidget() {
                 <div 
                   className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
                   style={{ 
-                    backgroundColor: charge.categoryColor ? `${charge.categoryColor}1a` : '#1a7a6d1a',
+                    backgroundColor: charge.categoryColor ? `${charge.categoryColor}1a` : '#3D6B521a',
                   }}
                 >
                   <Icon 
                     className="h-4 w-4" 
                     style={{ 
-                      color: charge.categoryColor || '#1a7a6d',
+                      color: charge.categoryColor || '#3D6B52',
                     }}
                   />
                 </div>
@@ -150,7 +150,7 @@ export function RecurringChargesWidget() {
                   </div>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground">
                     <Calendar className="h-3 w-3" />
-                    <span className={isUpcoming ? 'text-[#1a7a6d] font-medium' : ''}>
+                    <span className={isUpcoming ? 'text-[#3D6B52] font-medium' : ''}>
                       {formatDistanceToNow(nextDate, { addSuffix: true })}
                     </span>
                   </div>
@@ -160,7 +160,7 @@ export function RecurringChargesWidget() {
               {/* Right: Amount + Badge */}
               <div className="flex items-center gap-2 flex-shrink-0">
                 <div className="text-right">
-                  <div className="text-sm font-semibold text-[#1a7a6d]">
+                  <div className="text-sm font-semibold text-[#3D6B52]">
                     ${monthlyAmount.toFixed(2)}
                   </div>
                   {charge.frequency !== 'monthly' && (
@@ -202,7 +202,7 @@ export function RecurringChargesWidget() {
       <div className="mt-4 pt-4 border-t border-border/50">
         <div className="flex items-center justify-between text-sm">
           <span className="text-muted-foreground">Monthly Total</span>
-          <span className="font-semibold text-[#1a7a6d] text-base">
+          <span className="font-semibold text-[#3D6B52] text-base">
             ${data.monthlyTotal.toFixed(2)}
           </span>
         </div>

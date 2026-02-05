@@ -58,7 +58,7 @@ function DraggableWidget({ widget }: { widget: Widget }) {
             'touch-none select-none',
             'transition-all duration-200',
             'text-muted-foreground/30 hover:text-muted-foreground/60',
-            'hover:bg-secondary/50 active:bg-[#1a7a6d1a] active:text-[#1a7a6d]'
+            'hover:bg-secondary/50 active:bg-[#3D6B521a] active:text-[#3D6B52]'
           )}
         >
           <GripVertical className="h-3.5 w-3.5" />
@@ -119,7 +119,7 @@ export function DraggableDashboard({
             </button>
             <button
               onClick={onSave}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#1a7a6d] text-white text-sm font-medium shadow-lg shadow-[#1a7a6d]/30 hover:bg-[#146b5f] active:scale-95 transition-all"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#3D6B52] text-white text-sm font-medium shadow-lg shadow-[#3D6B52]/30 hover:bg-[#2D5440] active:scale-95 transition-all"
             >
               <Check className="h-4 w-4" />
               <span>Save Layout</span>

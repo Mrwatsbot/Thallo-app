@@ -68,9 +68,9 @@ const analysisTypes = [
     label: 'Score Coaching',
     description: 'Improve your Financial Health Score',
     icon: Trophy,
-    color: 'text-[#1a7a6d]',
-    bg: 'bg-[#1a7a6d1a]',
-    border: 'border-[#1a7a6d4d]',
+    color: 'text-[#3D6B52]',
+    bg: 'bg-[#3D6B521a]',
+    border: 'border-[#3D6B524d]',
   },
 ];
 
@@ -125,8 +125,8 @@ export function CoachingContent() {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1a7a6d33] to-[#146b5f33] border border-[#1a7a6d4d] flex items-center justify-center">
-          <Brain className="w-6 h-6 text-[#1a7a6d]" />
+        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#3D6B5233] to-[#2D544033] border border-[#3D6B524d] flex items-center justify-center">
+          <Brain className="w-6 h-6 text-[#3D6B52]" />
         </div>
         <div>
           <h1 className="text-2xl font-display font-bold">AI Financial Coach</h1>
@@ -136,9 +136,9 @@ export function CoachingContent() {
 
       {/* Locked State */}
       {isLocked ? (
-        <Card className="border-[#1a7a6d33]">
+        <Card className="border-[#3D6B5233]">
           <CardContent className="p-8 text-center">
-            <Lock className="w-12 h-12 text-[#1a7a6d] mx-auto mb-4" />
+            <Lock className="w-12 h-12 text-[#3D6B52] mx-auto mb-4" />
             <h2 className="text-xl font-display font-bold mb-2">Unlock AI Coaching</h2>
             <p className="text-muted-foreground mb-2 max-w-md mx-auto">
               Get personalized financial analysis, debt payoff strategies, budget optimization, and score coaching — all powered by AI.

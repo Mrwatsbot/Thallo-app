@@ -49,9 +49,9 @@ const mockInsights = [
 
 // Mock budgets
 const initialBudgets = [
-  { categoryId: '1', categoryName: 'Food & Dining', categoryIcon: 'utensils', categoryColor: '#1a7a6d', budgeted: 500, spent: 342.50 },
+  { categoryId: '1', categoryName: 'Food & Dining', categoryIcon: 'utensils', categoryColor: '#3D6B52', budgeted: 500, spent: 342.50 },
   { categoryId: '2', categoryName: 'Transportation', categoryIcon: 'car', categoryColor: '#3b82f6', budgeted: 200, spent: 156.00 },
-  { categoryId: '3', categoryName: 'Shopping', categoryIcon: 'shopping-bag', categoryColor: '#1a7a6d', budgeted: 300, spent: 425.99 },
+  { categoryId: '3', categoryName: 'Shopping', categoryIcon: 'shopping-bag', categoryColor: '#3D6B52', budgeted: 300, spent: 425.99 },
   { categoryId: '4', categoryName: 'Entertainment', categoryIcon: 'film', categoryColor: '#ec4899', budgeted: 150, spent: 89.00 },
   { categoryId: '5', categoryName: 'Utilities', categoryIcon: 'zap', categoryColor: '#eab308', budgeted: 250, spent: 187.32 },
   { categoryId: '6', categoryName: 'Health', categoryIcon: 'heart-pulse', categoryColor: '#22c55e', budgeted: 0, spent: 45.00 },
@@ -63,7 +63,7 @@ const initialBudgets = [
 const mockDebts = [
   { id: '1', name: 'Chase Sapphire', type: 'Credit Card', balance: 2847.32, apr: 24.99, minPayment: 85, color: '#3b82f6' },
   { id: '2', name: 'Student Loan', type: 'Loan', balance: 12450.00, apr: 5.5, minPayment: 250, color: '#22c55e' },
-  { id: '3', name: 'Car Payment', type: 'Auto Loan', balance: 8920.00, apr: 6.9, minPayment: 320, color: '#1a7a6d' },
+  { id: '3', name: 'Car Payment', type: 'Auto Loan', balance: 8920.00, apr: 6.9, minPayment: 320, color: '#3D6B52' },
 ];
 
 // Mock challenges
@@ -296,10 +296,10 @@ export default function DemoPage() {
 
       {/* Action Cards */}
       <div className="grid gap-4">
-        <div className="glass-card rounded-xl p-6 hover:border-[#1a7a6d4d] transition-colors cursor-pointer">
+        <div className="glass-card rounded-xl p-6 hover:border-[#3D6B524d] transition-colors cursor-pointer">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1a7a6d33] to-[#146b5f33] border border-[#1a7a6d4d] flex items-center justify-center flex-shrink-0">
-              <Search className="w-6 h-6 text-[#1a7a6d]" />
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#3D6B5233] to-[#2D544033] border border-[#3D6B524d] flex items-center justify-center flex-shrink-0">
+              <Search className="w-6 h-6 text-[#3D6B52]" />
             </div>
             <div className="flex-1">
               <h3 className="font-semibold mb-1">Analyze Spending</h3>
@@ -309,7 +309,7 @@ export default function DemoPage() {
           </div>
         </div>
 
-        <div className="glass-card rounded-xl p-6 hover:border-[#1a7a6d4d] transition-colors cursor-pointer">
+        <div className="glass-card rounded-xl p-6 hover:border-[#3D6B524d] transition-colors cursor-pointer">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#6db555]/20 to-emerald-500/20 border border-[#6db555]/30 flex items-center justify-center flex-shrink-0">
               <Zap className="w-6 h-6 text-[#7aba5c]" />
@@ -322,9 +322,9 @@ export default function DemoPage() {
           </div>
         </div>
 
-        <div className="glass-card rounded-xl p-6 hover:border-[#1a7a6d4d] transition-colors cursor-pointer">
+        <div className="glass-card rounded-xl p-6 hover:border-[#3D6B524d] transition-colors cursor-pointer">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#5b8fd9]33 to-[#22a090]33 border border-[#5b8fd9]4d flex items-center justify-center flex-shrink-0">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#5b8fd9]33 to-[#4E8A66]33 border border-[#5b8fd9]4d flex items-center justify-center flex-shrink-0">
               <FileText className="w-6 h-6 text-blue-400" />
             </div>
             <div className="flex-1">
@@ -335,7 +335,7 @@ export default function DemoPage() {
           </div>
         </div>
 
-        <div className="glass-card rounded-xl p-6 hover:border-[#1a7a6d4d] transition-colors cursor-pointer">
+        <div className="glass-card rounded-xl p-6 hover:border-[#3D6B524d] transition-colors cursor-pointer">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-600/20 to-teal-500/20 border border-teal-600/30 flex items-center justify-center flex-shrink-0">
               <MessageSquare className="w-6 h-6 text-teal-400" />
@@ -393,10 +393,10 @@ export default function DemoPage() {
       <div className="glass-card rounded-xl p-4">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <Target className="w-5 h-5 text-[#1a7a6d]" />
+            <Target className="w-5 h-5 text-[#3D6B52]" />
             <span className="font-medium">Active Challenges</span>
           </div>
-          <Button variant="ghost" size="sm" className="text-[#1a7a6d] text-xs">
+          <Button variant="ghost" size="sm" className="text-[#3D6B52] text-xs">
             View All
           </Button>
         </div>
@@ -411,7 +411,7 @@ export default function DemoPage() {
               <div className="flex items-center gap-2">
                 <div className="flex-1 h-2 rounded-full bg-secondary overflow-hidden">
                   <div 
-                    className="h-full rounded-full bg-gradient-to-r from-[#1a7a6d] to-[#6db555]"
+                    className="h-full rounded-full bg-gradient-to-r from-[#3D6B52] to-[#6db555]"
                     style={{ width: `${(challenge.progress / challenge.total) * 100}%` }}
                   />
                 </div>
@@ -437,7 +437,7 @@ export default function DemoPage() {
                 <span className="font-medium text-sm">{challenge.title}</span>
                 <p className="text-xs text-muted-foreground">{challenge.description}</p>
               </div>
-              <Button size="sm" variant="outline" className="border-[#1a7a6d4d] text-[#1a7a6d] text-xs">
+              <Button size="sm" variant="outline" className="border-[#3D6B524d] text-[#3D6B52] text-xs">
                 Start
               </Button>
             </div>
@@ -467,7 +467,7 @@ export default function DemoPage() {
             <span className="font-semibold">Thallo</span>
           </div>
           <div className="flex items-center gap-2 text-xs">
-            <span className="px-2 py-1 rounded-full bg-[#1a7a6d33] text-[#1a7a6d]">Demo Mode</span>
+            <span className="px-2 py-1 rounded-full bg-[#3D6B5233] text-[#3D6B52]">Demo Mode</span>
           </div>
         </div>
       </header>

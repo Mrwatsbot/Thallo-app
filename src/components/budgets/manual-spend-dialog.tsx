@@ -98,7 +98,7 @@ export function ManualSpendDialog({ categoryId, categoryName, onSuccess }: Manua
                 onClick={() => setMode('add')}
                 className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
                   mode === 'add'
-                    ? 'border-[#1a7a6d80] bg-[#1a7a6d1a] text-[#1a7a6d]'
+                    ? 'border-[#3D6B5280] bg-[#3D6B521a] text-[#3D6B52]'
                     : 'border-border bg-muted/10 text-muted-foreground hover:bg-muted/20'
                 }`}
               >

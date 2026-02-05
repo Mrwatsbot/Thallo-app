@@ -63,7 +63,7 @@ export function ScoreContent() {
               ═══════════════════════════════════════════ */}
           <div className="relative rounded-2xl overflow-hidden border border-white/[0.04] bg-gradient-to-b from-white/[0.02] to-transparent">
             {/* Ambient top edge accent line */}
-            <div className="absolute top-0 left-[15%] right-[15%] h-px bg-gradient-to-r from-transparent via-[#1a7a6d]/40 to-transparent" />
+            <div className="absolute top-0 left-[15%] right-[15%] h-px bg-gradient-to-r from-transparent via-[#3D6B52]/40 to-transparent" />
 
             {/* Score Gauge */}
             <ScoreGauge
@@ -219,7 +219,7 @@ export function ScoreContent() {
             <div>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <Award className="w-5 h-5 text-[#1a7a6d]" />
+                  <Award className="w-5 h-5 text-[#3D6B52]" />
                   <h2 className="text-lg font-semibold">Achievements</h2>
                 </div>
                 <span className="text-sm text-muted-foreground">
@@ -338,7 +338,7 @@ export function ScoreContent() {
               <h2 className="text-lg font-semibold mb-4">Top Recommendations</h2>
               <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
                 {score.tips.slice(0, 3).map((tip: string, idx: number) => (
-                  <Card key={idx} className="border-[#1a7a6d]/20">
+                  <Card key={idx} className="border-[#3D6B52]/20">
                     <CardContent className="p-4">
                       <p className="text-sm text-muted-foreground">{tip}</p>
                     </CardContent>

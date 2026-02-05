@@ -198,7 +198,7 @@ export function MonthlyPulse({
             </div>
             {showPaycheckInfo && (
               <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <Calendar className="w-3 h-3 text-[#1a7a6d]" />
+                <Calendar className="w-3 h-3 text-[#3D6B52]" />
                 <span>
                   ${perPaycheckAmount.toLocaleString('en-US', { minimumFractionDigits: 2 })}/check
                   {paychecksThisMonth > 2 && (
@@ -217,7 +217,7 @@ export function MonthlyPulse({
       <div data-tour="allocation-bar" className="grid grid-cols-2 gap-3 mb-5">
         <div className="rounded-lg bg-secondary/20 border border-border/30 p-3">
           <p className="text-xs text-muted-foreground mb-0.5">Budgeted</p>
-          <p className="text-lg font-display font-semibold text-[#1a7a6d]">
+          <p className="text-lg font-display font-semibold text-[#3D6B52]">
             ${totalBudgeted.toLocaleString('en-US', { maximumFractionDigits: 0 })}
           </p>
         </div>

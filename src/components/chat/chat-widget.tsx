@@ -135,7 +135,7 @@ export function ChatWidget() {
           className={cn(
             'fixed z-50 flex items-center justify-center',
             'w-14 h-14 rounded-full shadow-lg',
-            'bg-gradient-to-br from-[#1a7a6d] to-[#2aaa9a]',
+            'bg-gradient-to-br from-[#3D6B52] to-[#5A9A74]',
             'hover:from-[#1e8a7d] hover:to-[#30bba8]',
             'transition-all duration-200 hover:scale-105',
             // Position: bottom-right, above mobile nav
@@ -165,7 +165,7 @@ export function ChatWidget() {
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#1a7a6d] to-[#2aaa9a] flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#3D6B52] to-[#5A9A74] flex items-center justify-center">
                 <Sparkles className="h-4 w-4 text-white" />
               </div>
               <div>
@@ -239,10 +239,10 @@ export function ChatWidget() {
                   className={cn(
                     'max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm',
                     msg.role === 'user'
-                      ? 'bg-gradient-to-br from-[#1a7a6d] to-[#2aaa9a] text-white rounded-br-md'
+                      ? 'bg-gradient-to-br from-[#3D6B52] to-[#5A9A74] text-white rounded-br-md'
                       : 'bg-secondary/70 text-foreground rounded-bl-md',
                     // KB answers get a subtle distinct style
-                    msg.source === 'kb_match' && 'border border-[#1a7a6d]/30',
+                    msg.source === 'kb_match' && 'border border-[#3D6B52]/30',
                   )}
                 >
                   <div className="whitespace-pre-wrap break-words leading-relaxed">
@@ -292,7 +292,7 @@ export function ChatWidget() {
                 className={cn(
                   'flex-1 resize-none rounded-xl border border-border bg-secondary/50',
                   'px-3 py-2.5 text-sm placeholder:text-muted-foreground',
-                  'focus:outline-none focus:ring-1 focus:ring-[#2aaa9a]/50 focus:border-[#2aaa9a]/50',
+                  'focus:outline-none focus:ring-1 focus:ring-[#5A9A74]/50 focus:border-[#5A9A74]/50',
                   'disabled:opacity-50 disabled:cursor-not-allowed',
                   'max-h-24',
                 )}
@@ -304,7 +304,7 @@ export function ChatWidget() {
                 className={cn(
                   'shrink-0 p-2.5 rounded-xl transition-all',
                   input.trim() && !isLoading && !isAtLimit
-                    ? 'bg-gradient-to-br from-[#1a7a6d] to-[#2aaa9a] text-white hover:opacity-90'
+                    ? 'bg-gradient-to-br from-[#3D6B52] to-[#5A9A74] text-white hover:opacity-90'
                     : 'bg-secondary text-muted-foreground cursor-not-allowed',
                 )}
                 aria-label="Send message"

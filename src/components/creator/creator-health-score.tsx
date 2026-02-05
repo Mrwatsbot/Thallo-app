@@ -49,7 +49,7 @@ export function CreatorHealthScore() {
       case 'excellent':
         return 'text-emerald-400';
       case 'good':
-        return 'text-[#1a7a6d]';
+        return 'text-[#3D6B52]';
       case 'fair':
         return 'text-yellow-400';
       case 'poor':
@@ -63,7 +63,7 @@ export function CreatorHealthScore() {
 
   const getScoreColor = (score: number) => {
     if (score >= 80) return '#10b981'; // emerald-500
-    if (score >= 70) return '#1a7a6d'; // accent teal
+    if (score >= 70) return '#3D6B52'; // accent teal
     if (score >= 60) return '#fbbf24'; // yellow-400
     return '#ef4444'; // red-500
   };
@@ -111,7 +111,7 @@ export function CreatorHealthScore() {
               </div>
 
               {/* Progress Bar */}
-              <div className="relative h-2 bg-[#0d1514]/60 rounded-full overflow-hidden">
+              <div className="relative h-2 bg-[#0C1425]/60 rounded-full overflow-hidden">
                 <div
                   className="absolute inset-y-0 left-0 rounded-full transition-all duration-500"
                   style={{
@@ -127,7 +127,7 @@ export function CreatorHealthScore() {
 
       {/* Insights */}
       <div className="pt-4 border-t border-white/5">
-        <div className="bg-[#1a7a6d]/10 border border-[#1a7a6d]/20 rounded-lg p-4">
+        <div className="bg-[#3D6B52]/10 border border-[#3D6B52]/20 rounded-lg p-4">
           <div className="flex gap-3">
             <span className="text-xl flex-shrink-0">💡</span>
             <div className="text-sm text-gray-300">
@@ -153,7 +153,7 @@ function CircularGauge({ score, size }: { score: number; size: number }) {
 
   const getScoreColor = (score: number) => {
     if (score >= 80) return '#10b981'; // emerald-500
-    if (score >= 70) return '#1a7a6d'; // accent teal
+    if (score >= 70) return '#3D6B52'; // accent teal
     if (score >= 60) return '#fbbf24'; // yellow-400
     return '#ef4444'; // red-500
   };
@@ -169,7 +169,7 @@ function CircularGauge({ score, size }: { score: number; size: number }) {
           cy={center}
           r={radius}
           fill="none"
-          stroke="#1a2826"
+          stroke="#1A2844"
           strokeWidth={strokeWidth}
         />
         {/* Progress circle */}

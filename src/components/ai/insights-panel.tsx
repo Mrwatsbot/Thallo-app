@@ -52,9 +52,9 @@ const typeConfig = {
   },
   action: {
     icon: Target,
-    color: 'text-[#1a7a6d]',
-    bg: 'bg-[#1a7a6d1a]',
-    border: 'border-[#1a7a6d33]',
+    color: 'text-[#3D6B52]',
+    bg: 'bg-[#3D6B521a]',
+    border: 'border-[#3D6B5233]',
   },
 };
 
@@ -69,7 +69,7 @@ function InsightCard({ insight }: { insight: Insight }) {
         <p className="text-sm font-semibold">{insight.title}</p>
         <p className="text-sm text-muted-foreground mt-0.5">{insight.body}</p>
         {insight.impact && (
-          <span className="inline-block mt-1.5 text-xs px-2 py-0.5 rounded-full bg-[#1a7a6d33] text-[#22a090] border border-[#1a7a6d4d]">
+          <span className="inline-block mt-1.5 text-xs px-2 py-0.5 rounded-full bg-[#3D6B5233] text-[#4E8A66] border border-[#3D6B524d]">
             {insight.impact}
           </span>
         )}
@@ -124,7 +124,7 @@ function LockedState() {
 
       {/* Overlay CTA */}
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/60 backdrop-blur-[2px] rounded-lg">
-        <Lock className="w-8 h-8 text-[#1a7a6d] mb-3" />
+        <Lock className="w-8 h-8 text-[#3D6B52] mb-3" />
         <p className="text-sm font-semibold mb-1">Unlock AI Insights</p>
         <p className="text-xs text-muted-foreground mb-3">Upgrade to Plus for personalized analysis</p>
         <Button size="sm" className="gradient-btn border-0" asChild>
@@ -223,8 +223,8 @@ export function InsightsPanel({ page, pageData }: InsightsPanelProps) {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#1a7a6d33] to-[#146b5f33] border border-[#1a7a6d4d] flex items-center justify-center">
-            <Sparkles className="w-5 h-5 text-[#1a7a6d]" />
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#3D6B5233] to-[#2D544033] border border-[#3D6B524d] flex items-center justify-center">
+            <Sparkles className="w-5 h-5 text-[#3D6B52]" />
           </div>
           <div>
             <h2 className="text-lg font-display font-semibold">AI Insights</h2>
@@ -280,9 +280,9 @@ export function InsightsPanel({ page, pageData }: InsightsPanelProps) {
 
           {/* Demo Mode CTA */}
           {isDemo && demoInsights && (
-            <div className="mt-4 p-4 rounded-xl bg-gradient-to-br from-[#1a7a6d1a] to-[#146b5f1a] border border-[#1a7a6d4d]">
+            <div className="mt-4 p-4 rounded-xl bg-gradient-to-br from-[#3D6B521a] to-[#2D54401a] border border-[#3D6B524d]">
               <div className="flex items-start gap-3">
-                <Sparkles className="w-5 h-5 text-[#1a7a6d] mt-0.5 flex-shrink-0" />
+                <Sparkles className="w-5 h-5 text-[#3D6B52] mt-0.5 flex-shrink-0" />
                 <div className="flex-1">
                   <p className="text-sm font-semibold mb-1">Get Real Insights</p>
                   <p className="text-xs text-muted-foreground mb-3">
@@ -302,7 +302,7 @@ export function InsightsPanel({ page, pageData }: InsightsPanelProps) {
       ) : (
         /* Stale or no insights — show generate button */
         <div className="text-center py-6">
-          <Sparkles className="w-8 h-8 text-[#1a7a6d] mx-auto mb-3" />
+          <Sparkles className="w-8 h-8 text-[#3D6B52] mx-auto mb-3" />
           <p className="text-sm text-muted-foreground mb-4">
             {stale ? 'Your insights are outdated. Generate fresh analysis.' : 'Get AI-powered insights for this page.'}
           </p>

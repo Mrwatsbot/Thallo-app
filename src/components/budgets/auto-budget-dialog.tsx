@@ -343,20 +343,20 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
     <Dialog open={open} onOpenChange={(v) => { setOpen(v); if (!v) resetForm(); }}>
       <DialogTrigger asChild>
         {prominent ? (
-          <button data-tour="ai-auto-budget" className="w-full glass-card rounded-xl p-6 text-left hover:border-[#1a7a6d4d] transition-colors group cursor-pointer border border-transparent">
+          <button data-tour="ai-auto-budget" className="w-full glass-card rounded-xl p-6 text-left hover:border-[#3D6B524d] transition-colors group cursor-pointer border border-transparent">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#1a7a6d33] to-[#146b5f33] border border-[#1a7a6d4d] flex items-center justify-center flex-shrink-0">
-                <Sparkles className="w-6 h-6 text-[#1a7a6d]" />
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#3D6B5233] to-[#2D544033] border border-[#3D6B524d] flex items-center justify-center flex-shrink-0">
+                <Sparkles className="w-6 h-6 text-[#3D6B52]" />
               </div>
               <div className="flex-1">
-                <h3 className="text-base font-semibold group-hover:text-[#1a7a6d] transition-colors">
+                <h3 className="text-base font-semibold group-hover:text-[#3D6B52] transition-colors">
                   Let AI set up your budget in 60 seconds
                 </h3>
                 <p className="text-sm text-muted-foreground mt-0.5">
                   Answer a few questions and get a personalized budget based on the 50/30/20 rule
                 </p>
               </div>
-              <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-[#1a7a6d] transition-colors" />
+              <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-[#3D6B52] transition-colors" />
             </div>
           </button>
         ) : (
@@ -369,7 +369,7 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
       <DialogContent className="sm:max-w-lg bg-background border-border max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-[#1a7a6d]" />
+            <Sparkles className="w-5 h-5 text-[#3D6B52]" />
             AI Auto Budget
           </DialogTitle>
         </DialogHeader>
@@ -383,7 +383,7 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
               <div className="h-10 bg-muted/30 rounded-lg" />
             </div>
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/60 backdrop-blur-[2px] rounded-lg">
-              <Lock className="w-8 h-8 text-[#1a7a6d] mb-3" />
+              <Lock className="w-8 h-8 text-[#3D6B52] mb-3" />
               <p className="text-sm font-semibold mb-1">Unlock AI Auto Budget</p>
               <p className="text-xs text-muted-foreground mb-3">Upgrade to Plus for AI-powered budget generation</p>
               <Button size="sm" className="gradient-btn border-0" asChild>
@@ -401,14 +401,14 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
               {STEPS.map((label, i) => (
                 <div key={label} className="flex items-center gap-2">
                   <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold transition-colors ${
-                    i < step ? 'bg-[#1a7a6d] text-white' :
-                    i === step ? 'bg-[#1a7a6d33] text-[#1a7a6d] border border-[#1a7a6d80]' :
+                    i < step ? 'bg-[#3D6B52] text-white' :
+                    i === step ? 'bg-[#3D6B5233] text-[#3D6B52] border border-[#3D6B5280]' :
                     'bg-muted/30 text-muted-foreground'
                   }`}>
                     {i < step ? <Check className="w-3.5 h-3.5" /> : i + 1}
                   </div>
                   {i < STEPS.length - 1 && (
-                    <div className={`w-6 h-px transition-colors ${i < step ? 'bg-[#1a7a6d]' : 'bg-border'}`} />
+                    <div className={`w-6 h-px transition-colors ${i < step ? 'bg-[#3D6B52]' : 'bg-border'}`} />
                   )}
                 </div>
               ))}
@@ -418,7 +418,7 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
             {step === 0 && (
               <div className="space-y-4 py-2">
                 <div className="flex items-center gap-3 mb-2">
-                  <DollarSign className="w-5 h-5 text-[#1a7a6d]" />
+                  <DollarSign className="w-5 h-5 text-[#3D6B52]" />
                   <h3 className="text-sm font-semibold">What&apos;s your monthly take-home income?</h3>
                 </div>
                 <div className="space-y-2">
@@ -446,7 +446,7 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
             {step === 1 && (
               <div className="space-y-4 py-2">
                 <div className="flex items-center gap-3 mb-2">
-                  <Home className="w-5 h-5 text-[#1a7a6d]" />
+                  <Home className="w-5 h-5 text-[#3D6B52]" />
                   <h3 className="text-sm font-semibold">What are your fixed monthly costs?</h3>
                 </div>
                 <p className="text-xs text-muted-foreground">All fields are optional — skip what doesn&apos;t apply</p>
@@ -495,7 +495,7 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
             {step === 2 && (
               <div className="space-y-4 py-2">
                 <div className="flex items-center gap-3 mb-2">
-                  <PiggyBank className="w-5 h-5 text-[#1a7a6d]" />
+                  <PiggyBank className="w-5 h-5 text-[#3D6B52]" />
                   <h3 className="text-sm font-semibold">Savings & Goals</h3>
                 </div>
 
@@ -508,7 +508,7 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
                       onClick={() => setEmergencyFundStatus('yes')}
                       className={`px-3 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
                         emergencyFundStatus === 'yes'
-                          ? 'border-[#1a7a6d80] bg-[#1a7a6d1a] text-[#1a7a6d]'
+                          ? 'border-[#3D6B5280] bg-[#3D6B521a] text-[#3D6B52]'
                           : 'border-border bg-muted/10 text-muted-foreground hover:bg-muted/20'
                       }`}
                     >
@@ -519,7 +519,7 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
                       onClick={() => setEmergencyFundStatus('building')}
                       className={`px-3 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
                         emergencyFundStatus === 'building'
-                          ? 'border-[#1a7a6d80] bg-[#1a7a6d1a] text-[#1a7a6d]'
+                          ? 'border-[#3D6B5280] bg-[#3D6B521a] text-[#3D6B52]'
                           : 'border-border bg-muted/10 text-muted-foreground hover:bg-muted/20'
                       }`}
                     >
@@ -530,7 +530,7 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
                       onClick={() => setEmergencyFundStatus('no')}
                       className={`px-3 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
                         emergencyFundStatus === 'no'
-                          ? 'border-[#1a7a6d80] bg-[#1a7a6d1a] text-[#1a7a6d]'
+                          ? 'border-[#3D6B5280] bg-[#3D6B521a] text-[#3D6B52]'
                           : 'border-border bg-muted/10 text-muted-foreground hover:bg-muted/20'
                       }`}
                     >
@@ -562,7 +562,7 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
                           }}
                           className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-sm font-medium transition-colors ${
                             isSelected
-                              ? 'border-[#1a7a6d80] bg-[#1a7a6d1a] text-[#1a7a6d]'
+                              ? 'border-[#3D6B5280] bg-[#3D6B521a] text-[#3D6B52]'
                               : 'border-border bg-muted/10 text-muted-foreground hover:bg-muted/20'
                           }`}
                         >
@@ -611,7 +611,7 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
             {step === 3 && (
               <div className="space-y-5 py-2">
                 <div className="flex items-center gap-3 mb-2">
-                  <Target className="w-5 h-5 text-[#1a7a6d]" />
+                  <Target className="w-5 h-5 text-[#3D6B52]" />
                   <h3 className="text-sm font-semibold">A few more details</h3>
                 </div>
 
@@ -624,7 +624,7 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
                       onClick={() => setHasDebts(true)}
                       className={`flex-1 px-4 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
                         hasDebts
-                          ? 'border-[#1a7a6d80] bg-[#1a7a6d1a] text-[#1a7a6d]'
+                          ? 'border-[#3D6B5280] bg-[#3D6B521a] text-[#3D6B52]'
                           : 'border-border bg-muted/10 text-muted-foreground hover:bg-muted/20'
                       }`}
                     >
@@ -635,7 +635,7 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
                       onClick={() => setHasDebts(false)}
                       className={`flex-1 px-4 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
                         !hasDebts
-                          ? 'border-[#1a7a6d80] bg-[#1a7a6d1a] text-[#1a7a6d]'
+                          ? 'border-[#3D6B5280] bg-[#3D6B521a] text-[#3D6B52]'
                           : 'border-border bg-muted/10 text-muted-foreground hover:bg-muted/20'
                       }`}
                     >
@@ -660,15 +660,15 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
                           onClick={() => setSavingsPriority(opt.value)}
                           className={`p-3 rounded-lg border text-center transition-colors ${
                             savingsPriority === opt.value
-                              ? 'border-[#1a7a6d80] bg-[#1a7a6d1a]'
+                              ? 'border-[#3D6B5280] bg-[#3D6B521a]'
                               : 'border-border bg-muted/10 hover:bg-muted/20'
                           }`}
                         >
                           <Icon className={`w-5 h-5 mx-auto mb-1.5 ${
-                            savingsPriority === opt.value ? 'text-[#1a7a6d]' : 'text-muted-foreground'
+                            savingsPriority === opt.value ? 'text-[#3D6B52]' : 'text-muted-foreground'
                           }`} />
                           <p className={`text-xs font-medium ${
-                            savingsPriority === opt.value ? 'text-[#1a7a6d]' : ''
+                            savingsPriority === opt.value ? 'text-[#3D6B52]' : ''
                           }`}>{opt.label}</p>
                           <p className="text-[10px] text-muted-foreground mt-0.5">{opt.desc}</p>
                         </button>
@@ -706,7 +706,7 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
                   </div>
                 ) : loading ? (
                   <div className="text-center py-10">
-                    <Loader2 className="w-8 h-8 text-[#1a7a6d] animate-spin mx-auto mb-3" />
+                    <Loader2 className="w-8 h-8 text-[#3D6B52] animate-spin mx-auto mb-3" />
                     <p className="text-sm font-medium">Crafting your budget...</p>
                     <p className="text-xs text-muted-foreground mt-1">Analyzing your finances and building allocations</p>
                   </div>
@@ -729,7 +729,7 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
                           title={`Needs: ${result.summary.needs_pct}%`}
                         />
                         <div
-                          className="bg-[#1a7a6d] transition-all min-w-[2px]"
+                          className="bg-[#3D6B52] transition-all min-w-[2px]"
                           style={{ width: `${result.summary.wants_pct}%` }}
                           title={`Wants: ${result.summary.wants_pct}%`}
                         />
@@ -745,7 +745,7 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
                           Needs {result.summary.needs_pct}%
                         </span>
                         <span className="flex items-center gap-1">
-                          <span className="w-2 h-2 rounded-full bg-[#1a7a6d] shrink-0" />
+                          <span className="w-2 h-2 rounded-full bg-[#3D6B52] shrink-0" />
                           Wants {result.summary.wants_pct}%
                         </span>
                         <span className="flex items-center gap-1">
@@ -892,9 +892,9 @@ export function AutoBudgetDialog({ currentMonth, onApplied, prominent = false, s
 
             {/* Demo Mode CTA */}
             {isDemo && result && (
-              <div className="mt-4 p-4 rounded-xl bg-gradient-to-br from-[#1a7a6d1a] to-[#146b5f1a] border border-[#1a7a6d4d]">
+              <div className="mt-4 p-4 rounded-xl bg-gradient-to-br from-[#3D6B521a] to-[#2D54401a] border border-[#3D6B524d]">
                 <div className="flex items-start gap-3">
-                  <Sparkles className="w-5 h-5 text-[#1a7a6d] mt-0.5 flex-shrink-0" />
+                  <Sparkles className="w-5 h-5 text-[#3D6B52] mt-0.5 flex-shrink-0" />
                   <div className="flex-1">
                     <p className="text-sm font-semibold mb-1">Get Your Personalized Budget</p>
                     <p className="text-xs text-muted-foreground mb-3">

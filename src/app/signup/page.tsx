@@ -196,14 +196,14 @@ export default function SignupPage() {
 
           <p className="text-xs text-muted-foreground text-center mt-4">
             By creating an account, you agree to our{' '}
-            <Link href="/terms" className="text-[#1a7a6d] hover:underline">Terms</Link>
+            <Link href="/terms" className="text-[#3D6B52] hover:underline">Terms</Link>
             {' '}and{' '}
-            <Link href="/privacy" className="text-[#1a7a6d] hover:underline">Privacy Policy</Link>
+            <Link href="/privacy" className="text-[#3D6B52] hover:underline">Privacy Policy</Link>
           </p>
 
           <p className="text-center text-sm text-muted-foreground mt-6">
             Already have an account?{' '}
-            <Link href="/login" className="text-[#1a7a6d] hover:text-[#22a090] hover:underline">
+            <Link href="/login" className="text-[#3D6B52] hover:text-[#4E8A66] hover:underline">
               Sign in
             </Link>
           </p>

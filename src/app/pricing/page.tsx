@@ -37,9 +37,9 @@ const tiers = [
     period: 'per year',
     description: 'For serious budgeters',
     icon: Zap,
-    color: 'text-[#1a7a6d]',
-    bgGradient: 'from-[#1a7a6d33] to-[#146b5f33]',
-    borderColor: 'border-[#1a7a6d66]',
+    color: 'text-[#3D6B52]',
+    bgGradient: 'from-[#3D6B5233] to-[#2D544033]',
+    borderColor: 'border-[#3D6B5266]',
     features: [
       { text: 'Everything in Free', included: true },
       { text: 'Full gamification (streaks, challenges)', included: true },
@@ -174,7 +174,7 @@ export default function PricingPage() {
         {/* Hero */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm mb-6">
-            <Sparkles className="w-4 h-4 text-[#1a7a6d]" />
+            <Sparkles className="w-4 h-4 text-[#3D6B52]" />
             <span className="text-muted-foreground">The only budget app with gamification + AI</span>
           </div>
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight mb-6">
@@ -196,7 +196,7 @@ export default function PricingPage() {
                 key={tier.name}
                 className={`glass-card rounded-2xl p-8 relative ${
                   tier.highlighted
-                    ? 'border-2 border-[#1a7a6d80] shadow-xl shadow-[#1a7a6d33]'
+                    ? 'border-2 border-[#3D6B5280] shadow-xl shadow-[#3D6B5233]'
                     : 'border border-border'
                 }`}
               >
@@ -341,13 +341,13 @@ export default function PricingPage() {
               <div
                 key={idx}
                 className={`grid grid-cols-5 gap-4 px-6 py-4 border-t border-border/50 ${
-                  comp.name.includes('Thallo') ? 'bg-[#1a7a6d0d]' : ''
+                  comp.name.includes('Thallo') ? 'bg-[#3D6B520d]' : ''
                 }`}
               >
                 <div className="font-medium">
                   {comp.name}
                   {comp.name.includes('Thallo') && (
-                    <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-[#1a7a6d33] text-[#1a7a6d]">
+                    <span className="ml-2 text-xs px-2 py-0.5 rounded-full bg-[#3D6B5233] text-[#3D6B52]">
                       Us
                     </span>
                   )}
@@ -393,7 +393,7 @@ export default function PricingPage() {
         </div>
 
         {/* CTA Section */}
-        <div className="glass-card rounded-2xl p-12 text-center bg-gradient-to-br from-[#1a7a6d1a] to-[#146b5f1a] border border-[#1a7a6d33]">
+        <div className="glass-card rounded-2xl p-12 text-center bg-gradient-to-br from-[#3D6B521a] to-[#2D54401a] border border-[#3D6B5233]">
           <h2 className="text-3xl font-bold mb-4">Ready to Get Financially Fit?</h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Join thousands of people building better financial habits. Start free, upgrade anytime.

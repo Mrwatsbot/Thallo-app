@@ -35,10 +35,10 @@ export function ScoreWidget({ score, levelTitle, level, previousScore, recentAch
   const change = previousScore !== null ? score - previousScore : 0;
 
   return (
-    <a href="/score" data-tour="score-widget" className="glass-card rounded-xl p-4 sm:p-5 block hover:border-[#1a7a6d4d] transition-all group">
+    <a href="/score" data-tour="score-widget" className="glass-card rounded-xl p-4 sm:p-5 block hover:border-[#3D6B524d] transition-all group">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <Award className="w-5 h-5 text-[#1a7a6d]" />
+          <Award className="w-5 h-5 text-[#3D6B52]" />
           <span className="font-medium">Financial Health</span>
         </div>
         <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-foreground transition-colors" />
@@ -105,7 +105,7 @@ export function ScoreWidget({ score, levelTitle, level, previousScore, recentAch
               {recentAchievements.slice(0, 3).map((ach, i) => (
                 <span
                   key={i}
-                  className="w-7 h-7 rounded-full bg-[#1a7a6d33] border border-[#1a7a6d4d] flex items-center justify-center text-sm"
+                  className="w-7 h-7 rounded-full bg-[#3D6B5233] border border-[#3D6B524d] flex items-center justify-center text-sm"
                   title={ach.name}
                 >
                   {ach.icon}

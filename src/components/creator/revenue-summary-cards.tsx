@@ -65,7 +65,7 @@ export function RevenueSummaryCards() {
         >
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center gap-2">
-              <div className="p-2 rounded-lg bg-[#1a7a6d]/20 text-[#1a7a6d]">
+              <div className="p-2 rounded-lg bg-[#3D6B52]/20 text-[#3D6B52]">
                 {card.icon}
               </div>
             </div>

@@ -125,7 +125,7 @@ export function SafeToSpendWidget({
           </div>
           <div className="flex justify-between text-xs">
             <span className="text-[#6db555]">Flexible</span>
-            <span className="text-[#1a7a6d]">Fully allocated</span>
+            <span className="text-[#3D6B52]">Fully allocated</span>
           </div>
         </div>
 

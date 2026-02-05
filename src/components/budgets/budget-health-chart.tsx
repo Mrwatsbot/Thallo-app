@@ -100,7 +100,7 @@ export function BudgetHealthChart({ categoryBudgets }: BudgetHealthChartProps) {
                 <div className="flex items-center gap-2">
                   <IconComponent 
                     className="w-4 h-4" 
-                    style={{ color: budget.categoryColor || '#1a7a6d' }} 
+                    style={{ color: budget.categoryColor || '#3D6B52' }} 
                   />
                   <span className="font-medium">{budget.categoryName}</span>
                 </div>

@@ -91,8 +91,8 @@ export function PlatformCards() {
       ))}
       
       {/* Add Platform Card */}
-      <button className="glass-card p-4 w-full border-2 border-dashed border-white/10 hover:border-[#1a7a6d]/50 transition-colors group">
-        <div className="flex items-center justify-center gap-2 text-gray-400 group-hover:text-[#1a7a6d]">
+      <button className="glass-card p-4 w-full border-2 border-dashed border-white/10 hover:border-[#3D6B52]/50 transition-colors group">
+        <div className="flex items-center justify-center gap-2 text-gray-400 group-hover:text-[#3D6B52]">
           <svg
             className="w-5 h-5"
             fill="none"
@@ -220,7 +220,7 @@ function PlatformCard({
       {/* View Details Link */}
       <a
         href="#"
-        className="text-sm text-[#1a7a6d] hover:text-[#2aaa9a] font-medium inline-flex items-center gap-1 group"
+        className="text-sm text-[#3D6B52] hover:text-[#5A9A74] font-medium inline-flex items-center gap-1 group"
       >
         View Details
         <svg

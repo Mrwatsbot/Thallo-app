@@ -36,7 +36,7 @@ const levelColors = {
   1: 'from-red-500 to-red-600', 
   2: 'from-yellow-500 to-yellow-600',
   3: 'from-blue-500 to-blue-600',
-  4: 'from-[#1a7a6d] to-[#146b5f]',
+  4: 'from-[#3D6B52] to-[#2D5440]',
   5: 'from-[#6db555] to-emerald-500',
 };
 
@@ -119,8 +119,8 @@ export function FinancialHealthDisplay({ score, previousScore, animated = true }
               />
               <defs>
                 <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#1a7a6d" />
-                  <stop offset="100%" stopColor="#2aaa9a" />
+                  <stop offset="0%" stopColor="#3D6B52" />
+                  <stop offset="100%" stopColor="#5A9A74" />
                 </linearGradient>
               </defs>
             </svg>
@@ -156,7 +156,7 @@ export function FinancialHealthDisplay({ score, previousScore, animated = true }
       {/* Toggle Breakdown */}
       <button
         onClick={() => setShowBreakdown(!showBreakdown)}
-        className="w-full glass-card rounded-xl p-4 flex items-center justify-between hover:border-[#1a7a6d4d] transition-colors"
+        className="w-full glass-card rounded-xl p-4 flex items-center justify-between hover:border-[#3D6B524d] transition-colors"
       >
         <span className="font-medium">Score Breakdown</span>
         {showBreakdown ? (
@@ -178,8 +178,8 @@ export function FinancialHealthDisplay({ score, previousScore, animated = true }
               <div key={key} className="glass-card rounded-xl p-4">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#1a7a6d33] flex items-center justify-center">
-                      <Icon className="w-4 h-4 text-[#1a7a6d]" />
+                    <div className="w-8 h-8 rounded-lg bg-[#3D6B5233] flex items-center justify-center">
+                      <Icon className="w-4 h-4 text-[#3D6B52]" />
                     </div>
                     <span className="font-medium">{name}</span>
                   </div>
@@ -221,7 +221,7 @@ export function FinancialHealthDisplay({ score, previousScore, animated = true }
           <ul className="space-y-2">
             {score.tips.map((tip, i) => (
               <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
-                <span className="text-[#1a7a6d]">•</span>
+                <span className="text-[#3D6B52]">•</span>
                 {tip}
               </li>
             ))}
@@ -230,14 +230,14 @@ export function FinancialHealthDisplay({ score, previousScore, animated = true }
       )}
 
       {/* How This Differs from FICO */}
-      <div className="glass-card rounded-xl p-4 border-[#1a7a6d33]">
+      <div className="glass-card rounded-xl p-4 border-[#3D6B5233]">
         <div className="flex items-center gap-2 mb-3">
-          <Trophy className="w-5 h-5 text-[#1a7a6d]" />
+          <Trophy className="w-5 h-5 text-[#3D6B52]" />
           <span className="font-medium">Not Like Credit Scores</span>
         </div>
         <p className="text-sm text-muted-foreground">
           Unlike FICO, this score rewards <span className="text-[#7aba5c]">paying off debt</span>, 
-          not having more credit. It measures <span className="text-[#1a7a6d]">your</span> financial 
+          not having more credit. It measures <span className="text-[#3D6B52]">your</span> financial 
           health, not how profitable you are to lenders.
         </p>
       </div>

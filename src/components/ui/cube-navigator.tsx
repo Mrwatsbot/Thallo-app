@@ -181,7 +181,7 @@ export function CubeNavigator({ faces, initialFace = 0, onFaceChange }: CubeNavi
               onClick={() => scrollToFace(index)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 index === currentFace
-                  ? 'bg-[#1a7a6d] text-white shadow-lg shadow-[#1a7a6d40]'
+                  ? 'bg-[#3D6B52] text-white shadow-lg shadow-[#3D6B5240]'
                   : 'bg-secondary/80 text-muted-foreground hover:bg-secondary'
               }`}
             >
@@ -208,7 +208,7 @@ export function CubeNavigator({ faces, initialFace = 0, onFaceChange }: CubeNavi
               onClick={() => scrollToFace(index)}
               className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-300 shrink-0 ${
                 index === currentFace
-                  ? 'bg-[#1a7a6d] text-white shadow-md shadow-[#1a7a6d40]'
+                  ? 'bg-[#3D6B52] text-white shadow-md shadow-[#3D6B5240]'
                   : 'bg-secondary/60 text-muted-foreground hover:bg-secondary/80'
               }`}
             >
@@ -221,14 +221,14 @@ export function CubeNavigator({ faces, initialFace = 0, onFaceChange }: CubeNavi
       {/* Navigation arrows - Desktop */}
       <button
         onClick={goPrev}
-        className="hidden md:flex fixed left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass-card items-center justify-center text-muted-foreground hover:text-foreground hover:border-[#1a7a6d4d] transition-all"
+        className="hidden md:flex fixed left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass-card items-center justify-center text-muted-foreground hover:text-foreground hover:border-[#3D6B524d] transition-all"
         aria-label="Previous"
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
       <button
         onClick={goNext}
-        className="hidden md:flex fixed right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass-card items-center justify-center text-muted-foreground hover:text-foreground hover:border-[#1a7a6d4d] transition-all"
+        className="hidden md:flex fixed right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full glass-card items-center justify-center text-muted-foreground hover:text-foreground hover:border-[#3D6B524d] transition-all"
         aria-label="Next"
       >
         <ChevronRight className="w-6 h-6" />

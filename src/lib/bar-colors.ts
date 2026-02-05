@@ -5,13 +5,13 @@
  * 
  * Palette:
  *   🟠 Amber (#e8a830) = needs attention / lower tier
- *   🟢 Teal  (#1a7a6d) = on track / middle
+ *   🟢 Forest Green  (#3D6B52) = on track / middle
  *   💚 Green (#6db555) = great / ahead
  *   🔴 Red   (#ef4444) = over budget / in trouble (separate flag)
  */
 
 const AMBER  = { r: 232, g: 168, b: 48  }; // #e8a830
-const TEAL   = { r: 26,  g: 122, b: 109 }; // #1a7a6d
+const FOREST = { r: 61,  g: 107, b: 82 }; // #3D6B52 (formerly FOREST)
 const GREEN  = { r: 109, g: 181, b: 85  }; // #6db555
 const RED    = '#ef4444';
 
@@ -25,10 +25,10 @@ function colorAt(t: number): string {
   
   if (clamped <= 0.5) {
     const p = clamped / 0.5; // 0→1 within amber→teal
-    return `rgb(${lerp(AMBER.r, TEAL.r, p)}, ${lerp(AMBER.g, TEAL.g, p)}, ${lerp(AMBER.b, TEAL.b, p)})`;
+    return `rgb(${lerp(AMBER.r, FOREST.r, p)}, ${lerp(AMBER.g, FOREST.g, p)}, ${lerp(AMBER.b, FOREST.b, p)})`;
   } else {
     const p = (clamped - 0.5) / 0.5; // 0→1 within teal→green
-    return `rgb(${lerp(TEAL.r, GREEN.r, p)}, ${lerp(TEAL.g, GREEN.g, p)}, ${lerp(TEAL.b, GREEN.b, p)})`;
+    return `rgb(${lerp(FOREST.r, GREEN.r, p)}, ${lerp(FOREST.g, GREEN.g, p)}, ${lerp(FOREST.b, GREEN.b, p)})`;
   }
 }
 

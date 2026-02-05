@@ -131,19 +131,19 @@ export function BudgetCard({
   };
 
   return (
-    <div className="glass-card rounded-xl p-5 transition-all hover:border-[#1a7a6d4d]">
+    <div className="glass-card rounded-xl p-5 transition-all hover:border-[#3D6B524d]">
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center gap-3">
           <div 
             className="w-10 h-10 rounded-lg flex items-center justify-center"
             style={{ 
-              backgroundColor: categoryColor ? `${categoryColor}20` : 'rgba(26, 122, 109, 0.15)',
+              backgroundColor: categoryColor ? `${categoryColor}20` : 'rgba(61, 107, 82, 0.15)',
             }}
           >
             <IconComponent 
               className="w-5 h-5" 
-              style={{ color: categoryColor || '#1a7a6d' }} 
+              style={{ color: categoryColor || '#3D6B52' }} 
             />
           </div>
           <div>
@@ -344,7 +344,7 @@ export function BudgetCard({
           <Button
             size="sm"
             variant="outline"
-            className="border-[#1a7a6d4d] text-[#1a7a6d] hover:bg-[#1a7a6d1a]"
+            className="border-[#3D6B524d] text-[#3D6B52] hover:bg-[#3D6B521a]"
             onClick={() => setEditing(true)}
           >
             Set Budget

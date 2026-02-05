@@ -351,14 +351,14 @@ export function BudgetListCompact({ categoryBudgets, userId, currentMonth, onRef
           {...listeners}
           className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all cursor-grab active:cursor-grabbing ${
             isDragging 
-              ? 'bg-[#1a7a6d33] shadow-lg scale-105 ring-2 ring-[#1a7a6d]/50' 
+              ? 'bg-[#3D6B5233] shadow-lg scale-105 ring-2 ring-[#3D6B52]/50' 
               : 'hover:bg-secondary/50'
           }`}
           style={{ touchAction: isAnyDragging ? 'none' : 'auto' }}
         >
           <GripVertical className="w-4 h-4 text-muted-foreground/50 flex-shrink-0" />
           <div className="flex items-center gap-2 flex-1 min-w-0">
-            <Icon className="w-5 h-5 flex-shrink-0" style={{ color: budget.categoryColor || '#1a7a6d' }} />
+            <Icon className="w-5 h-5 flex-shrink-0" style={{ color: budget.categoryColor || '#3D6B52' }} />
             <span className="font-medium text-sm truncate">{budget.categoryName}</span>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
@@ -419,7 +419,7 @@ export function BudgetListCompact({ categoryBudgets, userId, currentMonth, onRef
     return (
       <div className="flex items-center gap-3 py-2.5 px-3 rounded-lg hover:bg-secondary/50 transition-colors relative">
         <div className="flex items-center gap-2 flex-1 min-w-0">
-          <Icon className="w-5 h-5 flex-shrink-0" style={{ color: budget.categoryColor || '#1a7a6d' }} />
+          <Icon className="w-5 h-5 flex-shrink-0" style={{ color: budget.categoryColor || '#3D6B52' }} />
           <span className="font-medium text-sm truncate">{budget.categoryName}</span>
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
@@ -493,7 +493,7 @@ export function BudgetListCompact({ categoryBudgets, userId, currentMonth, onRef
                 </span>
                 <button
                   onClick={(e) => { e.stopPropagation(); handleCompleteGoal(goal); }}
-                  className="text-[10px] text-[#1a7a6d] underline hover:no-underline"
+                  className="text-[10px] text-[#3D6B52] underline hover:no-underline"
                 >
                   Complete
                 </button>

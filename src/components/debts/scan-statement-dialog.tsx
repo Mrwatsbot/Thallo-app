@@ -155,7 +155,7 @@ export function ScanStatementDialog() {
         {!scanning && scannedDebts.length === 0 && (
           <div className="space-y-4">
             <div
-              className="border-2 border-dashed border-border rounded-xl p-8 text-center cursor-pointer hover:border-[#1a7a6d80] hover:bg-[#1a7a6d0d] transition-all"
+              className="border-2 border-dashed border-border rounded-xl p-8 text-center cursor-pointer hover:border-[#3D6B5280] hover:bg-[#3D6B520d] transition-all"
               onClick={() => fileInputRef.current?.click()}
             >
               {preview ? (
@@ -184,7 +184,7 @@ export function ScanStatementDialog() {
         {/* Scanning */}
         {scanning && (
           <div className="py-8 text-center">
-            <Loader2 className="h-10 w-10 animate-spin mx-auto text-[#1a7a6d] mb-3" />
+            <Loader2 className="h-10 w-10 animate-spin mx-auto text-[#3D6B52] mb-3" />
             <p className="font-medium">Reading your statement...</p>
             <p className="text-sm text-muted-foreground mt-1">AI is extracting debt details</p>
           </div>
@@ -210,7 +210,7 @@ export function ScanStatementDialog() {
               <div key={i} className="rounded-lg bg-secondary/50 p-4 space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <FileText className="h-4 w-4 text-[#1a7a6d]" />
+                    <FileText className="h-4 w-4 text-[#3D6B52]" />
                     <span className="font-semibold">{debt.name || 'Unknown'}</span>
                   </div>
                   <span className="text-xs text-muted-foreground">

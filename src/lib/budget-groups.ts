@@ -39,7 +39,7 @@ export const BUDGET_GROUPS: Record<BudgetGroupKey, BudgetGroup> = {
     label: 'Wants',
     sublabel: 'Fun stuff & lifestyle',
     targetPct: 30,
-    color: '#2aaa9a',
+    color: '#5A9A74',
     bgColor: 'rgba(42, 170, 154, 0.06)',
     borderColor: 'rgba(42, 170, 154, 0.20)',
     icon: Sparkles,

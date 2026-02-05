@@ -329,7 +329,7 @@ export function AffordCheckDialog({ currentMonth, onBudgetAdjusted }: AffordChec
       <DialogContent className="sm:max-w-lg bg-background border-border max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <ShoppingBag className="w-5 h-5 text-[#1a7a6d]" />
+            <ShoppingBag className="w-5 h-5 text-[#3D6B52]" />
             Can I Afford This?
           </DialogTitle>
           <DialogDescription>
@@ -346,7 +346,7 @@ export function AffordCheckDialog({ currentMonth, onBudgetAdjusted }: AffordChec
               <div className="h-10 bg-muted/30 rounded-lg" />
             </div>
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/60 backdrop-blur-[2px] rounded-lg">
-              <Lock className="w-8 h-8 text-[#1a7a6d] mb-3" />
+              <Lock className="w-8 h-8 text-[#3D6B52] mb-3" />
               <p className="text-sm font-semibold mb-1">Unlock Affordability Check</p>
               <p className="text-xs text-muted-foreground mb-3">Upgrade to Plus for AI-powered purchase analysis</p>
               <Button size="sm" className="gradient-btn border-0" asChild>
@@ -382,12 +382,12 @@ export function AffordCheckDialog({ currentMonth, onBudgetAdjusted }: AffordChec
                     type="button"
                     onClick={() => productFileRef.current?.click()}
                     disabled={productScanning}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 border-dashed border-border hover:border-[#1a7a6d80] hover:bg-[#1a7a6d0d] transition-all text-sm text-muted-foreground disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 border-dashed border-border hover:border-[#3D6B5280] hover:bg-[#3D6B520d] transition-all text-sm text-muted-foreground disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {productScanning ? (
                       <>
-                        <Loader2 className="w-4 h-4 animate-spin text-[#1a7a6d]" />
-                        <span className="text-[#1a7a6d] font-medium">Identifying product...</span>
+                        <Loader2 className="w-4 h-4 animate-spin text-[#3D6B52]" />
+                        <span className="text-[#3D6B52] font-medium">Identifying product...</span>
                       </>
                     ) : (
                       <>
@@ -407,9 +407,9 @@ export function AffordCheckDialog({ currentMonth, onBudgetAdjusted }: AffordChec
 
                   {/* AI identified badge */}
                   {productScanResult && (
-                    <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#1a7a6d1a] border border-[#1a7a6d4d]">
-                      <Sparkles className="w-3.5 h-3.5 text-[#1a7a6d] flex-shrink-0" />
-                      <span className="text-xs text-[#22a090]">
+                    <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#3D6B521a] border border-[#3D6B524d]">
+                      <Sparkles className="w-3.5 h-3.5 text-[#3D6B52] flex-shrink-0" />
+                      <span className="text-xs text-[#4E8A66]">
                         {productScanResult.price_source === 'visible_price'
                           ? `Price tag detected - ${Math.round(productScanResult.confidence * 100)}% confident`
                           : productScanResult.price_source === 'recognized_product'
@@ -480,7 +480,7 @@ export function AffordCheckDialog({ currentMonth, onBudgetAdjusted }: AffordChec
                       onClick={() => setPaymentType('cash')}
                       className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
                         paymentType === 'cash'
-                          ? 'border-[#1a7a6d80] bg-[#1a7a6d1a] text-[#1a7a6d]'
+                          ? 'border-[#3D6B5280] bg-[#3D6B521a] text-[#3D6B52]'
                           : 'border-border bg-muted/10 text-muted-foreground hover:bg-muted/20'
                       }`}
                     >
@@ -492,7 +492,7 @@ export function AffordCheckDialog({ currentMonth, onBudgetAdjusted }: AffordChec
                       onClick={() => setPaymentType('finance')}
                       className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
                         paymentType === 'finance'
-                          ? 'border-[#1a7a6d80] bg-[#1a7a6d1a] text-[#1a7a6d]'
+                          ? 'border-[#3D6B5280] bg-[#3D6B521a] text-[#3D6B52]'
                           : 'border-border bg-muted/10 text-muted-foreground hover:bg-muted/20'
                       }`}
                     >
@@ -715,9 +715,9 @@ export function AffordCheckDialog({ currentMonth, onBudgetAdjusted }: AffordChec
 
                 {/* Demo Mode CTA */}
                 {isDemo && (
-                  <div className="mt-4 p-4 rounded-xl bg-gradient-to-br from-[#1a7a6d1a] to-[#146b5f1a] border border-[#1a7a6d4d]">
+                  <div className="mt-4 p-4 rounded-xl bg-gradient-to-br from-[#3D6B521a] to-[#2D54401a] border border-[#3D6B524d]">
                     <div className="flex items-start gap-3">
-                      <Sparkles className="w-5 h-5 text-[#1a7a6d] mt-0.5 flex-shrink-0" />
+                      <Sparkles className="w-5 h-5 text-[#3D6B52] mt-0.5 flex-shrink-0" />
                       <div className="flex-1">
                         <p className="text-sm font-semibold mb-1">Get Personalized Insights</p>
                         <p className="text-xs text-muted-foreground mb-3">
@@ -739,7 +739,7 @@ export function AffordCheckDialog({ currentMonth, onBudgetAdjusted }: AffordChec
             {/* Loading state for results */}
             {loading && !result && (
               <div className="text-center py-10">
-                <Loader2 className="w-8 h-8 text-[#1a7a6d] animate-spin mx-auto mb-3" />
+                <Loader2 className="w-8 h-8 text-[#3D6B52] animate-spin mx-auto mb-3" />
                 <p className="text-sm font-medium">Analyzing your purchase...</p>
                 <p className="text-xs text-muted-foreground mt-1">Checking against your budget and spending</p>
               </div>

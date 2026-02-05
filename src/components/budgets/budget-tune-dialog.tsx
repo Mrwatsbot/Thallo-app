@@ -162,7 +162,7 @@ export function BudgetTuneDialog({ currentMonth, onApplied }: BudgetTuneDialogPr
       <DialogContent className="sm:max-w-2xl bg-background border-border max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-[#1a7a6d]" />
+            <Sparkles className="w-5 h-5 text-[#3D6B52]" />
             Budget Tune-Up
           </DialogTitle>
           <p className="text-sm text-muted-foreground">
@@ -173,7 +173,7 @@ export function BudgetTuneDialog({ currentMonth, onApplied }: BudgetTuneDialogPr
         <div className="space-y-4 py-2">
           {loading ? (
             <div className="text-center py-10">
-              <Loader2 className="w-8 h-8 text-[#1a7a6d] animate-spin mx-auto mb-3" />
+              <Loader2 className="w-8 h-8 text-[#3D6B52] animate-spin mx-auto mb-3" />
               <p className="text-sm font-medium">Analyzing your spending patterns...</p>
               <p className="text-xs text-muted-foreground mt-1">Comparing budgets vs actuals across months</p>
             </div>
@@ -196,7 +196,7 @@ export function BudgetTuneDialog({ currentMonth, onApplied }: BudgetTuneDialogPr
                     title={`Needs: ${result.summary.needs_pct}%`}
                   />
                   <div
-                    className="bg-[#1a7a6d] transition-all"
+                    className="bg-[#3D6B52] transition-all"
                     style={{ width: `${result.summary.wants_pct}%` }}
                     title={`Wants: ${result.summary.wants_pct}%`}
                   />
@@ -212,7 +212,7 @@ export function BudgetTuneDialog({ currentMonth, onApplied }: BudgetTuneDialogPr
                     Needs {result.summary.needs_pct}%
                   </span>
                   <span className="flex items-center gap-1">
-                    <span className="w-2 h-2 rounded-full bg-[#1a7a6d]" />
+                    <span className="w-2 h-2 rounded-full bg-[#3D6B52]" />
                     Wants {result.summary.wants_pct}%
                   </span>
                   <span className="flex items-center gap-1">
@@ -224,8 +224,8 @@ export function BudgetTuneDialog({ currentMonth, onApplied }: BudgetTuneDialogPr
 
               {/* Net change summary */}
               {totalChanges > 0 && (
-                <div className="rounded-lg bg-[#1a7a6d1a] border border-[#1a7a6d4d] p-3 text-center">
-                  <p className="text-sm font-semibold text-[#1a7a6d]">
+                <div className="rounded-lg bg-[#3D6B521a] border border-[#3D6B524d] p-3 text-center">
+                  <p className="text-sm font-semibold text-[#3D6B52]">
                     Reallocated {formatCurrency(totalReallocation)} across {totalChanges} {totalChanges === 1 ? 'category' : 'categories'}
                   </p>
                 </div>

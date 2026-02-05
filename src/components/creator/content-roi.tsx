@@ -141,7 +141,7 @@ export function ContentROI() {
             className={cn(
               'px-4 py-2 rounded-md text-sm font-medium transition-all',
               metric === 'hourly'
-                ? 'bg-[#1a7a6d] text-white shadow-lg'
+                ? 'bg-[#3D6B52] text-white shadow-lg'
                 : 'text-white/60 hover:text-white/80'
             )}
           >
@@ -152,7 +152,7 @@ export function ContentROI() {
             className={cn(
               'px-4 py-2 rounded-md text-sm font-medium transition-all',
               metric === 'video'
-                ? 'bg-[#1a7a6d] text-white shadow-lg'
+                ? 'bg-[#3D6B52] text-white shadow-lg'
                 : 'text-white/60 hover:text-white/80'
             )}
           >
@@ -163,7 +163,7 @@ export function ContentROI() {
             className={cn(
               'px-4 py-2 rounded-md text-sm font-medium transition-all',
               metric === 'epm'
-                ? 'bg-[#1a7a6d] text-white shadow-lg'
+                ? 'bg-[#3D6B52] text-white shadow-lg'
                 : 'text-white/60 hover:text-white/80'
             )}
           >
@@ -260,7 +260,7 @@ export function ContentROI() {
         </div>
 
         {/* Track New Content Button */}
-        <button className="w-full py-3 px-4 bg-[#1a7a6d] hover:bg-[#1a7a6d]/80 text-white rounded-lg font-medium transition-all flex items-center justify-center gap-2 group">
+        <button className="w-full py-3 px-4 bg-[#3D6B52] hover:bg-[#3D6B52]/80 text-white rounded-lg font-medium transition-all flex items-center justify-center gap-2 group">
           <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform" />
           Track New Content
         </button>

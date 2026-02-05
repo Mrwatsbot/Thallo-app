@@ -127,7 +127,7 @@ export function TransferDialog({ categoryBudgets, currentMonth, onTransferred }:
       <DialogContent className="glass-card border-border sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <ArrowLeftRight className="w-5 h-5 text-[#1a7a6d]" />
+            <ArrowLeftRight className="w-5 h-5 text-[#3D6B52]" />
             Move Money Between Categories
           </DialogTitle>
         </DialogHeader>
@@ -232,7 +232,7 @@ export function TransferDialog({ categoryBudgets, currentMonth, onTransferred }:
           <Button
             onClick={handleTransfer}
             disabled={!fromCategoryId || !toCategoryId || !amount || isSubmitting}
-            className="w-full bg-[#1a7a6d] hover:bg-[#1a7a6d]/90"
+            className="w-full bg-[#3D6B52] hover:bg-[#3D6B52]/90"
           >
             {isSubmitting ? (
               <>

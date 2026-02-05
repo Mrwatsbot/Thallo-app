@@ -80,7 +80,7 @@ export function LevelProgress() {
         </div>
 
         {/* Current Level */}
-        <div className="text-center py-6 bg-gradient-to-br from-[#1a7a6d]/20 to-transparent rounded-lg border border-[#1a7a6d]/30">
+        <div className="text-center py-6 bg-gradient-to-br from-[#3D6B52]/20 to-transparent rounded-lg border border-[#3D6B52]/30">
           <div className="text-5xl mb-2">{currentLevel.emoji}</div>
           <div className="text-2xl font-display font-bold text-white mb-1">{currentLevel.name}</div>
           <div className="text-sm text-white/60">Level {currentLevel.level}</div>
@@ -102,7 +102,7 @@ export function LevelProgress() {
               initial={{ width: 0 }}
               animate={{ width: `${progressPercentage}%` }}
               transition={{ duration: 1, ease: 'easeOut' }}
-              className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#1a7a6d] to-emerald-400 rounded-full"
+              className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#3D6B52] to-emerald-400 rounded-full"
             />
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="text-xs font-medium text-white drop-shadow-lg">
@@ -186,7 +186,7 @@ export function LevelProgress() {
                               initial={{ width: 0 }}
                               animate={{ width: `${progressPercent}%` }}
                               transition={{ duration: 0.6 }}
-                              className="h-full bg-[#1a7a6d] rounded-full"
+                              className="h-full bg-[#3D6B52] rounded-full"
                             />
                           </div>
                         )}
@@ -200,7 +200,7 @@ export function LevelProgress() {
         </div>
 
         {/* Share Button */}
-        <button className="w-full py-3 px-4 bg-gradient-to-r from-[#1a7a6d] to-emerald-600 hover:from-[#1a7a6d]/80 hover:to-emerald-600/80 text-white rounded-lg font-medium transition-all flex items-center justify-center gap-2 group">
+        <button className="w-full py-3 px-4 bg-gradient-to-r from-[#3D6B52] to-emerald-600 hover:from-[#3D6B52]/80 hover:to-emerald-600/80 text-white rounded-lg font-medium transition-all flex items-center justify-center gap-2 group">
           <Share2 className="w-4 h-4 group-hover:rotate-12 transition-transform" />
           Share Achievement 📸
         </button>

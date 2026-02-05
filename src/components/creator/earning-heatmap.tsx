@@ -59,9 +59,9 @@ const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 export function EarningHeatmap() {
   const getColorForAmount = (amount: number): string => {
-    if (amount === 0) return '#1a2826'; // dark gray
-    if (amount <= 100) return '#1a7a6d'; // teal
-    if (amount <= 300) return '#2aaa9a'; // bright teal
+    if (amount === 0) return '#1A2844'; // dark gray
+    if (amount <= 100) return '#3D6B52'; // teal
+    if (amount <= 300) return '#5A9A74'; // bright teal
     return '#ffd43b'; // gold
   };
 
@@ -199,7 +199,7 @@ export function EarningHeatmap() {
 
       {/* Insight */}
       <div className="pt-4 border-t border-white/5">
-        <div className="bg-[#1a7a6d]/10 border border-[#1a7a6d]/20 rounded-lg p-4">
+        <div className="bg-[#3D6B52]/10 border border-[#3D6B52]/20 rounded-lg p-4">
           <p className="text-sm text-gray-300">
             💡 You earn most on <span className="font-semibold text-white">{maxDayName}s</span>
             {' '}—  consider scheduling your biggest content drops and live streams on this day.

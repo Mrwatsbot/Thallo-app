@@ -87,13 +87,13 @@ export function TourTooltip({
       animate={{ opacity: 1, scale: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.25, ease: 'easeOut' }}
-      className="fixed z-[10002] bg-zinc-900/95 backdrop-blur-xl border border-[#1a7a6d] rounded-xl shadow-2xl pointer-events-auto"
+      className="fixed z-[10002] bg-zinc-900/95 backdrop-blur-xl border border-[#3D6B52] rounded-xl shadow-2xl pointer-events-auto"
       style={{ ...getTooltipStyle(), maxWidth: '384px', width: 'calc(100vw - 24px)' }}
     >
       {/* Header with step counter */}
-      <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-[#1a7a6d33]">
+      <div className="flex items-center justify-between px-5 pt-4 pb-3 border-b border-[#3D6B5233]">
         <div className="flex items-center gap-2">
-          <div className="h-2 w-2 rounded-full bg-[#1a7a6d] animate-pulse" />
+          <div className="h-2 w-2 rounded-full bg-[#3D6B52] animate-pulse" />
           <span className="text-xs font-medium text-[#8aaba6]">
             Step {index + 1} of {total}
           </span>
@@ -120,14 +120,14 @@ export function TourTooltip({
       </div>
 
       {/* Footer with navigation buttons */}
-      <div className="flex items-center justify-between gap-3 px-5 py-4 border-t border-[#1a7a6d33]">
+      <div className="flex items-center justify-between gap-3 px-5 py-4 border-t border-[#3D6B5233]">
         <div className="flex items-center gap-2">
           {!isFirst && (
             <Button
               onClick={onBack}
               variant="outline"
               size="sm"
-              className="border-[#1a7a6d33] text-[#8aaba6] hover:text-[#e8eded] hover:bg-[#1a7a6d22]"
+              className="border-[#3D6B5233] text-[#8aaba6] hover:text-[#e8eded] hover:bg-[#3D6B5222]"
             >
               <ChevronLeft className="h-4 w-4 mr-1" />
               Back
@@ -140,7 +140,7 @@ export function TourTooltip({
             onClick={onSkip}
             variant="ghost"
             size="sm"
-            className="text-[#8aaba6] hover:text-[#e8eded] hover:bg-[#1a7a6d22]"
+            className="text-[#8aaba6] hover:text-[#e8eded] hover:bg-[#3D6B5222]"
           >
             Skip
           </Button>
@@ -148,7 +148,7 @@ export function TourTooltip({
           <Button
             onClick={onNext}
             size="sm"
-            className="bg-[#1a7a6d] text-white hover:bg-[#1a7a6d]/90 border-0"
+            className="bg-[#3D6B52] text-white hover:bg-[#3D6B52]/90 border-0"
           >
             {isLast ? (
               'Get Started'

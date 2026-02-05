@@ -134,7 +134,7 @@ function SankeyChart({
 
       // Build node/link data
       const nodes = [
-        { name: 'Income', id: 0, color: '#2aaa9a' },
+        { name: 'Income', id: 0, color: '#5A9A74' },
         ...activeCategories.map((c, i) => ({ name: c.name, id: i + 1, color: ensureHash(c.color) })),
         ...(currentSurplus > 0
           ? [{ name: viewMode === 'budget' ? 'Unbudgeted' : 'Surplus', id: activeCategories.length + 1, color: '#7aba5c' }]
@@ -205,7 +205,7 @@ function SankeyChart({
         .attr('y', (d: any) => d.y0)
         .attr('height', (d: any) => d.y1 - d.y0)
         .attr('width', (d: any) => d.x1 - d.x0)
-        .attr('fill', (d: any) => d.color || '#2aaa9a')
+        .attr('fill', (d: any) => d.color || '#5A9A74')
         .attr('rx', 4);
 
       // Labels
@@ -410,7 +410,7 @@ function WhatIfPanel({
         </span>
         <button
           onClick={onReset}
-          className="flex items-center gap-1.5 text-xs text-[#6b7f74] border border-[#1a2620] rounded-full px-3 py-1 hover:border-[#1a7a6d] hover:text-[#e8e6e1] transition-colors"
+          className="flex items-center gap-1.5 text-xs text-[#6b7f74] border border-[#1a2620] rounded-full px-3 py-1 hover:border-[#3D6B52] hover:text-[#e8e6e1] transition-colors"
         >
           <RotateCcw className="w-3 h-3" />
           Reset
@@ -438,7 +438,7 @@ function WhatIfPanel({
               }}
               className="flex-1 h-1 rounded-full bg-[#1a2620] appearance-none cursor-pointer
                 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4
-                [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#2aaa9a]
+                [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#5A9A74]
                 [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#111916]
                 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-transform
                 [&::-webkit-slider-thumb]:hover:scale-125"
@@ -481,8 +481,8 @@ function PremiumPaywall() {
       {/* Overlay */}
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0c0f0e]/60 backdrop-blur-sm">
         <div className="text-center max-w-xs px-6">
-          <div className="w-16 h-16 rounded-full bg-[#1a7a6d33] flex items-center justify-center mx-auto mb-6">
-            <Lock className="w-8 h-8 text-[#2aaa9a]" />
+          <div className="w-16 h-16 rounded-full bg-[#3D6B5233] flex items-center justify-center mx-auto mb-6">
+            <Lock className="w-8 h-8 text-[#5A9A74]" />
           </div>
           <h3
             className="text-2xl text-[#e8e6e1] mb-3"
@@ -495,7 +495,7 @@ function PremiumPaywall() {
           </p>
           <Link
             href="/settings"
-            className="inline-block px-8 py-3 bg-gradient-to-r from-[#1a7a6d] to-[#146b5f] text-white rounded-xl font-semibold hover:opacity-90 transition"
+            className="inline-block px-8 py-3 bg-gradient-to-r from-[#3D6B52] to-[#2D5440] text-white rounded-xl font-semibold hover:opacity-90 transition"
           >
             Upgrade to Plus
           </Link>
@@ -571,7 +571,7 @@ export default function ReportsPage() {
             </p>
             <Link
               href="/budgets"
-              className="inline-block px-6 py-3 bg-gradient-to-r from-[#1a7a6d] to-[#146b5f] text-white rounded-lg hover:opacity-90 transition"
+              className="inline-block px-6 py-3 bg-gradient-to-r from-[#3D6B52] to-[#2D5440] text-white rounded-lg hover:opacity-90 transition"
             >
               Set Up Budgets
             </Link>
@@ -627,7 +627,7 @@ export default function ReportsPage() {
           className={cn(
             'px-4 py-1.5 rounded-full text-xs font-semibold transition-all',
             viewMode === 'budget'
-              ? 'bg-[#1a7a6d] text-white'
+              ? 'bg-[#3D6B52] text-white'
               : 'text-[#6b7f74] hover:text-[#e8e6e1]',
           )}
         >
@@ -638,7 +638,7 @@ export default function ReportsPage() {
           className={cn(
             'px-4 py-1.5 rounded-full text-xs font-semibold transition-all',
             viewMode === 'actual'
-              ? 'bg-[#1a7a6d] text-white'
+              ? 'bg-[#3D6B52] text-white'
               : 'text-[#6b7f74] hover:text-[#e8e6e1]',
           )}
         >
@@ -657,7 +657,7 @@ export default function ReportsPage() {
           <div className="grid grid-cols-3 gap-3">
             <div className="bg-[#111916] border border-[#1a2620] rounded-xl p-4 text-center">
               <div className="text-xs text-[#6b7f74] uppercase tracking-wider mb-1">Income</div>
-              <div className="text-xl font-bold text-[#2aaa9a]">${income.toLocaleString()}</div>
+              <div className="text-xl font-bold text-[#5A9A74]">${income.toLocaleString()}</div>
             </div>
             <div className="bg-[#111916] border border-[#1a2620] rounded-xl p-4 text-center">
               <div className="text-xs text-[#6b7f74] uppercase tracking-wider mb-1">{cardLabel}</div>
@@ -677,7 +677,7 @@ export default function ReportsPage() {
 
       {/* Sankey Card */}
       <div className="bg-[#111916] border border-[#1a2620] rounded-2xl p-5 relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#2aaa9a] to-[#7aba5c] opacity-60" />
+        <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#5A9A74] to-[#7aba5c] opacity-60" />
         <h2 className="text-lg font-semibold text-[#e8e6e1] mb-1">Money Flow</h2>
         <p className="text-xs text-[#6b7f74] mb-4">
           {viewMode === 'budget'
@@ -704,8 +704,8 @@ export default function ReportsPage() {
           className={cn(
             'inline-flex items-center gap-2 text-xs font-semibold px-4 py-2 rounded-full border transition-all mt-4',
             whatIfOpen
-              ? 'bg-[#1a7a6d] border-[#2aaa9a] text-white'
-              : 'bg-[#1a2620] border-[#2a3d33] text-[#6b7f74] hover:border-[#1a7a6d] hover:text-[#e8e6e1]',
+              ? 'bg-[#3D6B52] border-[#5A9A74] text-white'
+              : 'bg-[#1a2620] border-[#2a3d33] text-[#6b7f74] hover:border-[#3D6B52] hover:text-[#e8e6e1]',
           )}
         >
           <span
@@ -743,7 +743,7 @@ export default function ReportsPage() {
             <div className="flex gap-6 flex-wrap mt-4 pt-3 border-t border-[#1a2620]">
               <div>
                 <span className="text-[0.75rem] text-[#6b7f74] uppercase tracking-wider">Income</span>
-                <div className="text-lg font-bold text-[#2aaa9a]">${income.toLocaleString()}</div>
+                <div className="text-lg font-bold text-[#5A9A74]">${income.toLocaleString()}</div>
               </div>
               <div>
                 <span className="text-[0.75rem] text-[#6b7f74] uppercase tracking-wider">{midLabel}</span>
@@ -809,7 +809,7 @@ export default function ReportsPage() {
                     width: `${Math.min((selectedCat.cat.spent / selectedCat.cat.budgeted) * 100, 100)}%`,
                     background: selectedCat.cat.spent > selectedCat.cat.budgeted
                       ? 'linear-gradient(90deg, #ef4444, #dc2626)'
-                      : `linear-gradient(90deg, ${ensureHash(selectedCat.cat.color)}, #2aaa9a)`,
+                      : `linear-gradient(90deg, ${ensureHash(selectedCat.cat.color)}, #5A9A74)`,
                   }}
                 />
               </div>

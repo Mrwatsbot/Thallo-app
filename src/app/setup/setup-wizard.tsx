@@ -320,7 +320,7 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
           <div className="mb-8">
             <div className="h-1.5 bg-secondary/30 rounded-full overflow-hidden">
               <motion.div
-                className="h-full bg-gradient-to-r from-[#1a7a6d] to-[#2aaa9a]"
+                className="h-full bg-gradient-to-r from-[#3D6B52] to-[#5A9A74]"
                 initial={{ width: '0%' }}
                 animate={{ width: `${(step / 5) * 100}%` }}
                 transition={{ duration: 0.3 }}
@@ -353,15 +353,15 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
 
               <div className="space-y-3 mb-8 text-left max-w-md mx-auto">
                 <div className="flex items-center gap-3 text-muted-foreground">
-                  <DollarSign className="h-5 w-5 text-[#1a7a6d]" />
+                  <DollarSign className="h-5 w-5 text-[#3D6B52]" />
                   <span>Your monthly income</span>
                 </div>
                 <div className="flex items-center gap-3 text-muted-foreground">
-                  <Wallet className="h-5 w-5 text-[#1a7a6d]" />
+                  <Wallet className="h-5 w-5 text-[#3D6B52]" />
                   <span>Your account balance</span>
                 </div>
                 <div className="flex items-center gap-3 text-muted-foreground">
-                  <Sparkles className="h-5 w-5 text-[#1a7a6d]" />
+                  <Sparkles className="h-5 w-5 text-[#3D6B52]" />
                   <span>A quick budget (AI does this)</span>
                 </div>
               </div>
@@ -394,8 +394,8 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
               className="glass-card rounded-2xl p-8"
             >
               <div className="text-center mb-6">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-[#1a7a6d33] to-[#146b5f33] border border-[#1a7a6d4d] flex items-center justify-center">
-                  <DollarSign className="h-8 w-8 text-[#1a7a6d]" />
+                <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-[#3D6B5233] to-[#2D544033] border border-[#3D6B524d] flex items-center justify-center">
+                  <DollarSign className="h-8 w-8 text-[#3D6B52]" />
                 </div>
                 <h2 className="text-2xl font-bold mb-2">How much do you make per month?</h2>
                 <p className="text-muted-foreground">
@@ -433,7 +433,7 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
                         onClick={() => handleQuickPick(amount)}
                         className={cn(
                           'border-border hover:bg-secondary',
-                          monthlyIncome === amount.toString() && 'border-[#1a7a6d] bg-[#1a7a6d1a]'
+                          monthlyIncome === amount.toString() && 'border-[#3D6B52] bg-[#3D6B521a]'
                         )}
                       >
                         {formatCurrency(amount)}
@@ -444,7 +444,7 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
 
                 <div className="bg-secondary/30 border border-border rounded-lg p-4">
                   <p className="text-sm text-muted-foreground flex items-start gap-2">
-                    <Target className="h-4 w-4 mt-0.5 flex-shrink-0 text-[#1a7a6d]" />
+                    <Target className="h-4 w-4 mt-0.5 flex-shrink-0 text-[#3D6B52]" />
                     <span>
                       This is your take-home pay (after taxes). Check your last bank deposit if unsure.
                     </span>
@@ -486,8 +486,8 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
               className="glass-card rounded-2xl p-8"
             >
               <div className="text-center mb-6">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-[#1a7a6d33] to-[#146b5f33] border border-[#1a7a6d4d] flex items-center justify-center">
-                  <Wallet className="h-8 w-8 text-[#1a7a6d]" />
+                <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-[#3D6B5233] to-[#2D544033] border border-[#3D6B524d] flex items-center justify-center">
+                  <Wallet className="h-8 w-8 text-[#3D6B52]" />
                 </div>
                 <h2 className="text-2xl font-bold mb-2">What's in your main account?</h2>
                 <p className="text-muted-foreground">
@@ -506,16 +506,16 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
                         onClick={() => setAccountType(type.value)}
                         className={cn(
                           'flex items-center gap-3 p-4 rounded-xl border transition-all text-left',
-                          'hover:border-[#1a7a6d80] hover:bg-[#1a7a6d0d]',
+                          'hover:border-[#3D6B5280] hover:bg-[#3D6B520d]',
                           accountType === type.value
-                            ? 'border-[#1a7a6d80] bg-[#1a7a6d1a]'
+                            ? 'border-[#3D6B5280] bg-[#3D6B521a]'
                             : 'border-border bg-secondary/30'
                         )}
                       >
-                        <type.icon className="h-5 w-5 text-[#1a7a6d]" />
+                        <type.icon className="h-5 w-5 text-[#3D6B52]" />
                         <span className="font-medium">{type.label}</span>
                         {accountType === type.value && (
-                          <Check className="h-4 w-4 ml-auto text-[#1a7a6d]" />
+                          <Check className="h-4 w-4 ml-auto text-[#3D6B52]" />
                         )}
                       </button>
                     ))}
@@ -540,7 +540,7 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
 
                 <div className="bg-secondary/30 border border-border rounded-lg p-4">
                   <p className="text-sm text-muted-foreground flex items-start gap-2">
-                    <Target className="h-4 w-4 mt-0.5 flex-shrink-0 text-[#1a7a6d]" />
+                    <Target className="h-4 w-4 mt-0.5 flex-shrink-0 text-[#3D6B52]" />
                     <span>
                       Open your bank app and check — it takes 5 seconds.
                     </span>
@@ -582,8 +582,8 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
               className="glass-card rounded-2xl p-8"
             >
               <div className="text-center mb-6">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-[#1a7a6d33] to-[#146b5f33] border border-[#1a7a6d4d] flex items-center justify-center">
-                  <Sparkles className="h-8 w-8 text-[#1a7a6d]" />
+                <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-[#3D6B5233] to-[#2D544033] border border-[#3D6B524d] flex items-center justify-center">
+                  <Sparkles className="h-8 w-8 text-[#3D6B52]" />
                 </div>
                 <h2 className="text-2xl font-bold mb-2">
                   {generatingBudget ? 'Creating your personalized budget...' : 'Your Budget is Ready!'}
@@ -598,7 +598,7 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
               <div className="max-w-md mx-auto">
                 {generatingBudget ? (
                   <div className="flex items-center justify-center py-12">
-                    <Loader2 className="h-8 w-8 animate-spin text-[#1a7a6d]" />
+                    <Loader2 className="h-8 w-8 animate-spin text-[#3D6B52]" />
                   </div>
                 ) : (
                   <>
@@ -613,7 +613,7 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
                         >
                           <span className="font-medium">{budget.category_name || budget.category}</span>
                           <div className="text-right">
-                            <span className="font-bold text-[#1a7a6d]">
+                            <span className="font-bold text-[#3D6B52]">
                               {formatCurrency(budget.amount)}
                             </span>
                             <span className="text-sm text-muted-foreground ml-2">
@@ -687,8 +687,8 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
                   />
                   <defs>
                     <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#1a7a6d" />
-                      <stop offset="100%" stopColor="#2aaa9a" />
+                      <stop offset="0%" stopColor="#3D6B52" />
+                      <stop offset="100%" stopColor="#5A9A74" />
                     </linearGradient>
                   </defs>
                 </svg>
@@ -697,7 +697,7 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
                     key={animatedScore}
                     initial={{ scale: 1.2, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="text-5xl font-bold text-[#1a7a6d]"
+                    className="text-5xl font-bold text-[#3D6B52]"
                   >
                     {animatedScore}
                   </motion.div>
@@ -706,8 +706,8 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
               </div>
 
               <div className="mb-6">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1a7a6d1a] border border-[#1a7a6d4d]">
-                  <Trophy className="h-4 w-4 text-[#1a7a6d]" />
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#3D6B521a] border border-[#3D6B524d]">
+                  <Trophy className="h-4 w-4 text-[#3D6B52]" />
                   <span className="text-sm font-medium">Level {score?.level || 2} · Getting Started</span>
                 </div>
               </div>
@@ -723,7 +723,7 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-3 text-sm">
                       <div className="w-6 h-6 rounded-full bg-secondary/30 flex items-center justify-center">
-                        <TrendingUp className="h-3 w-3 text-[#1a7a6d]" />
+                        <TrendingUp className="h-3 w-3 text-[#3D6B52]" />
                       </div>
                       <span>{item}</span>
                     </div>
@@ -733,7 +733,7 @@ export function SetupWizard({ userId, preview = false }: SetupWizardProps) {
 
               <div className="bg-secondary/30 border border-border rounded-lg p-4 mb-6">
                 <div className="flex items-center gap-2 justify-center text-sm">
-                  <Target className="h-4 w-4 text-[#1a7a6d]" />
+                  <Target className="h-4 w-4 text-[#3D6B52]" />
                   <span className="font-medium">Next milestone: 500</span>
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">

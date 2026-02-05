@@ -163,7 +163,7 @@ export function DashboardContent() {
               <div key={budget.name} className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
                   <div className="flex items-center gap-2">
-                    <BudgetIcon className="w-4 h-4" style={{ color: budget.color || '#1a7a6d' }} />
+                    <BudgetIcon className="w-4 h-4" style={{ color: budget.color || '#3D6B52' }} />
                     <span className="font-medium">{budget.name}</span>
                   </div>
                   <span className={isOver ? 'text-red-500' : 'text-muted-foreground'}>

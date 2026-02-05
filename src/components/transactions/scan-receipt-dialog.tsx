@@ -240,7 +240,7 @@ export function ScanReceiptDialog({ categories, accounts, userId, onRefresh }: S
       <DialogContent className="sm:max-w-lg bg-background border-border max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Receipt className="w-5 h-5 text-[#1a7a6d]" />
+            <Receipt className="w-5 h-5 text-[#3D6B52]" />
             Scan a Receipt
           </DialogTitle>
           <DialogDescription>
@@ -257,7 +257,7 @@ export function ScanReceiptDialog({ categories, accounts, userId, onRefresh }: S
               <div className="h-10 bg-muted/30 rounded-lg" />
             </div>
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/60 backdrop-blur-[2px] rounded-lg">
-              <Lock className="w-8 h-8 text-[#1a7a6d] mb-3" />
+              <Lock className="w-8 h-8 text-[#3D6B52] mb-3" />
               <p className="text-sm font-semibold mb-1">Unlock Receipt Scanner</p>
               <p className="text-xs text-muted-foreground mb-3">Upgrade to Plus for AI-powered receipt scanning</p>
               <Button size="sm" className="gradient-btn border-0" asChild>
@@ -274,7 +274,7 @@ export function ScanReceiptDialog({ categories, accounts, userId, onRefresh }: S
             {!scanning && !receiptData && (
               <div className="space-y-4">
                 <div
-                  className="border-2 border-dashed border-border rounded-xl p-8 text-center cursor-pointer hover:border-[#1a7a6d80] hover:bg-[#1a7a6d0d] transition-all"
+                  className="border-2 border-dashed border-border rounded-xl p-8 text-center cursor-pointer hover:border-[#3D6B5280] hover:bg-[#3D6B520d] transition-all"
                   onClick={() => fileInputRef.current?.click()}
                 >
                   {preview ? (
@@ -303,7 +303,7 @@ export function ScanReceiptDialog({ categories, accounts, userId, onRefresh }: S
             {/* Scanning */}
             {scanning && (
               <div className="py-8 text-center">
-                <Loader2 className="h-10 w-10 animate-spin mx-auto text-[#1a7a6d] mb-3" />
+                <Loader2 className="h-10 w-10 animate-spin mx-auto text-[#3D6B52] mb-3" />
                 <p className="font-medium">Reading your receipt...</p>
                 <p className="text-sm text-muted-foreground mt-1">AI is extracting transaction details</p>
               </div>
@@ -338,7 +338,7 @@ export function ScanReceiptDialog({ categories, accounts, userId, onRefresh }: S
                     <div className="text-right">
                       <p className="text-xl font-display font-bold">{formatCurrency(receiptData.total)}</p>
                       {receiptData.suggested_category && (
-                        <p className="text-xs text-[#1a7a6d]">{receiptData.suggested_category}</p>
+                        <p className="text-xs text-[#3D6B52]">{receiptData.suggested_category}</p>
                       )}
                     </div>
                   </div>

@@ -41,7 +41,7 @@ export function IncomeOverview({ monthlyIncome, totalSpent, totalBudgeted }: Inc
       <div className="h-4 rounded-full bg-border/10 overflow-hidden flex progress-bar-container">
         {/* Spent - Amber */}
         <div
-          className="h-full bg-[#1a7a6d] transition-all"
+          className="h-full bg-[#3D6B52] transition-all"
           style={{ width: `${Math.min(spentPercentage, 100)}%` }}
         />
         {/* Budgeted - Blue */}
@@ -60,7 +60,7 @@ export function IncomeOverview({ monthlyIncome, totalSpent, totalBudgeted }: Inc
       <div className="grid grid-cols-3 gap-4 mt-4">
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-[#1a7a6d]" /> {/* Spent - Amber */}
+            <div className="w-3 h-3 rounded-full bg-[#3D6B52]" /> {/* Spent - Amber */}
             <TrendingDown className="w-3.5 h-3.5 text-muted-foreground" />
           </div>
           <div>

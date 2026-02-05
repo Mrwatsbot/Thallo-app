@@ -70,7 +70,7 @@ function AnimatedScoreRing({ targetScore = 742 }: { targetScore?: number }) {
 
   const getColor = () => {
     if (score >= 750) return '#22c55e';
-    if (score >= 600) return '#3D6B52';
+    if (score >= 600) return '#1a7a6d';
     if (score >= 400) return '#eab308';
     return '#ef4444';
   };
@@ -87,7 +87,7 @@ function AnimatedScoreRing({ targetScore = 742 }: { targetScore?: number }) {
         <circle
           cx="130" cy="130" r="120"
           fill="none"
-          stroke="rgba(61, 107, 82, 0.1)"
+          stroke="rgba(26, 122, 109, 0.1)"
           strokeWidth="8"
         />
         {/* Progress */}
@@ -109,7 +109,7 @@ function AnimatedScoreRing({ targetScore = 742 }: { targetScore?: number }) {
           {score}
         </span>
         <span className="text-sm text-muted-foreground mt-1">/ 1,000</span>
-        <span className="text-xs font-medium text-[#3D6B52] mt-2 px-3 py-1 rounded-full bg-[#3D6B52]/10">
+        <span className="text-xs font-medium text-[#1a7a6d] mt-2 px-3 py-1 rounded-full bg-[#1a7a6d]/10">
           Wealth Builder
         </span>
       </div>
@@ -225,7 +225,7 @@ function PillarBars() {
               {visible ? p.score : 0}/{p.max}
             </span>
           </div>
-          <div className="h-2.5 rounded-full bg-[#1A2844] overflow-hidden">
+          <div className="h-2.5 rounded-full bg-[#1a2826] overflow-hidden">
             <div
               className="h-full rounded-full transition-all ease-out"
               style={{
@@ -252,7 +252,7 @@ function FAQ({ question, answer }: { question: string; answer: string }) {
     <div className="border-b border-border">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between py-5 text-left hover:text-[#3D6B52] transition-colors"
+        className="w-full flex items-center justify-between py-5 text-left hover:text-[#1a7a6d] transition-colors"
       >
         <span className="font-medium pr-8">{question}</span>
         <ChevronDown className={`w-5 h-5 text-muted-foreground shrink-0 transition-transform duration-300 ${open ? 'rotate-180' : ''}`} />
@@ -276,7 +276,7 @@ function FloatingParticles() {
       {[...Array(6)].map((_, i) => (
         <div
           key={i}
-          className="absolute rounded-full bg-[#3D6B52]"
+          className="absolute rounded-full bg-[#1a7a6d]"
           style={{
             width: `${2 + Math.random() * 3}px`,
             height: `${2 + Math.random() * 3}px`,
@@ -312,15 +312,15 @@ function ProductShowcase() {
     <div>
       {/* Tab bar */}
       <div className="flex justify-center mb-8">
-        <div className="inline-flex gap-1 p-1 rounded-xl bg-[#0C1425] border border-border">
+        <div className="inline-flex gap-1 p-1 rounded-xl bg-[#0d1514] border border-border">
           {SHOWCASE_TABS.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                 activeTab === tab.id
-                  ? 'bg-[#3D6B52] text-white shadow-lg shadow-[#3D6B52]/25'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-[#1A2844]'
+                  ? 'bg-[#1a7a6d] text-white shadow-lg shadow-[#1a7a6d]/25'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-[#1a2826]'
               }`}
             >
               <tab.icon className="w-4 h-4" />
@@ -333,22 +333,22 @@ function ProductShowcase() {
       {/* Device frame */}
       <div className="relative max-w-4xl mx-auto">
         {/* Browser chrome */}
-        <div className="rounded-t-2xl bg-[#0A1120] border border-border border-b-0 px-4 py-3 flex items-center gap-3">
+        <div className="rounded-t-2xl bg-[#0a1211] border border-border border-b-0 px-4 py-3 flex items-center gap-3">
           <div className="flex gap-1.5">
-            <div className="w-3 h-3 rounded-full bg-[#1E2D4A]" />
-            <div className="w-3 h-3 rounded-full bg-[#1E2D4A]" />
-            <div className="w-3 h-3 rounded-full bg-[#1E2D4A]" />
+            <div className="w-3 h-3 rounded-full bg-[#1e3330]" />
+            <div className="w-3 h-3 rounded-full bg-[#1e3330]" />
+            <div className="w-3 h-3 rounded-full bg-[#1e3330]" />
           </div>
           <div className="flex-1 flex justify-center">
-            <div className="px-4 py-1 rounded-md bg-[#0C1425] border border-border text-xs text-muted-foreground flex items-center gap-2">
-              <Lock className="w-3 h-3 text-[#3D6B52]" />
+            <div className="px-4 py-1 rounded-md bg-[#0d1514] border border-border text-xs text-muted-foreground flex items-center gap-2">
+              <Lock className="w-3 h-3 text-[#1a7a6d]" />
               usethallo.com
             </div>
           </div>
         </div>
 
         {/* Screen content */}
-        <div className="rounded-b-2xl border border-border border-t-0 bg-[#0C1425] overflow-hidden" style={{ minHeight: '480px' }}>
+        <div className="rounded-b-2xl border border-border border-t-0 bg-[#0d1514] overflow-hidden" style={{ minHeight: '480px' }}>
           <div className="p-6 md:p-8">
             {activeTab === 'dashboard' && <MockDashboard />}
             {activeTab === 'budgets' && <MockBudgets />}
@@ -359,7 +359,7 @@ function ProductShowcase() {
         </div>
 
         {/* Subtle glow under device */}
-        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-16 bg-[#3D6B52]/8 rounded-full blur-[40px]" />
+        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-16 bg-[#1a7a6d]/8 rounded-full blur-[40px]" />
       </div>
     </div>
   );
@@ -375,7 +375,7 @@ function MockDashboard() {
           <p className="text-xs text-muted-foreground">February 2026</p>
           <h3 className="text-lg font-display font-bold">Dashboard</h3>
         </div>
-        <div className="px-3 py-1 rounded-full bg-[#3D6B52]/10 text-xs text-[#3D6B52] font-medium">Pro</div>
+        <div className="px-3 py-1 rounded-full bg-[#1a7a6d]/10 text-xs text-[#1a7a6d] font-medium">Pro</div>
       </div>
 
       {/* Income overview */}
@@ -383,7 +383,7 @@ function MockDashboard() {
         <div className="grid grid-cols-3 gap-4">
           <div>
             <p className="text-xs text-muted-foreground mb-1">Monthly Income</p>
-            <p className="text-xl font-display font-bold text-[#3D6B52]">$5,600</p>
+            <p className="text-xl font-display font-bold text-[#1a7a6d]">$5,600</p>
           </div>
           <div>
             <p className="text-xs text-muted-foreground mb-1">Spent</p>
@@ -394,8 +394,8 @@ function MockDashboard() {
             <p className="text-xl font-display font-bold text-emerald-400">$2,753</p>
           </div>
         </div>
-        <div className="mt-4 h-2.5 rounded-full bg-[#1A2844] overflow-hidden">
-          <div className="h-full w-[51%] rounded-full bg-gradient-to-r from-[#3D6B52] to-[#4E8A66]" />
+        <div className="mt-4 h-2.5 rounded-full bg-[#1a2826] overflow-hidden">
+          <div className="h-full w-[51%] rounded-full bg-gradient-to-r from-[#1a7a6d] to-[#22a090]" />
         </div>
         <p className="text-xs text-muted-foreground mt-2">51% of budget used — 18 days left</p>
       </div>
@@ -403,7 +403,7 @@ function MockDashboard() {
       {/* AI Insights */}
       <div className="glass-card rounded-xl p-5">
         <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="w-4 h-4 text-[#3D6B52]" />
+          <Sparkles className="w-4 h-4 text-[#1a7a6d]" />
           <span className="text-sm font-medium">AI Insights</span>
         </div>
         <div className="space-y-2.5">
@@ -412,7 +412,7 @@ function MockDashboard() {
             { icon: Zap, color: 'text-emerald-400', bg: 'bg-emerald-400/10', text: 'Found 2 subscriptions to review ($34/mo)' },
             { icon: Target, color: 'text-blue-400', bg: 'bg-blue-400/10', text: "You'll hit your food budget in ~8 days at this pace" },
           ].map((insight, i) => (
-            <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg bg-[#0C1425] border border-border">
+            <div key={i} className="flex items-start gap-3 p-2.5 rounded-lg bg-[#0d1514] border border-border">
               <div className={`w-7 h-7 rounded-md ${insight.bg} flex items-center justify-center shrink-0`}>
                 <insight.icon className={`w-3.5 h-3.5 ${insight.color}`} />
               </div>
@@ -430,7 +430,7 @@ function MockDashboard() {
           { icon: Brain, label: 'Can I Afford?' },
         ].map((action) => (
           <div key={action.label} className="glass-card rounded-xl p-3 text-center">
-            <action.icon className="w-5 h-5 mx-auto text-[#3D6B52] mb-1.5" />
+            <action.icon className="w-5 h-5 mx-auto text-[#1a7a6d] mb-1.5" />
             <p className="text-xs text-muted-foreground">{action.label}</p>
           </div>
         ))}
@@ -441,7 +441,7 @@ function MockDashboard() {
 
 function MockBudgets() {
   const budgets = [
-    { name: 'Food & Dining', icon: Utensils, spent: 342, budget: 500, color: '#3D6B52' },
+    { name: 'Food & Dining', icon: Utensils, spent: 342, budget: 500, color: '#1a7a6d' },
     { name: 'Transportation', icon: Car, spent: 156, budget: 200, color: '#3b82f6' },
     { name: 'Shopping', icon: ShoppingBag, spent: 426, budget: 300, color: '#ef4444' },
     { name: 'Entertainment', icon: Film, spent: 89, budget: 150, color: '#ec4899' },
@@ -490,7 +490,7 @@ function MockBudgets() {
                   <span className="text-xs text-muted-foreground"> / ${b.budget}</span>
                 </div>
               </div>
-              <div className="h-2 rounded-full bg-[#1A2844] overflow-hidden">
+              <div className="h-2 rounded-full bg-[#1a2826] overflow-hidden">
                 <div
                   className={`h-full rounded-full ${over ? 'bg-red-500' : ''}`}
                   style={{
@@ -519,12 +519,12 @@ function MockAITools() {
       {/* Can I Afford This — product scan */}
       <div className="glass-card rounded-xl p-5">
         <div className="flex items-center gap-2 mb-4">
-          <ScanLine className="w-4 h-4 text-[#3D6B52]" />
+          <ScanLine className="w-4 h-4 text-[#1a7a6d]" />
           <span className="text-sm font-medium">Can I Afford This?</span>
         </div>
         <div className="flex gap-4">
           {/* Product image placeholder */}
-          <div className="w-20 h-20 rounded-xl bg-[#1A2844] border border-border flex flex-col items-center justify-center shrink-0">
+          <div className="w-20 h-20 rounded-xl bg-[#1a2826] border border-border flex flex-col items-center justify-center shrink-0">
             <ShoppingBag className="w-6 h-6 text-muted-foreground mb-1" />
             <p className="text-[10px] text-muted-foreground">Photo</p>
           </div>
@@ -542,14 +542,14 @@ function MockAITools() {
       {/* AI Action cards — only real features */}
       <div className="grid grid-cols-2 gap-3">
         {[
-          { icon: Receipt, title: 'Scan Receipt', desc: 'Photo → auto-categorized transactions', color: '#3D6B52' },
+          { icon: Receipt, title: 'Scan Receipt', desc: 'Photo → auto-categorized transactions', color: '#1a7a6d' },
           { icon: Brain, title: 'AI Auto-Budget', desc: 'Generate a full budget in seconds', color: '#3b82f6' },
           { icon: TrendingUp, title: 'Spending Analysis', desc: 'AI finds patterns & anomalies', color: '#22c55e' },
           { icon: Zap, title: 'AI Payoff Plan', desc: 'Optimized debt-free date', color: '#f97316' },
           { icon: Target, title: 'Budget Tune', desc: 'AI rebalances your budget', color: '#ec4899' },
           { icon: BarChart3, title: 'Statement Import', desc: 'Upload PDF → all transactions', color: '#eab308' },
         ].map((tool) => (
-          <div key={tool.title} className="glass-card rounded-xl p-4 hover:border-[#3D6B52]/30 transition-colors cursor-pointer">
+          <div key={tool.title} className="glass-card rounded-xl p-4 hover:border-[#1a7a6d]/30 transition-colors cursor-pointer">
             <div className="w-9 h-9 rounded-lg flex items-center justify-center mb-2.5" style={{ backgroundColor: `${tool.color}15`, border: `1px solid ${tool.color}30` }}>
               <tool.icon className="w-4 h-4" style={{ color: tool.color }} />
             </div>
@@ -566,7 +566,7 @@ function MockDebts() {
   const debts = [
     { name: 'Chase Sapphire', type: 'Credit Card', balance: 2847, apr: 24.99, payment: 285, color: '#3b82f6' },
     { name: 'Student Loan', type: 'Federal', balance: 12450, apr: 5.5, payment: 250, color: '#22c55e' },
-    { name: 'Car Payment', type: 'Auto Loan', balance: 8920, apr: 6.9, payment: 320, color: '#3D6B52' },
+    { name: 'Car Payment', type: 'Auto Loan', balance: 8920, apr: 6.9, payment: 320, color: '#1a7a6d' },
   ];
   const total = debts.reduce((s, d) => s + d.balance, 0);
 
@@ -578,8 +578,8 @@ function MockDebts() {
           <h3 className="text-lg font-display font-bold">Debts</h3>
         </div>
         <div className="flex gap-2">
-          <div className="px-3 py-1.5 rounded-lg bg-[#3D6B52] text-xs text-white font-medium">Avalanche</div>
-          <div className="px-3 py-1.5 rounded-lg bg-[#1A2844] border border-border text-xs text-muted-foreground">Snowball</div>
+          <div className="px-3 py-1.5 rounded-lg bg-[#1a7a6d] text-xs text-white font-medium">Avalanche</div>
+          <div className="px-3 py-1.5 rounded-lg bg-[#1a2826] border border-border text-xs text-muted-foreground">Snowball</div>
         </div>
       </div>
 
@@ -595,8 +595,8 @@ function MockDebts() {
             <p className="text-lg font-display font-bold text-emerald-400">~18 months</p>
           </div>
         </div>
-        <div className="h-2.5 rounded-full bg-[#1A2844] overflow-hidden">
-          <div className="h-full w-[32%] rounded-full bg-gradient-to-r from-emerald-500 to-[#3D6B52]" />
+        <div className="h-2.5 rounded-full bg-[#1a2826] overflow-hidden">
+          <div className="h-full w-[32%] rounded-full bg-gradient-to-r from-emerald-500 to-[#1a7a6d]" />
         </div>
         <p className="text-xs text-muted-foreground mt-2">32% paid off — $11,783 eliminated so far</p>
       </div>
@@ -639,7 +639,7 @@ function MockScore() {
       <div className="flex justify-center">
         <div className="relative w-40 h-40">
           <svg viewBox="0 0 160 160" className="w-full h-full -rotate-90">
-            <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(61,107,82,0.1)" strokeWidth="6" />
+            <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(26,122,109,0.1)" strokeWidth="6" />
             <circle cx="80" cy="80" r="70" fill="none" stroke="#22c55e" strokeWidth="6" strokeLinecap="round"
               strokeDasharray={`${2 * Math.PI * 70}`}
               strokeDashoffset={`${2 * Math.PI * 70 * (1 - 742/1000)}`}
@@ -683,9 +683,9 @@ function MockScore() {
               <span className="text-muted-foreground">{f.name}</span>
               <span className="font-mono">{f.score}/{f.max}</span>
             </div>
-            <div className="h-1.5 rounded-full bg-[#1A2844] overflow-hidden">
+            <div className="h-1.5 rounded-full bg-[#1a2826] overflow-hidden">
               <div
-                className="h-full rounded-full bg-[#3D6B52]"
+                className="h-full rounded-full bg-[#1a7a6d]"
                 style={{ width: `${(f.score / f.max) * 100}%` }}
               />
             </div>
@@ -722,15 +722,15 @@ export default function Home() {
 
       {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-radial pointer-events-none" />
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#3D6B52]/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute top-[40%] right-0 w-[400px] h-[400px] bg-[#3D6B52]/3 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#1a7a6d]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-[40%] right-0 w-[400px] h-[400px] bg-[#1a7a6d]/3 rounded-full blur-[100px] pointer-events-none" />
 
       {/* ============================================================
           NAVIGATION
           ============================================================ */}
       <nav className="relative z-50 flex items-center justify-between px-6 py-4 max-w-6xl mx-auto">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#3D6B52] to-[#2D5440] flex items-center justify-center p-1">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1a7a6d] to-[#146b5f] flex items-center justify-center p-1">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/new-logo-white.svg" alt="Thallo" className="w-full h-full object-contain" />
           </div>
@@ -767,24 +767,24 @@ export default function Home() {
           <div>
             <FadeIn>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm mb-8">
-                <Sparkles className="w-4 h-4 text-[#3D6B52]" />
+                <Sparkles className="w-4 h-4 text-[#1a7a6d]" />
                 <span className="text-muted-foreground">Your money deserves better than FICO</span>
               </div>
             </FadeIn>
 
             <FadeIn delay={100}>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold tracking-tight mb-6 leading-[1.1]">
-                Take control of
+                The score that
                 <br />
-                <span className="gradient-text">your financial</span>
+                <span className="gradient-text">actually helps you</span>
                 <br />
-                future.
+                build wealth.
               </h1>
             </FadeIn>
 
             <FadeIn delay={200}>
               <p className="text-lg text-muted-foreground mb-8 max-w-lg leading-relaxed">
-                Go beyond FICO. Thallo measures your <em>real</em> financial health and gives you AI-powered tools to build lasting wealth.
+                FICO predicts your default risk for lenders. Thallo measures your <em>real</em> financial health — and gives you AI-powered tools to improve it.
               </p>
             </FadeIn>
 
@@ -806,13 +806,13 @@ export default function Home() {
             <FadeIn delay={400}>
               <div className="flex items-center gap-6 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#3D6B52]" /> Free tier available
+                  <CheckCircle2 className="w-4 h-4 text-[#1a7a6d]" /> Free tier available
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-[#3D6B52]" /> No credit card
+                  <CheckCircle2 className="w-4 h-4 text-[#1a7a6d]" /> No credit card
                 </span>
                 <span className="flex items-center gap-1.5 hidden sm:flex">
-                  <CheckCircle2 className="w-4 h-4 text-[#3D6B52]" /> Quick setup
+                  <CheckCircle2 className="w-4 h-4 text-[#1a7a6d]" /> Quick setup
                 </span>
               </div>
             </FadeIn>
@@ -843,7 +843,7 @@ export default function Home() {
       {/* ============================================================
           SOCIAL PROOF BAR
           ============================================================ */}
-      <section className="relative z-10 border-y border-border bg-[#0A1120]">
+      <section className="relative z-10 border-y border-border bg-[#0a1211]">
         <div className="max-w-6xl mx-auto px-6 py-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <FadeIn>
@@ -872,7 +872,7 @@ export default function Home() {
             </FadeIn>
             <FadeIn delay={300}>
               <div>
-                <p className="text-3xl font-display font-bold text-[#3D6B52]">
+                <p className="text-3xl font-display font-bold text-[#1a7a6d]">
                   $0
                 </p>
                 <p className="text-sm text-muted-foreground mt-1">To get started</p>
@@ -888,7 +888,7 @@ export default function Home() {
       <section className="relative z-10 max-w-6xl mx-auto px-6 py-24">
         <FadeIn>
           <div className="text-center mb-12">
-            <p className="text-sm font-medium text-[#3D6B52] mb-3 tracking-wide uppercase">See What&apos;s Inside</p>
+            <p className="text-sm font-medium text-[#1a7a6d] mb-3 tracking-wide uppercase">See What&apos;s Inside</p>
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
               A complete financial toolkit
             </h2>
@@ -909,7 +909,7 @@ export default function Home() {
       <section className="relative z-10 max-w-6xl mx-auto px-6 py-24">
         <FadeIn>
           <div className="text-center mb-16">
-            <p className="text-sm font-medium text-[#3D6B52] mb-3 tracking-wide uppercase">The Problem</p>
+            <p className="text-sm font-medium text-[#1a7a6d] mb-3 tracking-wide uppercase">The Problem</p>
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
               Your credit score doesn&apos;t work for <em>you</em>.
             </h2>
@@ -954,14 +954,14 @@ export default function Home() {
 
           {/* Thallo column */}
           <FadeIn delay={200}>
-            <div className="glass-card rounded-2xl p-8 border-[#3D6B52]/30 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#3D6B52] to-[#22c55e]" />
+            <div className="glass-card rounded-2xl p-8 border-[#1a7a6d]/30 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#1a7a6d] to-[#22c55e]" />
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-[#3D6B52]/15 flex items-center justify-center">
-                  <Gauge className="w-5 h-5 text-[#3D6B52]" />
+                <div className="w-10 h-10 rounded-lg bg-[#1a7a6d]/15 flex items-center justify-center">
+                  <Gauge className="w-5 h-5 text-[#1a7a6d]" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-[#3D6B52]">Thallo Health Score</h3>
+                  <h3 className="font-semibold text-[#1a7a6d]">Thallo Health Score</h3>
                   <p className="text-xs text-muted-foreground">Built for you</p>
                 </div>
               </div>
@@ -975,7 +975,7 @@ export default function Home() {
                   'Measures YOUR financial health, not your value to lenders',
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#3D6B52] mt-0.5 shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#1a7a6d] mt-0.5 shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -988,11 +988,11 @@ export default function Home() {
       {/* ============================================================
           THREE PILLARS — How the score works
           ============================================================ */}
-      <section className="relative z-10 bg-[#0A1120] border-y border-border">
+      <section className="relative z-10 bg-[#0a1211] border-y border-border">
         <div className="max-w-6xl mx-auto px-6 py-24">
           <FadeIn>
             <div className="text-center mb-16">
-              <p className="text-sm font-medium text-[#3D6B52] mb-3 tracking-wide uppercase">How It Works</p>
+              <p className="text-sm font-medium text-[#1a7a6d] mb-3 tracking-wide uppercase">How It Works</p>
               <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
                 Three pillars of financial health
               </h2>
@@ -1014,7 +1014,7 @@ export default function Home() {
                   </div>
                   <div className="text-right">
                     <p className="text-sm text-muted-foreground">Level</p>
-                    <p className="text-sm font-medium text-[#3D6B52]">Wealth Builder</p>
+                    <p className="text-sm font-medium text-[#1a7a6d]">Wealth Builder</p>
                   </div>
                 </div>
               </div>
@@ -1074,7 +1074,7 @@ export default function Home() {
       <section className="relative z-10 max-w-6xl mx-auto px-6 py-24">
         <FadeIn>
           <div className="text-center mb-16">
-            <p className="text-sm font-medium text-[#3D6B52] mb-3 tracking-wide uppercase">Features</p>
+            <p className="text-sm font-medium text-[#1a7a6d] mb-3 tracking-wide uppercase">Features</p>
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
               Everything you need to win with money
             </h2>
@@ -1090,7 +1090,7 @@ export default function Home() {
               icon: Brain,
               title: 'AI-Powered Budgeting',
               desc: 'Auto-generate budgets, tune allocations, analyze spending patterns, and check affordability — all with structured AI tools.',
-              color: '#3D6B52',
+              color: '#1a7a6d',
             },
             {
               icon: CreditCard,
@@ -1124,7 +1124,7 @@ export default function Home() {
             },
           ].map((feature, i) => (
             <FadeIn key={feature.title} delay={i * 80}>
-              <div className="glass-card rounded-2xl p-6 h-full group hover:border-[#3D6B52]/30 transition-all duration-300">
+              <div className="glass-card rounded-2xl p-6 h-full group hover:border-[#1a7a6d]/30 transition-all duration-300">
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110 duration-300"
                   style={{ backgroundColor: `${feature.color}15`, border: `1px solid ${feature.color}30` }}
@@ -1142,12 +1142,12 @@ export default function Home() {
       {/* ============================================================
           DEBT WEIGHTING — Unique differentiator
           ============================================================ */}
-      <section className="relative z-10 bg-[#0A1120] border-y border-border">
+      <section className="relative z-10 bg-[#0a1211] border-y border-border">
         <div className="max-w-6xl mx-auto px-6 py-24">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <FadeIn>
               <div>
-                <p className="text-sm font-medium text-[#3D6B52] mb-3 tracking-wide uppercase">Smart Debt Weighting</p>
+                <p className="text-sm font-medium text-[#1a7a6d] mb-3 tracking-wide uppercase">Smart Debt Weighting</p>
                 <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
                   Not all debt is created equal.
                 </h2>
@@ -1174,7 +1174,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-center justify-between py-2">
                     <span>Credit Card (paid monthly)</span>
-                    <span className="font-mono text-[#3D6B52]">0.05× weight</span>
+                    <span className="font-mono text-[#1a7a6d]">0.05× weight</span>
                   </div>
                 </div>
               </div>
@@ -1184,21 +1184,21 @@ export default function Home() {
               <div className="glass-card rounded-2xl p-8 text-center">
                 <p className="text-sm text-muted-foreground mb-4">Multipliers informed by public data from</p>
                 <div className="grid grid-cols-3 gap-4 text-xs text-muted-foreground">
-                  <div className="p-3 rounded-lg bg-[#1A2844]">
+                  <div className="p-3 rounded-lg bg-[#1a2826]">
                     <p className="font-medium text-foreground mb-1">NY Fed</p>
                     <p>Delinquency rates by loan type</p>
                   </div>
-                  <div className="p-3 rounded-lg bg-[#1A2844]">
+                  <div className="p-3 rounded-lg bg-[#1a2826]">
                     <p className="font-medium text-foreground mb-1">CFPB</p>
                     <p>Consumer debt risk research</p>
                   </div>
-                  <div className="p-3 rounded-lg bg-[#1A2844]">
+                  <div className="p-3 rounded-lg bg-[#1a2826]">
                     <p className="font-medium text-foreground mb-1">Fannie Mae</p>
                     <p>Collateral &amp; underwriting guidelines</p>
                   </div>
                 </div>
-                <div className="mt-8 p-4 rounded-xl bg-[#3D6B52]/10 border border-[#3D6B52]/20">
-                  <p className="text-sm text-[#3D6B52] font-medium mb-1">The result?</p>
+                <div className="mt-8 p-4 rounded-xl bg-[#1a7a6d]/10 border border-[#1a7a6d]/20">
+                  <p className="text-sm text-[#1a7a6d] font-medium mb-1">The result?</p>
                   <p className="text-sm text-muted-foreground">
                     Someone with a $200k mortgage scores <em>higher</em> than someone with $5k in payday loans — 
                     because that&apos;s the financial reality.
@@ -1216,10 +1216,10 @@ export default function Home() {
       <section className="relative z-10 max-w-6xl mx-auto px-6 py-24">
         <FadeIn>
           <div className="glass-card rounded-2xl p-8 md:p-12 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#3D6B52]/5 rounded-full blur-[80px]" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#1a7a6d]/5 rounded-full blur-[80px]" />
             <div className="grid md:grid-cols-2 gap-8 items-center relative">
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#3D6B52]/10 text-xs font-medium text-[#3D6B52] mb-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1a7a6d]/10 text-xs font-medium text-[#1a7a6d] mb-4">
                   <Lock className="w-3.5 h-3.5" /> Privacy First
                 </div>
                 <h2 className="text-3xl font-display font-bold mb-4">
@@ -1237,8 +1237,8 @@ export default function Home() {
                   { icon: Eye, label: 'No data selling', detail: 'Ever. Period.' },
                   { icon: Star, label: 'SOC 2 certified hosts', detail: 'Supabase + Vercel' },
                 ].map((item) => (
-                  <div key={item.label} className="p-4 rounded-xl bg-[#0C1425] border border-border">
-                    <item.icon className="w-5 h-5 text-[#3D6B52] mb-2" />
+                  <div key={item.label} className="p-4 rounded-xl bg-[#0d1514] border border-border">
+                    <item.icon className="w-5 h-5 text-[#1a7a6d] mb-2" />
                     <p className="text-sm font-medium">{item.label}</p>
                     <p className="text-xs text-muted-foreground">{item.detail}</p>
                   </div>
@@ -1296,8 +1296,8 @@ export default function Home() {
         <FadeIn>
           <div className="glass-card rounded-2xl p-12 md:p-16 text-center relative overflow-hidden">
             {/* Background glow */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#3D6B52]/10 to-transparent pointer-events-none" />
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#3D6B52]/8 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#1a7a6d]/10 to-transparent pointer-events-none" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#1a7a6d]/8 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="relative">
               <h2 className="text-3xl md:text-5xl font-display font-bold mb-6 leading-tight">
@@ -1331,7 +1331,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#3D6B52] to-[#2D5440] flex items-center justify-center p-0.5">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1a7a6d] to-[#146b5f] flex items-center justify-center p-0.5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src="/new-logo-white.svg" alt="Thallo" className="w-full h-full object-contain" />
                 </div>

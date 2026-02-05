@@ -33,8 +33,8 @@ const STREAK_CONFIG: Record<StreakType, {
   savings: {
     label: 'Savings',
     icon: PiggyBank,
-    color: 'text-[#1a7a6d]',
-    bg: 'bg-[#1a7a6d]/15',
+    color: 'text-[#3D6B52]',
+    bg: 'bg-[#3D6B52]/15',
   },
   logging: {
     label: 'Logging',

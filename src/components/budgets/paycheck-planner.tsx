@@ -50,12 +50,12 @@ export function PaycheckPlanner({
   const budgetsThisPaycheck = categoryBudgets.filter(b => b.budgeted > 0);
 
   return (
-    <div className="glass-card rounded-xl border border-[#1a7a6d33] bg-[#1a7a6d0a] overflow-hidden">
+    <div className="glass-card rounded-xl border border-[#3D6B5233] bg-[#3D6B520a] overflow-hidden">
       {/* Header - Always visible */}
       <div className="p-4 flex items-center justify-between gap-4">
         <div className="flex items-center gap-3 flex-1 min-w-0">
-          <div className="w-10 h-10 rounded-lg bg-[#1a7a6d20] flex items-center justify-center shrink-0">
-            <Calendar className="h-5 w-5 text-[#1a7a6d]" />
+          <div className="w-10 h-10 rounded-lg bg-[#3D6B5220] flex items-center justify-center shrink-0">
+            <Calendar className="h-5 w-5 text-[#3D6B52]" />
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-baseline gap-2 flex-wrap">
@@ -69,7 +69,7 @@ export function PaycheckPlanner({
                 </span>
               )}
             </div>
-            <p className="text-xl font-display font-bold text-[#1a7a6d] tabular-nums">
+            <p className="text-xl font-display font-bold text-[#3D6B52] tabular-nums">
               ${perPaycheckAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
           </div>
@@ -101,7 +101,7 @@ export function PaycheckPlanner({
 
       {/* Expanded Details */}
       {isExpanded && (
-        <div className="px-4 pb-4 space-y-3 border-t border-[#1a7a6d20] pt-3">
+        <div className="px-4 pb-4 space-y-3 border-t border-[#3D6B5220] pt-3">
           <div className="flex items-center justify-between text-sm">
             <span className="text-muted-foreground">Your budgets this month:</span>
             <span className="font-semibold tabular-nums">
@@ -132,7 +132,7 @@ export function PaycheckPlanner({
                     >
                       <div 
                         className="w-2 h-2 rounded-full shrink-0"
-                        style={{ backgroundColor: budget.categoryColor || '#1a7a6d' }}
+                        style={{ backgroundColor: budget.categoryColor || '#3D6B52' }}
                       />
                       <span className="truncate text-muted-foreground">
                         {budget.categoryName}

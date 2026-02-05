@@ -78,9 +78,9 @@ export function PillarCard({ name, icon: Icon, score, max, color, subComponents,
         <div className="flex items-center gap-3">
           <div className={cn(
             'w-9 h-9 rounded-lg border flex items-center justify-center',
-            colorBgMap[color] || 'bg-[#1a7a6d]/15 border-purple-500/25'
+            colorBgMap[color] || 'bg-[#3D6B52]/15 border-purple-500/25'
           )}>
-            <Icon className={cn('w-4.5 h-4.5', colorTextMap[color] || 'text-[#1a7a6d]')} />
+            <Icon className={cn('w-4.5 h-4.5', colorTextMap[color] || 'text-[#3D6B52]')} />
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-1.5">

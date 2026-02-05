@@ -168,11 +168,11 @@ export function GoalCard({ goal, onRefresh, isInvestment = false }: GoalCardProp
 
   return (
     <>
-      <div className={`glass-card rounded-xl p-5 transition-all ${isInvestment ? 'hover:border-blue-400/30' : 'hover:border-[#1a7a6d4d]'}`}>
+      <div className={`glass-card rounded-xl p-5 transition-all ${isInvestment ? 'hover:border-blue-400/30' : 'hover:border-[#3D6B524d]'}`}>
         {/* Header */}
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center gap-2">
-            <GoalIcon className={`w-5 h-5 ${isInvestment ? 'text-blue-400' : 'text-[#1a7a6d]'}`} />
+            <GoalIcon className={`w-5 h-5 ${isInvestment ? 'text-blue-400' : 'text-[#3D6B52]'}`} />
             <h3 className="font-semibold truncate">{goal.name}</h3>
           </div>
           <DropdownMenu>

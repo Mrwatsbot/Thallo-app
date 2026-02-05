@@ -24,7 +24,7 @@ const PAGES = [
     id: 'dashboard',
     title: 'Dashboard',
     subtitle: 'Your financial command center',
-    color: '#1a7a6d',
+    color: '#3D6B52',
     content: <DashboardMockup />,
   },
   {
@@ -266,8 +266,8 @@ function DashboardMockup() {
       <div className="mock-card mock-score-mini">
         <div className="mock-score-ring-small">
           <svg viewBox="0 0 60 60" className="w-full h-full">
-            <circle cx="30" cy="30" r="24" stroke="#1a2826" strokeWidth="4" fill="none" />
-            <circle cx="30" cy="30" r="24" stroke="#1a7a6d" strokeWidth="4" fill="none"
+            <circle cx="30" cy="30" r="24" stroke="#1A2844" strokeWidth="4" fill="none" />
+            <circle cx="30" cy="30" r="24" stroke="#3D6B52" strokeWidth="4" fill="none"
               strokeDasharray={`${2 * Math.PI * 24 * 0.738} ${2 * Math.PI * 24}`}
               strokeLinecap="round" transform="rotate(-90 30 30)" />
             <text x="30" y="33" textAnchor="middle" fill="#e0f2f0" fontSize="12" fontWeight="700">738</text>
@@ -285,9 +285,9 @@ function DashboardMockup() {
       <div className="mock-card">
         <div className="mock-section-title">Budget Overview</div>
         {[
-          { name: 'Housing', pct: 95, color: '#1a7a6d' },
-          { name: 'Food & Dining', pct: 72, color: '#1a7a6d' },
-          { name: 'Transport', pct: 45, color: '#1a7a6d' },
+          { name: 'Housing', pct: 95, color: '#3D6B52' },
+          { name: 'Food & Dining', pct: 72, color: '#3D6B52' },
+          { name: 'Transport', pct: 45, color: '#3D6B52' },
         ].map((b) => (
           <div key={b.name} className="mock-bar-row">
             <div className="mock-bar-label">{b.name}</div>
@@ -308,18 +308,18 @@ function ScoreMockup() {
       {/* score gauge */}
       <div className="mock-card mock-score-hero">
         <svg viewBox="0 0 180 180" className="mock-score-gauge">
-          <circle cx="90" cy="90" r="72" stroke="#1a2826" strokeWidth="10" fill="none" />
+          <circle cx="90" cy="90" r="72" stroke="#1A2844" strokeWidth="10" fill="none" />
           <circle cx="90" cy="90" r="72" stroke="url(#mockGrad)" strokeWidth="10" fill="none"
             strokeDasharray={`${2 * Math.PI * 72 * 0.738} ${2 * Math.PI * 72}`}
             strokeLinecap="round" transform="rotate(-90 90 90)" />
           <defs>
             <linearGradient id="mockGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#2aaa9a" />
-              <stop offset="100%" stopColor="#1a7a6d" />
+              <stop offset="0%" stopColor="#5A9A74" />
+              <stop offset="100%" stopColor="#3D6B52" />
             </linearGradient>
           </defs>
           <text x="90" y="85" textAnchor="middle" fill="#e0f2f0" fontSize="36" fontWeight="700" fontFamily="serif">738</text>
-          <text x="90" y="105" textAnchor="middle" fill="#1a7a6d" fontSize="11" fontWeight="600">Solid Ground</text>
+          <text x="90" y="105" textAnchor="middle" fill="#3D6B52" fontSize="11" fontWeight="600">Solid Ground</text>
         </svg>
       </div>
       {/* pillars */}
@@ -349,7 +349,7 @@ function ScoreMockup() {
           <div className="mock-pillar-info">
             <span className="mock-pillar-name">Position</span>
             <div className="mock-bar-track small">
-              <div className="mock-bar-fill" style={{ width: '76%', background: '#1a7a6d' }} />
+              <div className="mock-bar-fill" style={{ width: '76%', background: '#3D6B52' }} />
             </div>
           </div>
           <span className="mock-pillar-pts">227/300</span>
@@ -498,14 +498,14 @@ function TransactionsMockup() {
     none: 'rgba(26, 40, 38, 0.4)',
     green: 'rgba(109, 181, 85, 0.15)',
     yellow: 'rgba(234, 179, 8, 0.15)',
-    orange: 'rgba(26, 122, 109, 0.2)',
+    orange: 'rgba(61, 107, 82, 0.2)',
     red: 'rgba(239, 68, 68, 0.15)',
   };
   const heatBorders = {
     none: 'rgba(255, 255, 255, 0.03)',
     green: 'rgba(109, 181, 85, 0.25)',
     yellow: 'rgba(234, 179, 8, 0.25)',
-    orange: 'rgba(26, 122, 109, 0.3)',
+    orange: 'rgba(61, 107, 82, 0.3)',
     red: 'rgba(239, 68, 68, 0.25)',
   };
 
@@ -593,7 +593,7 @@ function ReportsMockup() {
   const tgtNodeW = 10;
 
   const cats = [
-    { name: 'Housing', val: 1820, color: '#1a7a6d' },
+    { name: 'Housing', val: 1820, color: '#3D6B52' },
     { name: 'Savings', val: 1040, color: '#3b82f6' },
     { name: 'Food', val: 780, color: '#10b981' },
     { name: 'Debt', val: 624, color: '#f59e0b' },
@@ -664,7 +664,7 @@ function ReportsMockup() {
           <svg viewBox={`0 0 ${W} ${H}`} className="mock-sankey-svg">
             {/* Income source node — one tall bar */}
             <rect x={srcX0} y={incomeY0} width={srcNodeW}
-              height={incomeY1 - incomeY0} rx={3} fill="#2aaa9a" />
+              height={incomeY1 - incomeY0} rx={3} fill="#5A9A74" />
 
             {/* Flow bands with real curves */}
             {flows.map((f) => {

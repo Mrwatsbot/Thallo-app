@@ -267,7 +267,7 @@ export function SpendingCalendar({ transactions }: SpendingCalendarProps) {
                       {/* Day number */}
                       <span
                         className={`text-[10px] sm:text-xs font-medium block ${
-                          isToday ? 'text-[#1a7a6d]' : 'text-foreground'
+                          isToday ? 'text-[#3D6B52]' : 'text-foreground'
                         }`}
                       >
                         {day}
@@ -358,7 +358,7 @@ function DayDetail({
   });
 
   return (
-    <div className="col-span-7 my-2 rounded-lg border border-[#1a7a6d4d] bg-card/80 backdrop-blur-sm p-3 sm:p-4 animate-in slide-in-from-top-2 duration-200">
+    <div className="col-span-7 my-2 rounded-lg border border-[#3D6B524d] bg-card/80 backdrop-blur-sm p-3 sm:p-4 animate-in slide-in-from-top-2 duration-200">
       <h3 className="text-sm font-semibold text-foreground mb-3">{dateLabel}</h3>
 
       {transactions.length === 0 ? (

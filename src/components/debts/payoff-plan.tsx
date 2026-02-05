@@ -74,15 +74,15 @@ const strategyConfig: Record<string, { label: string; color: string; bg: string;
   },
   snowball: {
     label: 'Snowball',
-    color: 'text-[#22a090]',
+    color: 'text-[#4E8A66]',
     bg: 'bg-cyan-500/10',
     border: 'border-cyan-500/30',
   },
   hybrid: {
     label: 'Hybrid',
-    color: 'text-[#1a7a6d]',
-    bg: 'bg-[#1a7a6d1a]',
-    border: 'border-[#1a7a6d4d]',
+    color: 'text-[#3D6B52]',
+    bg: 'bg-[#3D6B521a]',
+    border: 'border-[#3D6B524d]',
   },
 };
 
@@ -176,7 +176,7 @@ function LockedState() {
 
       {/* Overlay CTA */}
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/60 backdrop-blur-[2px] rounded-lg">
-        <Lock className="w-8 h-8 text-[#1a7a6d] mb-3" />
+        <Lock className="w-8 h-8 text-[#3D6B52] mb-3" />
         <p className="text-sm font-semibold mb-1">Unlock Smart Payoff Plan</p>
         <p className="text-xs text-muted-foreground mb-3">Upgrade to Plus for AI-powered debt elimination strategy</p>
         <Button size="sm" className="gradient-btn border-0" asChild>
@@ -212,7 +212,7 @@ function PaymentOrderSection({ order }: { order: PaymentOrderItem[] }) {
   return (
     <div className="space-y-2">
       <h3 className="text-sm font-semibold flex items-center gap-2">
-        <ArrowRight className="w-4 h-4 text-[#1a7a6d]" />
+        <ArrowRight className="w-4 h-4 text-[#3D6B52]" />
         Payment Order
       </h3>
       <div className="space-y-2">
@@ -223,8 +223,8 @@ function PaymentOrderSection({ order }: { order: PaymentOrderItem[] }) {
               key={`${item.name}-${idx}`}
               className="flex items-center gap-3 p-3 rounded-lg bg-muted/20 border border-border"
             >
-              <div className="w-7 h-7 rounded-full bg-[#1a7a6d33] border border-[#1a7a6d4d] flex items-center justify-center flex-shrink-0">
-                <span className="text-xs font-bold text-[#1a7a6d]">{idx + 1}</span>
+              <div className="w-7 h-7 rounded-full bg-[#3D6B5233] border border-[#3D6B524d] flex items-center justify-center flex-shrink-0">
+                <span className="text-xs font-bold text-[#3D6B52]">{idx + 1}</span>
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
@@ -252,7 +252,7 @@ function ScenarioCard({ scenario, isMinimum, isSweetSpot }: { scenario: Scenario
     <div
       className={`relative p-4 rounded-xl border transition-all ${
         isSweetSpot
-          ? 'border-[#1a7a6d80] bg-[#1a7a6d0d] ring-1 ring-purple-500/20'
+          ? 'border-[#3D6B5280] bg-[#3D6B520d] ring-1 ring-purple-500/20'
           : isMinimum
             ? 'border-border bg-muted/10 opacity-70'
             : 'border-border bg-muted/20'
@@ -261,7 +261,7 @@ function ScenarioCard({ scenario, isMinimum, isSweetSpot }: { scenario: Scenario
       {/* Sweet spot badge */}
       {isSweetSpot && (
         <div className="absolute -top-2.5 left-1/2 -translate-x-1/2">
-          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#1a7a6d33] text-[#1a7a6d] text-[10px] font-semibold border border-[#1a7a6d4d]">
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#3D6B5233] text-[#3D6B52] text-[10px] font-semibold border border-[#3D6B524d]">
             <Star className="w-3 h-3" />
             Best Value
           </span>
@@ -324,7 +324,7 @@ function ScenariosSection({ scenarios }: { scenarios: Scenario[] }) {
   return (
     <div className="space-y-3">
       <h3 className="text-sm font-semibold flex items-center gap-2">
-        <Calculator className="w-4 h-4 text-[#1a7a6d]" />
+        <Calculator className="w-4 h-4 text-[#3D6B52]" />
         Payoff Scenarios
       </h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -345,13 +345,13 @@ function QuickWinsSection({ wins }: { wins: string[] }) {
   return (
     <div className="space-y-2">
       <h3 className="text-sm font-semibold flex items-center gap-2">
-        <Trophy className="w-4 h-4 text-[#1a7a6d]" />
+        <Trophy className="w-4 h-4 text-[#3D6B52]" />
         Quick Wins
       </h3>
       <div className="space-y-2">
         {wins.map((win, idx) => (
           <div key={idx} className="flex items-start gap-2.5 p-2.5 rounded-lg bg-muted/20">
-            <Target className="w-4 h-4 text-[#1a7a6d] mt-0.5 flex-shrink-0" />
+            <Target className="w-4 h-4 text-[#3D6B52] mt-0.5 flex-shrink-0" />
             <p className="text-sm text-muted-foreground">{win}</p>
           </div>
         ))}
@@ -406,8 +406,8 @@ export function PayoffPlan({ debts }: PayoffPlanProps) {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#1a7a6d33] to-[#146b5f33] border border-[#1a7a6d4d] flex items-center justify-center">
-            <Calculator className="w-5 h-5 text-[#1a7a6d]" />
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#3D6B5233] to-[#2D544033] border border-[#3D6B524d] flex items-center justify-center">
+            <Calculator className="w-5 h-5 text-[#3D6B52]" />
           </div>
           <div>
             <h2 className="text-lg font-display font-semibold">Smart Payoff Plan</h2>
@@ -498,7 +498,7 @@ export function PayoffPlan({ debts }: PayoffPlanProps) {
       ) : (
         /* Initial state — prompt to generate */
         <div className="text-center py-8">
-          <Sparkles className="w-10 h-10 text-[#1a7a6d] mx-auto mb-3" />
+          <Sparkles className="w-10 h-10 text-[#3D6B52] mx-auto mb-3" />
           <p className="text-sm text-muted-foreground mb-4">
             Get a personalized debt elimination strategy with interest savings projections.
           </p>

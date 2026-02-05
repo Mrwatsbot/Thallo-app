@@ -98,7 +98,7 @@ function ProfileSection({ profile, onSave }: { profile: Record<string, unknown> 
     <Card>
       <CardHeader>
         <div className="flex items-center gap-2">
-          <User className="h-5 w-5 text-[#1a7a6d]" />
+          <User className="h-5 w-5 text-[#3D6B52]" />
           <CardTitle>Profile</CardTitle>
         </div>
         <CardDescription>Your personal information</CardDescription>
@@ -213,8 +213,8 @@ function IncomeSection({ profile, onSave }: { profile: Record<string, unknown> |
             {frequency === 'weekly' && 'Enter your monthly equivalent (weekly × 52 ÷ 12)'}
           </p>
         </div>
-        <div className="flex items-start gap-2 rounded-lg bg-[#1a7a6d1a] border border-[#1a7a6d33] p-3">
-          <Info className="h-4 w-4 text-[#1a7a6d] mt-0.5 shrink-0" />
+        <div className="flex items-start gap-2 rounded-lg bg-[#3D6B521a] border border-[#3D6B5233] p-3">
+          <Info className="h-4 w-4 text-[#3D6B52] mt-0.5 shrink-0" />
           <p className="text-xs text-muted-foreground">
             This helps AI coaching, budgeting, and your Financial Health Score work better.
           </p>
@@ -270,7 +270,7 @@ function PayScheduleSection({ profile, onSave }: { profile: Record<string, unkno
     <Card>
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Calendar className="h-5 w-5 text-[#1a7a6d]" />
+          <Calendar className="h-5 w-5 text-[#3D6B52]" />
           <CardTitle>Pay Schedule</CardTitle>
         </div>
         <CardDescription>When and how often you get paid</CardDescription>
@@ -307,8 +307,8 @@ function PayScheduleSection({ profile, onSave }: { profile: Record<string, unkno
         )}
 
         {payFrequency !== 'monthly' && (
-          <div className="flex items-start gap-2 rounded-lg bg-[#1a7a6d1a] border border-[#1a7a6d33] p-3">
-            <Info className="h-4 w-4 text-[#1a7a6d] mt-0.5 shrink-0" />
+          <div className="flex items-start gap-2 rounded-lg bg-[#3D6B521a] border border-[#3D6B5233] p-3">
+            <Info className="h-4 w-4 text-[#3D6B52] mt-0.5 shrink-0" />
             <p className="text-xs text-muted-foreground">
               We&apos;ll show a paycheck planner on your budgets page to help allocate expenses across paychecks.
             </p>
@@ -677,7 +677,7 @@ function CategoryRulesSection() {
     <Card>
       <CardHeader>
         <div className="flex items-center gap-2">
-          <Filter className="h-5 w-5 text-[#1a7a6d]" />
+          <Filter className="h-5 w-5 text-[#3D6B52]" />
           <CardTitle>Category Rules</CardTitle>
         </div>
         <CardDescription>
@@ -760,7 +760,7 @@ const tierConfig = {
   },
   plus: {
     label: 'Plus',
-    color: 'bg-[#1a7a6d33] text-[#1a7a6d]',
+    color: 'bg-[#3D6B5233] text-[#3D6B52]',
     features: ['Everything in Free', '15 AI insights/day', 'AI Coaching', 'Auto-Budget', 'Receipt scanning'],
   },
   pro: {
@@ -806,13 +806,13 @@ function SubscriptionSection({ profile }: { profile: Record<string, unknown> | n
               key={key}
               className={cn(
                 'rounded-lg border p-4 space-y-3',
-                key === tier ? 'border-[#1a7a6d80] bg-[#1a7a6d0d]' : 'border-border'
+                key === tier ? 'border-[#3D6B5280] bg-[#3D6B520d]' : 'border-border'
               )}
             >
               <div className="flex items-center justify-between">
                 <Badge className={cn('text-xs', tc.color)}>{tc.label}</Badge>
                 {key === tier && (
-                  <span className="text-xs text-[#1a7a6d] font-medium">Current</span>
+                  <span className="text-xs text-[#3D6B52] font-medium">Current</span>
                 )}
               </div>
               <ul className="space-y-1.5">
@@ -1042,7 +1042,7 @@ export function SettingsContent() {
           <Card>
             <CardHeader>
               <div className="flex items-center gap-2">
-                <Download className="h-5 w-5 text-[#1a7a6d]" />
+                <Download className="h-5 w-5 text-[#3D6B52]" />
                 <CardTitle>Import Data</CardTitle>
               </div>
               <CardDescription>Import transactions from YNAB, Monarch Money, Mint, or bank CSVs</CardDescription>
@@ -1061,7 +1061,7 @@ export function SettingsContent() {
           <Card>
             <CardHeader>
               <div className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-[#1a7a6d]" />
+                <Sparkles className="h-5 w-5 text-[#3D6B52]" />
                 <CardTitle>Setup Wizard</CardTitle>
               </div>
               <CardDescription>Preview the new user setup experience</CardDescription>

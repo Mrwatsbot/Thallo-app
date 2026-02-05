@@ -207,7 +207,7 @@ export function BudgetGrid({ categoryBudgets, userId, currentMonth, onRefresh, s
                   <span className="text-xs text-[#6db555] font-semibold">🎉 Goal reached!</span>
                   <button
                     onClick={(e) => { e.stopPropagation(); handleCompleteGoal(goal); }}
-                    className="text-xs text-[#1a7a6d] underline hover:no-underline"
+                    className="text-xs text-[#3D6B52] underline hover:no-underline"
                   >
                     Complete
                   </button>

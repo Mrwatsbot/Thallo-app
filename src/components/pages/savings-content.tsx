@@ -67,7 +67,7 @@ export function SavingsContent() {
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-xl font-bold flex items-center gap-2">
-                    <Target className="w-5 h-5 text-[#1a7a6d]" />
+                    <Target className="w-5 h-5 text-[#3D6B52]" />
                     Savings Goals
                   </h2>
                   <p className="text-sm text-muted-foreground">Things you're saving for</p>
@@ -88,7 +88,7 @@ export function SavingsContent() {
                 <Card>
                   <CardContent className="p-3 text-center">
                     <p className="text-xs text-muted-foreground">Total Target</p>
-                    <p className="text-lg font-bold text-[#1a7a6d]">
+                    <p className="text-lg font-bold text-[#3D6B52]">
                       ${goalsTarget.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </p>
                   </CardContent>
@@ -118,7 +118,7 @@ export function SavingsContent() {
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-xl font-bold flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5 text-[#1a7a6d]" />
+                    <TrendingUp className="w-5 h-5 text-[#3D6B52]" />
                     Investment Accounts
                   </h2>
                   <p className="text-sm text-muted-foreground">Where your money grows</p>

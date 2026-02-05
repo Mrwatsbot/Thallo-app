@@ -64,8 +64,8 @@ export function AIInsightsPanel({ insights, onAnalyze, onFindSavings }: AIInsigh
     <div className="glass-card rounded-xl p-6">
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
-        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#1a7a6d33] to-[#146b5f33] border border-[#1a7a6d4d] flex items-center justify-center">
-          <Sparkles className="w-5 h-5 text-[#1a7a6d]" />
+        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#3D6B5233] to-[#2D544033] border border-[#3D6B524d] flex items-center justify-center">
+          <Sparkles className="w-5 h-5 text-[#3D6B52]" />
         </div>
         <div>
           <h2 className="text-lg font-display font-semibold">AI Insights</h2>
@@ -86,7 +86,7 @@ export function AIInsightsPanel({ insights, onAnalyze, onFindSavings }: AIInsigh
               <div className="flex-1 min-w-0">
                 <p className="text-sm">{insight.text}</p>
                 {insight.action && (
-                  <button className="text-xs text-[#1a7a6d] hover:text-[#22a090] mt-1 flex items-center gap-1">
+                  <button className="text-xs text-[#3D6B52] hover:text-[#4E8A66] mt-1 flex items-center gap-1">
                     {insight.action}
                     <ChevronRight className="w-3 h-3" />
                   </button>
@@ -118,7 +118,7 @@ export function AIInsightsPanel({ insights, onAnalyze, onFindSavings }: AIInsigh
         </Button>
         <Button 
           variant="outline"
-          className="flex-1 border-[#1a7a6d4d] text-[#1a7a6d] hover:bg-[#1a7a6d1a]"
+          className="flex-1 border-[#3D6B524d] text-[#3D6B52] hover:bg-[#3D6B521a]"
           onClick={handleFindSavings}
           disabled={findingSavings}
         >

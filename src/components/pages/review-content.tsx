@@ -10,7 +10,7 @@ export function ReviewContent() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <Loader2 className="w-6 h-6 text-[#1a7a6d] animate-spin" />
+        <Loader2 className="w-6 h-6 text-[#3D6B52] animate-spin" />
       </div>
     );
   }
@@ -32,7 +32,7 @@ export function ReviewContent() {
       {!hasData ? (
         /* Empty state */
         <div className="glass-card rounded-xl p-8 text-center">
-          <Sparkles className="w-10 h-10 text-[#1a7a6d] mx-auto mb-4 opacity-50" />
+          <Sparkles className="w-10 h-10 text-[#3D6B52] mx-auto mb-4 opacity-50" />
           <h3 className="text-lg font-display font-semibold mb-2">No data yet</h3>
           <p className="text-sm text-muted-foreground">
             Your first Month in Review will be ready after a full month of tracking.
@@ -43,10 +43,10 @@ export function ReviewContent() {
         /* Free tier teaser */
         <div className="space-y-4">
           <div className="glass-card rounded-xl p-6">
-            <p className="text-xs text-[#1a7a6d] font-semibold uppercase tracking-wider mb-3">
+            <p className="text-xs text-[#3D6B52] font-semibold uppercase tracking-wider mb-3">
               {data.month}
             </p>
-            <p className="text-4xl font-display font-bold text-[#1a7a6d] mb-1">{fmt(data.headline.totalSpent)}</p>
+            <p className="text-4xl font-display font-bold text-[#3D6B52] mb-1">{fmt(data.headline.totalSpent)}</p>
             <p className="text-sm text-muted-foreground mb-4">total spent this month</p>
             <div className="flex justify-between py-3 border-t border-border">
               <span className="text-sm text-muted-foreground">Income</span>
@@ -74,12 +74,12 @@ export function ReviewContent() {
               </div>
             </div>
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/60 backdrop-blur-[2px] rounded-xl">
-              <Lock className="w-8 h-8 text-[#1a7a6d] mb-3" />
+              <Lock className="w-8 h-8 text-[#3D6B52] mb-3" />
               <p className="text-sm font-semibold mb-1">Unlock your full report</p>
               <p className="text-xs text-muted-foreground mb-3">Wins, trends, AI insights & more</p>
               <Link
                 href="/settings"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-[#1a7a6d] to-[#146b5f]"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold text-white bg-gradient-to-r from-[#3D6B52] to-[#2D5440]"
               >
                 <Sparkles className="w-4 h-4" />
                 Upgrade to Plus
@@ -92,10 +92,10 @@ export function ReviewContent() {
         <div className="space-y-4">
           {/* Headline card */}
           <div className="glass-card rounded-xl p-6">
-            <p className="text-xs text-[#1a7a6d] font-semibold uppercase tracking-wider mb-3">
+            <p className="text-xs text-[#3D6B52] font-semibold uppercase tracking-wider mb-3">
               {data.month}
             </p>
-            <p className="text-4xl font-display font-bold text-[#1a7a6d] mb-1">{fmt(data.headline.totalSpent)}</p>
+            <p className="text-4xl font-display font-bold text-[#3D6B52] mb-1">{fmt(data.headline.totalSpent)}</p>
             <p className="text-sm text-muted-foreground mb-4">total spent this month</p>
             <div className="flex justify-between py-3 border-t border-border">
               <span className="text-sm text-muted-foreground">Income</span>
@@ -120,7 +120,7 @@ export function ReviewContent() {
           <div className="grid grid-cols-2 gap-3">
             {data.wins && (
               <div className="glass-card rounded-xl p-4 text-center">
-                <Target className="w-5 h-5 text-[#1a7a6d] mx-auto mb-2" />
+                <Target className="w-5 h-5 text-[#3D6B52] mx-auto mb-2" />
                 <p className="text-xl font-display font-bold text-[#6db555]">
                   {data.wins.categoriesOnBudget}/{data.wins.totalCategories}
                 </p>
@@ -129,7 +129,7 @@ export function ReviewContent() {
             )}
             {data.score && (
               <div className="glass-card rounded-xl p-4 text-center">
-                <Trophy className="w-5 h-5 text-[#1a7a6d] mx-auto mb-2" />
+                <Trophy className="w-5 h-5 text-[#3D6B52] mx-auto mb-2" />
                 <p className="text-xl font-display font-bold">{data.score.current}</p>
                 <p className="text-xs text-muted-foreground">
                   Health Score
@@ -165,14 +165,14 @@ export function ReviewContent() {
           {/* CTA to full report */}
           <Link
             href="/review"
-            className="flex items-center justify-between w-full glass-card rounded-xl p-5 hover:border-[#1a7a6d4d] transition-colors group"
+            className="flex items-center justify-between w-full glass-card rounded-xl p-5 hover:border-[#3D6B524d] transition-colors group"
           >
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#1a7a6d33] to-[#146b5f33] border border-[#1a7a6d4d] flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-[#1a7a6d]" />
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#3D6B5233] to-[#2D544033] border border-[#3D6B524d] flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-[#3D6B52]" />
               </div>
               <div>
-                <p className="text-sm font-semibold group-hover:text-[#1a7a6d] transition-colors">
+                <p className="text-sm font-semibold group-hover:text-[#3D6B52] transition-colors">
                   View Full Report
                 </p>
                 <p className="text-xs text-muted-foreground">
@@ -180,7 +180,7 @@ export function ReviewContent() {
                 </p>
               </div>
             </div>
-            <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-[#1a7a6d] transition-colors" />
+            <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-[#3D6B52] transition-colors" />
           </Link>
         </div>
       )}

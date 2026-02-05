@@ -58,10 +58,10 @@ const CATEGORY_COLORS: Record<AchievementCategory, {
     glow: 'shadow-blue-500/20',
   },
   achievement: {
-    border: 'border-[#1a7a6d66]',
-    bg: 'bg-[#1a7a6d]/15',
-    text: 'text-[#1a7a6d]',
-    glow: 'shadow-[#1a7a6d33]',
+    border: 'border-[#3D6B5266]',
+    bg: 'bg-[#3D6B52]/15',
+    text: 'text-[#3D6B52]',
+    glow: 'shadow-[#3D6B5233]',
   },
   elite: {
     border: 'border-teal-500/40',

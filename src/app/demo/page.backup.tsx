@@ -37,9 +37,9 @@ const mockInsights = [
 
 // Mock data for demo - using Lucide icon names instead of emojis
 const initialBudgets = [
-  { categoryId: '1', categoryName: 'Food & Dining', categoryIcon: 'utensils', categoryColor: '#1a7a6d', budgeted: 500, spent: 342.50 },
+  { categoryId: '1', categoryName: 'Food & Dining', categoryIcon: 'utensils', categoryColor: '#3D6B52', budgeted: 500, spent: 342.50 },
   { categoryId: '2', categoryName: 'Transportation', categoryIcon: 'car', categoryColor: '#3b82f6', budgeted: 200, spent: 156.00 },
-  { categoryId: '3', categoryName: 'Shopping', categoryIcon: 'shopping-bag', categoryColor: '#1a7a6d', budgeted: 300, spent: 425.99 },
+  { categoryId: '3', categoryName: 'Shopping', categoryIcon: 'shopping-bag', categoryColor: '#3D6B52', budgeted: 300, spent: 425.99 },
   { categoryId: '4', categoryName: 'Entertainment', categoryIcon: 'film', categoryColor: '#ec4899', budgeted: 150, spent: 89.00 },
   { categoryId: '5', categoryName: 'Utilities', categoryIcon: 'zap', categoryColor: '#eab308', budgeted: 250, spent: 187.32 },
   { categoryId: '6', categoryName: 'Health', categoryIcon: 'heart-pulse', categoryColor: '#22c55e', budgeted: 0, spent: 45.00 },
@@ -71,9 +71,9 @@ export default function DemoPage() {
     <AppShell user={demoUser} isDemo>
       <div className="space-y-6">
         {/* Demo Banner */}
-        <div className="bg-gradient-to-r from-[#1a7a6d33] to-[#146b5f33] border border-[#1a7a6d4d] rounded-xl p-4 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-[#3D6B5233] to-[#2D544033] border border-[#3D6B524d] rounded-xl p-4 flex items-center justify-between">
           <div>
-            <p className="font-medium text-[#22a090]">Demo Mode</p>
+            <p className="font-medium text-[#4E8A66]">Demo Mode</p>
             <p className="text-sm text-muted-foreground">Try editing budgets! Changes are local only.</p>
           </div>
           <a href="/signup">

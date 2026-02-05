@@ -335,9 +335,9 @@ export function TourProvider({ children, autoStart = true }: TourProviderProps) 
         rx="12"
         ry="12"
         fill="none"
-        stroke="#1a7a6d"
+        stroke="#3D6B52"
         strokeWidth="2"
-        style={{ filter: 'drop-shadow(0 0 12px rgba(26, 122, 109, 0.6))' }}
+        style={{ filter: 'drop-shadow(0 0 12px rgba(61, 107, 82, 0.6))' }}
       />
     </svg>
   ) : null;

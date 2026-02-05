@@ -27,7 +27,7 @@ export default function ReportsError({
         </p>
         <button
           onClick={reset}
-          className="px-6 py-3 bg-gradient-to-r from-[#1a7a6d] to-[#146b5f] text-white rounded-lg hover:opacity-90 transition"
+          className="px-6 py-3 bg-gradient-to-r from-[#3D6B52] to-[#2D5440] text-white rounded-lg hover:opacity-90 transition"
         >
           Try Again
         </button>

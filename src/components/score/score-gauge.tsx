@@ -71,8 +71,8 @@ function scoreTheme(s: number) {
     msg: 'Solid ground, room to grow',
   };
   if (s >= 400) return {
-    grad: ['#2dd4bf', '#1a7a6d', '#115e59'] as const,
-    glow: '#1a7a6d',
+    grad: ['#2dd4bf', '#3D6B52', '#115e59'] as const,
+    glow: '#3D6B52',
     text: 'text-teal-400',
     badge: 'bg-teal-500/15 text-teal-400 border-teal-500/30',
     label: 'Building',
